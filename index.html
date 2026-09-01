@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-        content="Setembro Amarelo — informação, acolhimento e caminhos para buscar ajuda.">
 
     <title>Setembro Amarelo | Você Importa</title>
 
@@ -15,690 +11,163 @@
 
 <body>
 
-    <!-- BORBOLETAS DA TRANSIÇÃO -->
-    <div id="butterfly-container" aria-hidden="true"></div>
+    <!-- =========================
+         TELA INICIAL
+    ========================== -->
 
-    <!-- TELA INICIAL -->
-    <main id="inicio" class="hero">
+    <main id="home">
 
-        <div class="hero-content">
+        <!-- Céu -->
+        <div class="sky"></div>
 
-            <div class="sunflower-wrapper">
-                <button id="sunflowerBtn"
-                    class="sunflower"
-                    aria-label="Clique no girassol para entrar no site">
+        <!-- Campo -->
+        <div class="field">
 
-                    <span class="petal p1"></span>
-                    <span class="petal p2"></span>
-                    <span class="petal p3"></span>
-                    <span class="petal p4"></span>
-                    <span class="petal p5"></span>
-                    <span class="petal p6"></span>
-                    <span class="petal p7"></span>
-                    <span class="petal p8"></span>
+            <!-- Girassóis clicáveis -->
+            <button class="sunflower flower-1" aria-label="Começar">
+                🌻
+            </button>
 
-                    <span class="flower-center">🌻</span>
-                </button>
-            </div>
+            <button class="sunflower flower-2" aria-label="Começar">
+                🌻
+            </button>
 
-            <p class="small-text">Clique no girassol</p>
+            <button class="sunflower flower-3" aria-label="Começar">
+                🌻
+            </button>
 
-            <h1>
-                Você importa.
-            </h1>
+            <button class="sunflower flower-4" aria-label="Começar">
+                🌻
+            </button>
 
-            <p class="intro-text">
-                Informação também pode ser uma forma de cuidado.
+            <button class="sunflower flower-5" aria-label="Começar">
+                🌻
+            </button>
+
+            <button class="sunflower flower-6" aria-label="Começar">
+                🌻
+            </button>
+
+            <button class="sunflower flower-7" aria-label="Começar">
+                🌻
+            </button>
+
+            <button class="sunflower flower-8" aria-label="Começar">
+                🌻
+            </button>
+
+            <button class="sunflower flower-9" aria-label="Começar">
+                🌻
+            </button>
+
+            <button class="sunflower flower-10" aria-label="Começar">
+                🌻
+            </button>
+
+        </div>
+
+
+        <!-- Mensagem -->
+        <section class="welcome">
+
+            <p class="small-title">
+                SETEMBRO AMARELO
             </p>
 
-            <button id="enterBtn" class="secondary-button">
-                Entrar
-            </button>
+            <h1>
+                Você não está sozinho.
+            </h1>
+
+            <p>
+                Informação, acolhimento e esperança
+                podem transformar vidas.
+            </p>
+
+            <div class="click-message">
+                <span>☝️</span>
+
+                <strong>
+                    Clique em um girassol
+                </strong>
+
+                <small>
+                    e comece sua jornada
+                </small>
+            </div>
+
+        </section>
+
+
+        <!-- Borboletas -->
+        <div id="butterflies"></div>
+
+
+        <!-- Rodapé da primeira tela -->
+        <div class="bottom-message">
+
+            <span class="heart">♥</span>
+
+            <span>
+                Cuidar também é ouvir.
+            </span>
+
+            <span class="ribbon">
+                🎗️
+            </span>
 
         </div>
 
     </main>
 
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <div id="siteContent" class="hidden">
+    <!-- =========================
+         TELA DO VÍDEO
+    ========================== -->
 
-        <!-- MENU -->
-        <header class="topbar">
+    <section id="videoSection">
 
-            <div class="logo">
-                🌻 Setembro Amarelo
-            </div>
+        <div class="video-content">
 
-            <nav aria-label="Navegação principal">
-                <a href="#sobre">Sobre</a>
-                <a href="#sinais">Sinais</a>
-                <a href="#pcd">PCD</a>
-                <a href="#ajuda">Ajuda</a>
-            </nav>
-
-        </header>
-
-
-        <!-- INTRODUÇÃO -->
-        <section class="section intro-section">
-
-            <div class="section-content">
-
-                <span class="tag">SETEMBRO AMARELO</span>
-
-                <h2>
-                    Falar sobre saúde mental é falar sobre cuidado.
-                </h2>
-
-                <p>
-                    Este espaço foi criado para compartilhar informações
-                    de maneira simples, acolhedora e responsável.
-                </p>
-
-                <p>
-                    Conhecimento pode ajudar alguém a reconhecer que
-                    precisa de apoio e procurar ajuda.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- VÍDEO -->
-        <section class="video-section">
-
-            <div class="section-content">
-
-                <span class="tag">UMA PAUSA PARA REFLETIR</span>
-
-                <h2>
-                    Assista ao vídeo
-                </h2>
-
-                <p class="section-description">
-                    Reserve alguns minutos para assistir e refletir sobre
-                    a importância de ouvir e acolher.
-                </p>
-
-                <div class="video-container">
-
-                    <!-- TROQUE O LINK ABAIXO PELO SEU VÍDEO -->
-                    <iframe
-                        src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
-                        title="Vídeo sobre saúde mental"
-                        allowfullscreen>
-                    </iframe>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- O QUE É DEPRESSÃO -->
-        <section id="sobre" class="section">
-
-            <div class="section-content">
-
-                <span class="tag">INFORMAÇÃO</span>
-
-                <h2>
-                    O que é depressão?
-                </h2>
-
-                <div class="info-card large-card">
-
-                    <div class="card-icon">🧠</div>
-
-                    <div>
-                        <p>
-                            A depressão é uma condição de saúde mental que
-                            pode afetar o humor, os pensamentos, o sono,
-                            a energia, a concentração e o interesse pelas
-                            atividades do dia a dia.
-                        </p>
-
-                        <p>
-                            Ela não é simplesmente "falta de força de vontade"
-                            ou uma tristeza passageira. Pode acontecer com
-                            pessoas de diferentes idades e precisa ser
-                            avaliada por profissionais de saúde.
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="important-note">
-                    💛 <strong>Importante:</strong> sentir tristeza ou
-                    cansaço ocasionalmente não significa necessariamente
-                    que uma pessoa tenha depressão.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SINAIS -->
-        <section id="sinais" class="section light-section">
-
-            <div class="section-content">
-
-                <span class="tag">ATENÇÃO</span>
-
-                <h2>
-                    Como perceber que alguém pode não estar bem?
-                </h2>
-
-                <p class="section-description">
-                    Alguns sinais podem aparecer quando uma pessoa está
-                    passando por dificuldades emocionais. Um único sinal
-                    não permite identificar uma condição de saúde mental.
-                </p>
-
-
-                <div class="cards-grid">
-
-                    <article class="info-card">
-                        <div class="card-icon">😴</div>
-                        <h3>Mudanças no sono</h3>
-                        <p>
-                            Alterações importantes na rotina de sono podem
-                            ser um sinal de que algo não está bem.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🔋</div>
-                        <h3>Cansaço frequente</h3>
-                        <p>
-                            Falta de energia ou dificuldade para realizar
-                            atividades do cotidiano.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🎯</div>
-                        <h3>Perda de interesse</h3>
-                        <p>
-                            Deixar de se interessar por atividades que
-                            normalmente traziam prazer.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🧠</div>
-                        <h3>Dificuldade de concentração</h3>
-                        <p>
-                            Problemas persistentes para se concentrar
-                            ou tomar decisões.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🧍</div>
-                        <h3>Afastamento</h3>
-                        <p>
-                            Algumas pessoas podem se afastar de amigos,
-                            familiares ou atividades.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">💬</div>
-                        <h3>Mudanças no comportamento</h3>
-                        <p>
-                            Mudanças significativas no jeito de agir,
-                            falar ou se relacionar podem merecer atenção.
-                        </p>
-                    </article>
-
-                </div>
-
-
-                <div class="important-note">
-                    🌱 <strong>Lembre-se:</strong> esses sinais não devem
-                    ser analisados isoladamente. Se mudanças persistirem,
-                    conversar com alguém de confiança e buscar orientação
-                    profissional pode ser importante.
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FATORES -->
-        <section class="section">
-
-            <div class="section-content">
-
-                <span class="tag">SAÚDE MENTAL</span>
-
-                <h2>
-                    O que pode afetar nossa saúde mental?
-                </h2>
-
-                <p class="section-description">
-                    O sofrimento emocional pode estar relacionado a vários
-                    fatores. Não existe uma única explicação para todas
-                    as situações.
-                </p>
-
-
-                <div class="cards-grid factors">
-
-                    <article class="info-card">
-                        <div class="card-icon">🌧️</div>
-                        <h3>Estresse prolongado</h3>
-                        <p>
-                            Situações de pressão ou dificuldades que se
-                            mantêm durante muito tempo.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🏠</div>
-                        <h3>Problemas sociais ou familiares</h3>
-                        <p>
-                            Conflitos, mudanças e situações difíceis
-                            podem afetar o bem-estar.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🧩</div>
-                        <h3>Experiências difíceis</h3>
-                        <p>
-                            Algumas experiências marcantes podem gerar
-                            sofrimento emocional.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🤝</div>
-                        <h3>Isolamento</h3>
-                        <p>
-                            A falta de contato e apoio social pode tornar
-                            momentos difíceis ainda mais pesados.
-                        </p>
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- PCD -->
-        <section id="pcd" class="section pcd-section">
-
-            <div class="section-content">
-
-                <span class="tag">INCLUSÃO</span>
-
-                <h2>
-                    Saúde mental e pessoas com deficiência
-                </h2>
-
-                <div class="pcd-highlight">
-
-                    <div class="pcd-icon">
-                        ♿
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Quando existem barreiras,
-                            o cuidado também precisa ser acessível.
-                        </h3>
-
-                        <p>
-                            Pessoas com deficiência podem encontrar
-                            barreiras físicas, de comunicação, informação
-                            e atitudes no acesso aos serviços de saúde.
-                        </p>
-
-                        <p>
-                            Por isso, falar de saúde mental também significa
-                            falar de acessibilidade, respeito, autonomia
-                            e inclusão.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="cards-grid">
-
-                    <article class="info-card">
-                        <div class="card-icon">🗣️</div>
-                        <h3>Comunicação acessível</h3>
-                        <p>
-                            Informações de saúde devem estar disponíveis
-                            de maneiras que diferentes pessoas consigam
-                            compreender.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">🏥</div>
-                        <h3>Acesso ao cuidado</h3>
-                        <p>
-                            O atendimento deve considerar as necessidades
-                            específicas de cada pessoa.
-                        </p>
-                    </article>
-
-
-                    <article class="info-card">
-                        <div class="card-icon">💛</div>
-                        <h3>Respeito e autonomia</h3>
-                        <p>
-                            Cuidar também significa ouvir a pessoa e
-                            respeitar suas escolhas e necessidades.
-                        </p>
-                    </article>
-
-                </div>
-
-
-                <div class="data-box">
-
-                    <h3>
-                        📊 Dados e realidade
-                    </h3>
-
-                    <p>
-                        Esta área será usada para apresentar dados oficiais
-                        sobre saúde mental e pessoas com deficiência,
-                        sempre com fonte identificada e contexto.
-                    </p>
-
-                    <p class="data-warning">
-                        Os dados serão apresentados de forma responsável,
-                        sem descrições de métodos ou conteúdos que possam
-                        ser gatilho.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- COMO AJUDAR -->
-        <section class="section light-section">
-
-            <div class="section-content">
-
-                <span class="tag">ACOLHIMENTO</span>
-
-                <h2>
-                    Como posso ajudar alguém?
-                </h2>
-
-
-                <div class="help-steps">
-
-                    <div class="help-step">
-                        <span>01</span>
-                        <h3>👂 Escute</h3>
-                        <p>
-                            Dê espaço para a pessoa falar e tente ouvir
-                            sem julgamentos.
-                        </p>
-                    </div>
-
-
-                    <div class="help-step">
-                        <span>02</span>
-                        <h3>🤝 Esteja presente</h3>
-                        <p>
-                            Demonstre que ela pode contar com alguém
-                            de confiança.
-                        </p>
-                    </div>
-
-
-                    <div class="help-step">
-                        <span>03</span>
-                        <h3>🏥 Incentive o cuidado</h3>
-                        <p>
-                            Ajude a pessoa a encontrar um profissional
-                            ou serviço de saúde adequado.
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- AJUDA -->
-        <section id="ajuda" class="section help-section">
-
-            <div class="section-content">
-
-                <span class="tag">PRECISA DE AJUDA?</span>
-
-                <h2>
-                    Você não precisa enfrentar tudo sozinho.
-                </h2>
-
-                <p class="section-description">
-                    Existem serviços públicos e gratuitos que podem
-                    oferecer atendimento e orientação.
-                </p>
-
-
-                <div class="help-cards">
-
-                    <article class="help-card">
-
-                        <div class="help-card-icon">
-                            🏥
-                        </div>
-
-                        <h3>CAPS</h3>
-
-                        <p>
-                            Centros de Atenção Psicossocial que fazem parte
-                            da Rede de Atenção Psicossocial do SUS.
-                        </p>
-
-                        <a
-                            href="https://www.gov.br/saude/pt-br/composicao/saes/desmad/raps"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Saiba mais
-                        </a>
-
-                    </article>
-
-
-                    <article class="help-card">
-
-                        <div class="help-card-icon">
-                            🏠
-                        </div>
-
-                        <h3>UBS</h3>
-
-                        <p>
-                            As Unidades Básicas de Saúde também podem ser
-                            uma porta de entrada para o cuidado.
-                        </p>
-
-                        <a
-                            href="https://www.gov.br/saude/pt-br"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Ministério da Saúde
-                        </a>
-
-                    </article>
-
-
-                    <article class="help-card cvv-card">
-
-                        <div class="help-card-icon">
-                            💛
-                        </div>
-
-                        <h3>CVV — 188</h3>
-
-                        <p>
-                            O CVV oferece apoio emocional gratuito e
-                            sigiloso pelo telefone 188.
-                        </p>
-
-                        <a
-                            href="https://www.cvv.org.br/"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            Acessar CVV
-                        </a>
-
-                    </article>
-
-
-                    <article class="help-card emergency-card">
-
-                        <div class="help-card-icon">
-                            🚑
-                        </div>
-
-                        <h3>Emergência</h3>
-
-                        <p>
-                            Em uma emergência de saúde, procure um serviço
-                            de urgência ou emergência.
-                        </p>
-
-                        <strong>
-                            SAMU: 192
-                        </strong>
-
-                    </article>
-
-                </div>
-
-
-                <!-- LOCALIZAÇÃO -->
-                <div class="location-box">
-
-                    <div class="location-icon">
-                        📍
-                    </div>
-
-                    <div>
-
-                        <h3>
-                            Encontre um serviço de saúde
-                        </h3>
-
-                        <p>
-                            Na versão final, podemos colocar aqui um
-                            buscador para encontrar CAPS e outros serviços
-                            próximos da cidade escolhida.
-                        </p>
-
-                        <button id="locationBtn" class="main-button">
-                            Encontrar localização
-                        </button>
-
-                        <p id="locationMessage" class="location-message"></p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FRASES -->
-        <section class="section quotes-section">
-
-            <div class="section-content">
-
-                <span class="tag">PARA GUARDAR</span>
-
-                <div class="quote-box">
-
-                    <div class="quote-flower">
-                        🌻
-                    </div>
-
-                    <h2 id="quote">
-                        Você importa.
-                    </h2>
-
-                    <button id="newQuote" class="secondary-button">
-                        Outra mensagem
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FINAL -->
-        <footer>
-
-            <div class="footer-flower">
-                🌻 🦋 🌻
-            </div>
+            <span class="section-label">
+                UMA PAUSA PARA REFLETIR
+            </span>
 
             <h2>
-                Cuidar também é ouvir.
+                A vida importa. 💛
             </h2>
 
             <p>
-                Informação, acolhimento e respeito.
+                Assista ao vídeo e reserve alguns minutos
+                para refletir sobre a importância do cuidado,
+                da escuta e do acolhimento.
             </p>
 
-            <small>
-                Projeto educativo — Setembro Amarelo
-            </small>
 
-        </footer>
+            <div class="video-box">
 
-    </div>
+                <!--
+                    TROQUE O LINK PELO SEU VÍDEO.
 
+                    Exemplo:
+                    https://www.youtube.com/embed/ID_DO_VIDEO
+                -->
 
-    <!-- BOTÃO VOLTAR AO TOPO -->
-    <button id="topBtn"
-        class="top-button"
-        aria-label="Voltar ao topo">
-        ↑
-    </button>
+                <iframe
+                    id="video"
+                    src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
+                    title="Vídeo sobre Setembro Amarelo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
     <script src="script.js"></script>
 
 </body>
-
 </html>

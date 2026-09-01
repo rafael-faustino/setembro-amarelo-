@@ -1,216 +1,244 @@
-/* =========================
-   ELEMENTOS
-========================= */
+/* =========================================
+   CONFIGURAÇÕES
+========================================= */
 
-const sunflowerBtn = document.getElementById("sunflowerBtn");
-const enterBtn = document.getElementById("enterBtn");
-const hero = document.getElementById("inicio");
-const siteContent = document.getElementById("siteContent");
-const butterflyContainer = document.getElementById("butterfly-container");
+const home = document.getElementById("home");
+const videoSection = document.getElementById("videoSection");
+const butterfliesContainer = document.getElementById("butterflies");
 
-const topBtn = document.getElementById("topBtn");
-
-const quoteElement = document.getElementById("quote");
-const newQuoteBtn = document.getElementById("newQuote");
-
-const locationBtn = document.getElementById("locationBtn");
-const locationMessage = document.getElementById("locationMessage");
+const flowers = document.querySelectorAll(".sunflower");
 
 
-/* =========================
-   FRASES
-========================= */
+/* =========================================
+   CRIAR UMA BORBOLETA
+========================================= */
 
-const quotes = [
-    "Você importa.",
-    "Pedir ajuda também é uma forma de coragem.",
-    "Ouvir pode ser o começo de uma mudança.",
-    "Você não precisa ter todas as respostas.",
-    "Cuidar também é estar presente.",
-    "Falar sobre o que sentimos pode ajudar.",
-    "Ninguém precisa enfrentar tudo sozinho.",
-    "Pequenos gestos também podem fazer diferença."
-];
+function createButterfly(
+    startX,
+    startY,
+    delay = 0
+) {
 
-let lastQuote = 0;
+    const butterfly = document.createElement("span");
 
+    butterfly.classList.add("butterfly");
 
-/* =========================
-   BORBOLETAS
-========================= */
+    butterfly.textContent = "🦋";
 
-function createButterflies() {
+    butterfly.style.left = `${startX}px`;
+    butterfly.style.top = `${startY}px`;
 
-    butterflyContainer.innerHTML = "";
+    butterfly.style.setProperty(
+        "--distance",
+        `${250 + Math.random() * 450}px`
+    );
 
-    const amount = 24;
+    butterfly.style.setProperty(
+        "--duration",
+        `${3 + Math.random() * 2}s`
+    );
 
-    for (let i = 0; i < amount; i++) {
+    butterfly.style.setProperty(
+        "--delay",
+        `${delay}s`
+    );
 
-        const butterfly = document.createElement("span");
+    butterfly.style.fontSize =
+        `${18 + Math.random() * 25}px`;
 
-        butterfly.className = "butterfly";
-        butterfly.textContent = "🦋";
-
-        butterfly.style.left = `${Math.random() * 100}%`;
-        butterfly.style.top = `${50 + Math.random() * 20}%`;
-
-        butterfly.style.setProperty(
-            "--x",
-            `${(Math.random() - 0.5) * 900}px`
-        );
-
-        butterfly.style.setProperty(
-            "--y",
-            `${-300 - Math.random() * 500}px`
-        );
-
-        butterfly.style.animationDelay =
-            `${Math.random() * 0.8}s`;
-
-        butterfly.style.fontSize =
-            `${20 + Math.random() * 25}px`;
-
-        butterflyContainer.appendChild(butterfly);
-    }
-}
+    butterfliesContainer.appendChild(butterfly);
 
 
-/* =========================
-   ENTRAR NO SITE
-========================= */
-
-function enterSite() {
-
-    createButterflies();
-
-    hero.classList.add("fade-out");
+    /* Remove depois da animação */
 
     setTimeout(() => {
 
-        hero.style.display = "none";
+        butterfly.remove();
 
-        siteContent.classList.remove("hidden");
+    }, 6500);
+}
 
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
+
+/* =========================================
+   BORBOLETAS CONTÍNUAS
+========================================= */
+
+let butterflyInterval = null;
+
+
+function startButterflies() {
+
+    /*
+       Borboletas surgindo de diferentes
+       pontos da parte inferior da tela.
+    */
+
+    butterflyInterval = setInterval(() => {
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        const startX =
+            Math.random() * width;
+
+        const startY =
+            height * (0.62 + Math.random() * 0.32);
+
+        createButterfly(
+            startX,
+            startY
+        );
+
+    }, 550);
+}
+
+
+/* =========================================
+   CLICAR NO GIRASSOL
+========================================= */
+
+function startJourney(event) {
+
+    /*
+       Impede clicar novamente enquanto
+       a transição está acontecendo.
+    */
+
+    flowers.forEach(flower => {
+        flower.disabled = true;
+    });
+
+
+    /*
+       Descobre a posição do girassol
+       clicado.
+    */
+
+    const rect =
+        event.currentTarget.getBoundingClientRect();
+
+    const startX =
+        rect.left + rect.width / 2;
+
+    const startY =
+        rect.top + rect.height / 2;
+
+
+    /*
+       Muitas borboletas saem do
+       girassol clicado.
+    */
+
+    for (let i = 0; i < 25; i++) {
+
+        createButterfly(
+            startX,
+            startY,
+            i * 0.05
+        );
+    }
+
+
+    /*
+       Mais borboletas aparecem pelo campo.
+    */
+
+    for (let i = 0; i < 30; i++) {
+
+        setTimeout(() => {
+
+            const x =
+                Math.random() * window.innerWidth;
+
+            const y =
+                window.innerHeight *
+                (0.55 + Math.random() * 0.4);
+
+            createButterfly(
+                x,
+                y
+            );
+
+        }, i * 80);
+    }
+
+
+    /*
+       Continua criando borboletas
+       durante a transição.
+    */
+
+    startButterflies();
+
+
+    /*
+       Escurece/desaparece a primeira tela.
+    */
+
+    setTimeout(() => {
+
+        home.classList.add("leaving");
+
+    }, 1000);
+
+
+    /*
+       Depois da animação,
+       mostra o vídeo.
+    */
+
+    setTimeout(() => {
+
+        clearInterval(butterflyInterval);
+
+        home.style.display = "none";
+
+        videoSection.classList.add("visible");
+
+        videoSection.scrollIntoView({
+            behavior: "smooth"
         });
 
-    }, 1100);
+    }, 1900);
 }
 
 
-sunflowerBtn.addEventListener("click", enterSite);
-enterBtn.addEventListener("click", enterSite);
+/* =========================================
+   EVENTOS DOS GIRASSÓIS
+========================================= */
 
+flowers.forEach(flower => {
 
-/* =========================
-   FRASES
-========================= */
+    flower.addEventListener(
+        "click",
+        startJourney
+    );
 
-newQuoteBtn.addEventListener("click", () => {
-
-    let randomIndex;
-
-    do {
-        randomIndex =
-            Math.floor(Math.random() * quotes.length);
-    } while (randomIndex === lastQuote);
-
-    lastQuote = randomIndex;
-
-    quoteElement.style.opacity = "0";
-
-    setTimeout(() => {
-
-        quoteElement.textContent =
-            quotes[randomIndex];
-
-        quoteElement.style.opacity = "1";
-
-    }, 250);
 });
 
 
-/* =========================
-   LOCALIZAÇÃO
-========================= */
+/* =========================================
+   ACESSIBILIDADE
+========================================= */
 
-locationBtn.addEventListener("click", () => {
+flowers.forEach(flower => {
 
-    if (!navigator.geolocation) {
+    flower.addEventListener(
+        "keydown",
+        event => {
 
-        locationMessage.textContent =
-            "Seu navegador não permite localização automática. Você pode procurar o serviço de saúde da sua cidade pelo site oficial do Ministério da Saúde.";
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
 
-        return;
-    }
+                event.preventDefault();
 
-    locationMessage.textContent =
-        "Solicitando sua localização...";
+                flower.click();
 
-    navigator.geolocation.getCurrentPosition(
-
-        (position) => {
-
-            const latitude =
-                position.coords.latitude;
-
-            const longitude =
-                position.coords.longitude;
-
-            const mapsURL =
-                `https://www.google.com/maps/search/CAPS/@${latitude},${longitude},14z`;
-
-            locationMessage.innerHTML =
-                `Localização encontrada. <a href="${mapsURL}" target="_blank" rel="noopener noreferrer">Abrir busca por CAPS no mapa</a>`;
-
-        },
-
-        () => {
-
-            locationMessage.textContent =
-                "Não foi possível acessar sua localização. Você pode procurar manualmente por CAPS na sua cidade.";
+            }
 
         }
     );
-});
-
-
-/* =========================
-   VOLTAR AO TOPO
-========================= */
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 500) {
-        topBtn.classList.add("show");
-    } else {
-        topBtn.classList.remove("show");
-    }
 
 });
-
-
-topBtn.addEventListener("click", () => {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-});
-
-
-/* =========================
-   ESCOLHER REDUZIR ANIMAÇÕES
-========================= */
-
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-
-    document.documentElement.classList.add(
-        "reduced-motion"
-    );
-
-}
