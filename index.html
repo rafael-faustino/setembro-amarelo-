@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,61 +19,128 @@
     <main id="home">
 
         <!-- Céu -->
-        <div class="sky"></div>
+        <div class="sky">
 
-        <!-- Campo -->
-        <div class="field">
+            <div class="sun"></div>
 
-            <!-- Girassóis clicáveis -->
-            <button class="sunflower flower-1" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-2" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-3" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-4" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-5" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-6" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-7" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-8" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-9" aria-label="Começar">
-                🌻
-            </button>
-
-            <button class="sunflower flower-10" aria-label="Começar">
-                🌻
-            </button>
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
 
         </div>
 
 
-        <!-- Mensagem -->
+        <!-- Campo distante -->
+        <div class="far-field"></div>
+
+
+        <!-- Campo principal -->
+        <div class="field">
+
+            <!-- Girassol 1 -->
+            <button class="sunflower flower-1" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassol 2 -->
+            <button class="sunflower flower-2" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassol 3 -->
+            <button class="sunflower flower-3" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassol 4 -->
+            <button class="sunflower flower-4" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassol 5 -->
+            <button class="sunflower flower-5" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassol 6 -->
+            <button class="sunflower flower-6" aria-label="Começar a jornada">
+                <span class="stem"></span>
+                <span class="leaves left"></span>
+                <span class="leaves right"></span>
+
+                <span class="flower">
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i>
+                </span>
+            </button>
+
+
+            <!-- Girassóis pequenos ao fundo -->
+
+            <button class="small-flower sf-1" aria-label="Começar"></button>
+            <button class="small-flower sf-2" aria-label="Começar"></button>
+            <button class="small-flower sf-3" aria-label="Começar"></button>
+            <button class="small-flower sf-4" aria-label="Começar"></button>
+            <button class="small-flower sf-5" aria-label="Começar"></button>
+
+        </div>
+
+
+        <!-- =========================
+             TEXTO
+        ========================== -->
+
         <section class="welcome">
 
-            <p class="small-title">
+            <span class="label">
                 SETEMBRO AMARELO
-            </p>
+            </span>
 
             <h1>
                 Você não está sozinho.
@@ -83,16 +151,20 @@
                 podem transformar vidas.
             </p>
 
-            <div class="click-message">
-                <span>☝️</span>
+            <div class="click-area">
+
+                <div class="mouse-icon">
+                    👆
+                </div>
 
                 <strong>
                     Clique em um girassol
                 </strong>
 
-                <small>
+                <span>
                     e comece sua jornada
-                </small>
+                </span>
+
             </div>
 
         </section>
@@ -102,17 +174,19 @@
         <div id="butterflies"></div>
 
 
-        <!-- Rodapé da primeira tela -->
-        <div class="bottom-message">
+        <!-- Brilhos -->
+        <div id="particles"></div>
 
-            <span class="heart">♥</span>
+
+        <!-- Rodapé -->
+        <div class="bottom-bar">
 
             <span>
-                Cuidar também é ouvir.
+                💛 Cuidar também é ouvir.
             </span>
 
-            <span class="ribbon">
-                🎗️
+            <span>
+                🎗️ Você importa.
             </span>
 
         </div>
@@ -121,14 +195,14 @@
 
 
     <!-- =========================
-         TELA DO VÍDEO
+         VÍDEO
     ========================== -->
 
     <section id="videoSection">
 
         <div class="video-content">
 
-            <span class="section-label">
+            <span class="video-label">
                 UMA PAUSA PARA REFLETIR
             </span>
 
@@ -137,23 +211,17 @@
             </h2>
 
             <p>
-                Assista ao vídeo e reserve alguns minutos
-                para refletir sobre a importância do cuidado,
-                da escuta e do acolhimento.
+                Reserve alguns minutos para assistir e refletir
+                sobre a importância do cuidado, da escuta
+                e do acolhimento.
             </p>
 
 
             <div class="video-box">
 
-                <!--
-                    TROQUE O LINK PELO SEU VÍDEO.
-
-                    Exemplo:
-                    https://www.youtube.com/embed/ID_DO_VIDEO
-                -->
+                <!-- COLOQUE O LINK DO SEU VÍDEO AQUI -->
 
                 <iframe
-                    id="video"
                     src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
                     title="Vídeo sobre Setembro Amarelo"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -170,4 +238,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>

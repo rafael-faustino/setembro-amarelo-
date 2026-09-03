@@ -1,179 +1,228 @@
-/* =========================================
-   CONFIGURAÇÕES
-========================================= */
+/* =====================================
+   ELEMENTOS
+===================================== */
 
 const home = document.getElementById("home");
 const videoSection = document.getElementById("videoSection");
-const butterfliesContainer = document.getElementById("butterflies");
 
-const flowers = document.querySelectorAll(".sunflower");
+const butterflies = document.getElementById("butterflies");
+const particles = document.getElementById("particles");
+
+const flowers = document.querySelectorAll(
+    ".sunflower, .small-flower"
+);
+
+let journeyStarted = false;
 
 
-/* =========================================
-   CRIAR UMA BORBOLETA
-========================================= */
+/* =====================================
+   BORBOLETA
+===================================== */
 
-function createButterfly(
-    startX,
-    startY,
-    delay = 0
-) {
+function createButterfly(x, y, delay = 0) {
 
-    const butterfly = document.createElement("span");
+    const butterfly =
+        document.createElement("span");
 
-    butterfly.classList.add("butterfly");
+    butterfly.className = "butterfly";
 
-    butterfly.textContent = "🦋";
-
-    butterfly.style.left = `${startX}px`;
-    butterfly.style.top = `${startY}px`;
+    butterfly.style.left = `${x}px`;
+    butterfly.style.top = `${y}px`;
 
     butterfly.style.setProperty(
         "--distance",
-        `${250 + Math.random() * 450}px`
+        `${300 + Math.random() * 500}px`
     );
 
     butterfly.style.setProperty(
         "--duration",
-        `${3 + Math.random() * 2}s`
+        `${3.5 + Math.random() * 2}s`
     );
 
-    butterfly.style.setProperty(
-        "--delay",
-        `${delay}s`
-    );
+    butterfly.style.animationDelay =
+        `${delay}s`;
 
-    butterfly.style.fontSize =
-        `${18 + Math.random() * 25}px`;
+    butterflies.appendChild(butterfly);
 
-    butterfliesContainer.appendChild(butterfly);
-
-
-    /* Remove depois da animação */
 
     setTimeout(() => {
-
         butterfly.remove();
-
-    }, 6500);
+    }, 7000);
 }
 
 
-/* =========================================
-   BORBOLETAS CONTÍNUAS
-========================================= */
+/* =====================================
+   PARTÍCULA
+===================================== */
 
-let butterflyInterval = null;
+function createParticle(x, y) {
+
+    const particle =
+        document.createElement("span");
+
+    particle.className = "particle";
+
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+
+    particle.style.setProperty(
+        "--x",
+        `${(Math.random() - 0.2) * 500}px`
+    );
+
+    particle.style.setProperty(
+        "--y",
+        `${-200 - Math.random() * 450}px`
+    );
+
+    particle.style.setProperty(
+        "--duration",
+        `${2 + Math.random() * 2}s`
+    );
+
+    particles.appendChild(particle);
 
 
-function startButterflies() {
+    setTimeout(() => {
+        particle.remove();
+    }, 4500);
+}
 
-    /*
-       Borboletas surgindo de diferentes
-       pontos da parte inferior da tela.
-    */
 
-    butterflyInterval = setInterval(() => {
+/* =====================================
+   BORBOLETAS SAINDO DO GIRASSOL
+===================================== */
 
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+function launchFromFlower(element) {
 
-        const startX =
-            Math.random() * width;
+    const rect =
+        element.getBoundingClientRect();
 
-        const startY =
-            height * (0.62 + Math.random() * 0.32);
+    const centerX =
+        rect.left + rect.width / 2;
+
+    const centerY =
+        rect.top + rect.height / 2;
+
+
+    /* Borboletas */
+
+    for (let i = 0; i < 18; i++) {
 
         createButterfly(
-            startX,
-            startY
+            centerX + (Math.random() - 0.5) * 50,
+            centerY + (Math.random() - 0.5) * 40,
+            i * 0.06
         );
 
-    }, 550);
+    }
+
+
+    /* Partículas */
+
+    for (let i = 0; i < 30; i++) {
+
+        setTimeout(() => {
+
+            createParticle(
+                centerX + (Math.random() - 0.5) * 80,
+                centerY + (Math.random() - 0.5) * 60
+            );
+
+        }, i * 45);
+
+    }
 }
 
 
-/* =========================================
-   CLICAR NO GIRASSOL
-========================================= */
+/* =====================================
+   BORBOLETAS PELO CAMPO
+===================================== */
+
+function createAmbientButterfly() {
+
+    const width =
+        window.innerWidth;
+
+    const height =
+        window.innerHeight;
+
+
+    const x =
+        Math.random() * width;
+
+    const y =
+        height * (
+            0.60 +
+            Math.random() * 0.35
+        );
+
+
+    createButterfly(
+        x,
+        y
+    );
+}
+
+
+/* =====================================
+   CLICAR
+===================================== */
 
 function startJourney(event) {
 
-    /*
-       Impede clicar novamente enquanto
-       a transição está acontecendo.
-    */
+    if (journeyStarted) {
+        return;
+    }
+
+    journeyStarted = true;
+
+
+    /* Desabilita os girassóis */
 
     flowers.forEach(flower => {
         flower.disabled = true;
     });
 
 
-    /*
-       Descobre a posição do girassol
-       clicado.
-    */
+    /* Borboletas saindo do girassol clicado */
 
-    const rect =
-        event.currentTarget.getBoundingClientRect();
-
-    const startX =
-        rect.left + rect.width / 2;
-
-    const startY =
-        rect.top + rect.height / 2;
+    launchFromFlower(
+        event.currentTarget
+    );
 
 
-    /*
-       Muitas borboletas saem do
-       girassol clicado.
-    */
+    /* Explosão de borboletas pelo campo */
 
-    for (let i = 0; i < 25; i++) {
-
-        createButterfly(
-            startX,
-            startY,
-            i * 0.05
-        );
-    }
-
-
-    /*
-       Mais borboletas aparecem pelo campo.
-    */
-
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 45; i++) {
 
         setTimeout(() => {
 
-            const x =
-                Math.random() * window.innerWidth;
+            createAmbientButterfly();
 
-            const y =
-                window.innerHeight *
-                (0.55 + Math.random() * 0.4);
+        }, i * 70);
 
-            createButterfly(
-                x,
-                y
-            );
-
-        }, i * 80);
     }
 
 
-    /*
-       Continua criando borboletas
-       durante a transição.
-    */
+    /* Mais partículas */
 
-    startButterflies();
+    for (let i = 0; i < 60; i++) {
+
+        setTimeout(() => {
+
+            createParticle(
+                Math.random() * window.innerWidth,
+                window.innerHeight *
+                (0.55 + Math.random() * 0.35)
+            );
+
+        }, i * 45);
+
+    }
 
 
-    /*
-       Escurece/desaparece a primeira tela.
-    */
+    /* Começa a saída */
 
     setTimeout(() => {
 
@@ -182,14 +231,9 @@ function startJourney(event) {
     }, 1000);
 
 
-    /*
-       Depois da animação,
-       mostra o vídeo.
-    */
+    /* Mostra o vídeo */
 
     setTimeout(() => {
-
-        clearInterval(butterflyInterval);
 
         home.style.display = "none";
 
@@ -200,12 +244,13 @@ function startJourney(event) {
         });
 
     }, 1900);
+
 }
 
 
-/* =========================================
-   EVENTOS DOS GIRASSÓIS
-========================================= */
+/* =====================================
+   EVENTOS
+===================================== */
 
 flowers.forEach(flower => {
 
@@ -217,9 +262,9 @@ flowers.forEach(flower => {
 });
 
 
-/* =========================================
+/* =====================================
    ACESSIBILIDADE
-========================================= */
+===================================== */
 
 flowers.forEach(flower => {
 
