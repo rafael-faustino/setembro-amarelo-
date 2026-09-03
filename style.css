@@ -11,91 +11,133 @@ html {
 body {
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
-    background: #263819;
+    background: #111;
 }
 
 
-/* =====================================
-   TELA INICIAL
-===================================== */
+/* =====================================================
+   TELA PRINCIPAL
+===================================================== */
 
 #home {
     position: relative;
+
     width: 100%;
-    height: 100vh;
-    min-height: 650px;
+    min-height: 100vh;
+
     overflow: hidden;
 
     background:
         linear-gradient(
             to bottom,
-            #53606b 0%,
-            #c39b68 28%,
-            #f4c45c 55%,
-            #72833d 72%,
-            #263819 100%
+            #72b9e8 0%,
+            #a9d9ee 30%,
+            #f5d77b 63%,
+            #d5a52f 78%,
+            #557b27 100%
         );
 
-    transition: transform 1.5s ease, opacity 1.5s ease;
+    transition:
+        opacity 1s ease,
+        transform 1.2s ease;
 }
 
 
-/* =====================================
+/* =====================================================
    CÉU
-===================================== */
+===================================================== */
 
 .sky {
     position: absolute;
+
     inset: 0;
-    z-index: 1;
+
+    height: 70%;
+
     overflow: hidden;
 }
+
+
+/* =====================================================
+   SOL
+===================================================== */
 
 .sun {
     position: absolute;
 
-    width: 180px;
-    height: 180px;
+    width: 190px;
+    height: 190px;
 
-    left: 50%;
-    top: 55%;
+    left: 53%;
+    top: 17%;
 
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 45% 40%,
+            #fffbd0 0%,
+            #fff39a 18%,
+            #ffd95a 45%,
+            #f5b82f 72%,
+            #ed9d21 100%
+        );
+
+    box-shadow:
+        0 0 30px rgba(255, 226, 96, 0.8),
+        0 0 80px rgba(255, 211, 63, 0.55),
+        0 0 150px rgba(255, 204, 60, 0.35);
+
+    z-index: 2;
+}
+
+
+/* brilho do sol */
+
+.sun-glow {
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: 53%;
+    top: 4%;
+
+    transform: translateX(-50%);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle,
-            #fff9b0 0%,
-            #ffe36b 45%,
-            #ffc928 70%,
-            transparent 72%
+            rgba(255, 235, 128, 0.35) 0%,
+            rgba(255, 220, 100, 0.15) 35%,
+            transparent 70%
         );
 
-    filter: blur(2px);
-
-    box-shadow:
-        0 0 80px rgba(255, 215, 50, 0.7),
-        0 0 160px rgba(255, 185, 30, 0.35);
+    pointer-events: none;
 }
 
 
-/* =====================================
+/* =====================================================
    NUVENS
-===================================== */
+===================================================== */
 
 .cloud {
     position: absolute;
 
-    width: 250px;
+    width: 180px;
     height: 50px;
 
-    background: rgba(255, 240, 205, 0.18);
+    border-radius: 50px;
 
-    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.55);
 
-    filter: blur(7px);
+    filter: blur(1px);
+
+    opacity: 0.8;
 }
 
 .cloud::before,
@@ -110,662 +152,847 @@ body {
 }
 
 .cloud::before {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
 
-    left: 45px;
+    left: 30px;
     bottom: 5px;
 }
 
 .cloud::after {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
 
-    right: 35px;
+    right: 25px;
     bottom: 0;
 }
 
 .cloud-1 {
     top: 18%;
     left: 5%;
-}
 
-.cloud-2 {
-    top: 12%;
-    right: 8%;
     transform: scale(0.8);
 }
 
+.cloud-2 {
+    top: 10%;
+    right: 5%;
+
+    transform: scale(0.65);
+}
+
 .cloud-3 {
-    top: 35%;
-    left: 35%;
-    transform: scale(0.6);
+    top: 34%;
+    right: 22%;
+
+    transform: scale(0.45);
+
+    opacity: 0.45;
 }
 
 
-/* =====================================
+/* =====================================================
    CAMPO DISTANTE
-===================================== */
+===================================================== */
 
 .far-field {
     position: absolute;
 
-    left: 0;
-    bottom: 22%;
+    bottom: 26%;
 
     width: 100%;
-    height: 25%;
-
-    z-index: 3;
+    height: 26%;
 
     background:
         linear-gradient(
-            to top,
-            #51652d,
-            #7c873d
+            to bottom,
+            #7ca63b 0%,
+            #638d2c 50%,
+            #4d7625 100%
         );
 
     clip-path: polygon(
-        0 55%,
-        10% 45%,
-        20% 52%,
-        30% 40%,
-        40% 48%,
-        50% 35%,
-        60% 46%,
-        70% 38%,
-        80% 48%,
-        90% 40%,
-        100% 50%,
+        0 40%,
+        10% 33%,
+        20% 42%,
+        30% 28%,
+        40% 40%,
+        50% 25%,
+        60% 38%,
+        70% 29%,
+        80% 42%,
+        90% 30%,
+        100% 38%,
         100% 100%,
         0 100%
     );
 }
 
 
-/* =====================================
-   CAMPO
-===================================== */
+/* =====================================================
+   CAMPO PRINCIPAL
+===================================================== */
 
 .field {
     position: absolute;
 
-    bottom: 0;
     left: 0;
+    bottom: 0;
 
     width: 100%;
-    height: 43%;
+    height: 46%;
 
-    z-index: 5;
+    overflow: hidden;
 
     background:
         linear-gradient(
-            to top,
-            #172a14,
-            #304a1c 55%,
-            #536a28
+            to bottom,
+            #71972d 0%,
+            #638727 45%,
+            #486d20 100%
+        );
+
+    z-index: 5;
+}
+
+
+/* textura de grama */
+
+.field::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.35;
+
+    background:
+        repeating-linear-gradient(
+            105deg,
+            transparent 0px,
+            transparent 12px,
+            rgba(255,255,255,0.04) 13px,
+            transparent 15px
         );
 }
 
 
-/* =====================================
-   GIRASSOL
-===================================== */
+/* =====================================================
+   GIRASSÓIS
+===================================================== */
 
 .sunflower {
     position: absolute;
 
-    width: 150px;
-    height: 260px;
+    bottom: var(--bottom);
+    left: var(--left);
+
+    width: var(--size);
+    height: var(--size);
 
     border: 0;
     background: transparent;
 
     cursor: pointer;
 
-    z-index: 20;
+    transform:
+        translateX(-50%)
+        scale(var(--scale));
+
+    transform-origin: bottom center;
+
+    z-index: var(--layer);
 
     transition:
-        transform 0.5s ease,
-        filter 0.5s ease;
-
-    filter:
-        drop-shadow(
-            0 12px 8px rgba(0, 0, 0, 0.35)
-        );
+        transform 0.3s ease,
+        filter 0.3s ease;
 }
 
 .sunflower:hover {
-    filter:
-        drop-shadow(
-            0 0 25px rgba(255, 214, 42, 0.8)
-        );
-
     transform:
-        translateY(-8px)
-        scale(1.05);
+        translateX(-50%)
+        scale(calc(var(--scale) + 0.07));
+
+    filter:
+        drop-shadow(0 8px 12px rgba(0,0,0,0.2));
 }
 
 .sunflower:focus-visible {
     outline: 4px solid white;
     outline-offset: 8px;
-    border-radius: 50%;
-}
-
-
-/* =====================================
-   CAULE
-===================================== */
-
-.stem {
-    position: absolute;
-
-    width: 13px;
-    height: 210px;
-
-    left: 50%;
-    bottom: 0;
-
-    transform: translateX(-50%);
-
-    background:
-        linear-gradient(
-            to right,
-            #274419,
-            #4c702b,
-            #274419
-        );
-
     border-radius: 20px;
 }
 
 
-/* =====================================
-   FOLHAS
-===================================== */
+/* caule */
 
-.leaves {
+.stem {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 12px;
+    height: 78%;
+
+    transform: translateX(-50%);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            to right,
+            #31551c,
+            #5e8d2b,
+            #31551c
+        );
+}
+
+
+/* folhas */
+
+.leaf {
     position: absolute;
 
     width: 75px;
-    height: 38px;
+    height: 32px;
 
     background:
         linear-gradient(
             135deg,
-            #587c2d,
-            #294619
+            #6d9b2f,
+            #315c1c
         );
 
     border-radius: 100% 0 100% 0;
 
-    bottom: 70px;
+    z-index: 2;
 }
 
-.leaves.left {
-    left: 5px;
-    transform: rotate(-25deg);
+.leaf-left {
+    left: 4%;
+    bottom: 32%;
+
+    transform: rotate(-28deg);
 }
 
-.leaves.right {
-    right: 5px;
+.leaf-right {
+    right: 4%;
+    bottom: 46%;
+
     transform:
-        scaleX(-1)
-        rotate(-25deg);
+        rotate(205deg);
 }
 
 
-/* =====================================
-   FLOR
-===================================== */
+/* cabeça */
 
-.flower {
+.flower-head {
     position: absolute;
 
-    width: 115px;
-    height: 115px;
-
     left: 50%;
-    top: 5px;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
 
     transform: translateX(-50%);
 
     border-radius: 50%;
 
-    z-index: 3;
+    z-index: 5;
 }
 
 
-/* Pétalas */
+/* pétalas */
 
-.flower i {
+.petal {
     position: absolute;
 
-    width: 34px;
-    height: 62px;
+    width: 30%;
+    height: 48%;
 
-    left: 40px;
-    top: 27px;
+    left: 35%;
+    top: 26%;
 
-    border-radius: 55% 55% 45% 45%;
+    border-radius: 50%;
 
     background:
         linear-gradient(
-            to right,
-            #eaa900,
-            #ffd52b,
-            #e6a000
+            145deg,
+            #fff18a 0%,
+            #ffd42f 45%,
+            #e9a90e 100%
         );
 
-    transform-origin: 17px 31px;
+    transform-origin: 50% 50%;
 }
 
 
-/* Posição das pétalas */
+/* posições das pétalas */
 
-.flower i:nth-child(1) {
-    transform: rotate(0deg) translateY(-34px);
+.petal:nth-child(1) {
+    transform: rotate(0deg) translateY(-55%);
 }
 
-.flower i:nth-child(2) {
-    transform: rotate(30deg) translateY(-34px);
+.petal:nth-child(2) {
+    transform: rotate(30deg) translateY(-55%);
 }
 
-.flower i:nth-child(3) {
-    transform: rotate(60deg) translateY(-34px);
+.petal:nth-child(3) {
+    transform: rotate(60deg) translateY(-55%);
 }
 
-.flower i:nth-child(4) {
-    transform: rotate(90deg) translateY(-34px);
+.petal:nth-child(4) {
+    transform: rotate(90deg) translateY(-55%);
 }
 
-.flower i:nth-child(5) {
-    transform: rotate(120deg) translateY(-34px);
+.petal:nth-child(5) {
+    transform: rotate(120deg) translateY(-55%);
 }
 
-.flower i:nth-child(6) {
-    transform: rotate(150deg) translateY(-34px);
+.petal:nth-child(6) {
+    transform: rotate(150deg) translateY(-55%);
 }
 
-.flower i:nth-child(7) {
-    transform: rotate(180deg) translateY(-34px);
+.petal:nth-child(7) {
+    transform: rotate(180deg) translateY(-55%);
 }
 
-.flower i:nth-child(8) {
-    transform: rotate(210deg) translateY(-34px);
+.petal:nth-child(8) {
+    transform: rotate(210deg) translateY(-55%);
 }
 
-.flower i:nth-child(9) {
-    transform: rotate(240deg) translateY(-34px);
+.petal:nth-child(9) {
+    transform: rotate(240deg) translateY(-55%);
 }
 
-.flower i:nth-child(10) {
-    transform: rotate(270deg) translateY(-34px);
+.petal:nth-child(10) {
+    transform: rotate(270deg) translateY(-55%);
 }
 
-.flower i:nth-child(11) {
-    transform: rotate(300deg) translateY(-34px);
+.petal:nth-child(11) {
+    transform: rotate(300deg) translateY(-55%);
 }
 
-.flower i:nth-child(12) {
-    transform: rotate(330deg) translateY(-34px);
+.petal:nth-child(12) {
+    transform: rotate(330deg) translateY(-55%);
 }
 
 
-/* Centro */
+/* centro */
 
-.flower::after {
-    content: "";
-
+.flower-center {
     position: absolute;
 
-    width: 55px;
-    height: 55px;
+    left: 50%;
+    top: 50%;
 
-    left: 30px;
-    top: 30px;
+    width: 39%;
+    height: 39%;
+
+    transform: translate(-50%, -50%);
 
     border-radius: 50%;
 
     background:
         radial-gradient(
             circle at 35% 30%,
-            #8b6821,
-            #4d3510 45%,
-            #251b09 100%
+            #9b6424,
+            #633b16 55%,
+            #35200d 100%
         );
 
     box-shadow:
-        inset 0 0 12px rgba(0, 0, 0, 0.6);
+        inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 
-/* =====================================
-   POSIÇÕES DOS GIRASSÓIS
-===================================== */
+/* =====================================================
+   POSIÇÃO DOS GIRASSÓIS
+===================================================== */
 
 .flower-1 {
-    left: 2%;
-    bottom: -20px;
-    transform: scale(1.25);
+    --left: 4%;
+    --bottom: -30px;
+    --size: 170px;
+    --scale: 1;
+    --layer: 8;
 }
 
 .flower-2 {
-    left: 22%;
-    bottom: -40px;
-    transform: scale(0.85);
+    --left: 15%;
+    --bottom: -45px;
+    --size: 220px;
+    --scale: 1;
+    --layer: 10;
 }
 
 .flower-3 {
-    left: 40%;
-    bottom: -45px;
-    transform: scale(0.7);
+    --left: 27%;
+    --bottom: -25px;
+    --size: 155px;
+    --scale: 0.95;
+    --layer: 8;
 }
 
 .flower-4 {
-    left: 57%;
-    bottom: -30px;
-    transform: scale(0.95);
+    --left: 39%;
+    --bottom: -55px;
+    --size: 230px;
+    --scale: 1;
+    --layer: 11;
 }
 
 .flower-5 {
-    left: 76%;
-    bottom: -20px;
-    transform: scale(0.75);
+    --left: 51%;
+    --bottom: -30px;
+    --size: 175px;
+    --scale: 1;
+    --layer: 9;
 }
 
 .flower-6 {
-    right: -10px;
-    bottom: -20px;
-    transform: scale(1.3);
+    --left: 63%;
+    --bottom: -48px;
+    --size: 215px;
+    --scale: 1;
+    --layer: 11;
+}
+
+.flower-7 {
+    --left: 76%;
+    --bottom: -30px;
+    --size: 165px;
+    --scale: 1;
+    --layer: 9;
+}
+
+.flower-8 {
+    --left: 88%;
+    --bottom: -55px;
+    --size: 230px;
+    --scale: 1;
+    --layer: 11;
 }
 
 
-/* =====================================
-   GIRASSÓIS PEQUENOS
-===================================== */
+/* segunda fileira */
 
-.small-flower {
-    position: absolute;
-
-    width: 35px;
-    height: 35px;
-
-    border: 0;
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #51370e 0 35%,
-            #f5bd19 37% 65%,
-            #c88d09 66%
-        );
-
-    cursor: pointer;
-
-    z-index: 10;
+.flower-9 {
+    --left: 9%;
+    --bottom: 27%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
-.sf-1 {
-    left: 14%;
-    bottom: 100px;
+.flower-10 {
+    --left: 23%;
+    --bottom: 30%;
+    --size: 115px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
-.sf-2 {
-    left: 34%;
-    bottom: 125px;
-    transform: scale(0.7);
+.flower-11 {
+    --left: 35%;
+    --bottom: 24%;
+    --size: 95px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
-.sf-3 {
-    left: 65%;
-    bottom: 115px;
-    transform: scale(0.8);
+.flower-12 {
+    --left: 48%;
+    --bottom: 29%;
+    --size: 110px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
-.sf-4 {
-    right: 20%;
-    bottom: 130px;
-    transform: scale(0.6);
+.flower-13 {
+    --left: 60%;
+    --bottom: 25%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
-.sf-5 {
-    right: 6%;
-    bottom: 105px;
-    transform: scale(0.7);
+.flower-14 {
+    --left: 73%;
+    --bottom: 30%;
+    --size: 115px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-15 {
+    --left: 86%;
+    --bottom: 26%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
 }
 
 
-/* =====================================
+/* =====================================================
    TEXTO
-===================================== */
+===================================================== */
 
 .welcome {
     position: absolute;
 
-    z-index: 30;
-
     left: 7%;
-    top: 25%;
+    top: 11%;
 
-    max-width: 650px;
+    max-width: 520px;
 
     color: white;
 
+    z-index: 20;
+
     text-shadow:
-        0 3px 15px rgba(0, 0, 0, 0.5);
+        0 3px 12px rgba(0,0,0,0.28);
 }
 
 .label {
-    font-size: 14px;
+    display: inline-block;
 
-    letter-spacing: 5px;
+    padding: 9px 16px;
+
+    margin-bottom: 18px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 193, 7, 0.9);
+
+    color: #513500;
 
     font-weight: bold;
 
-    color: #ffe070;
+    letter-spacing: 2px;
+
+    font-size: 13px;
 }
 
 .welcome h1 {
-    margin-top: 18px;
+    font-size: clamp(38px, 5vw, 68px);
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    line-height: 0.98;
 
-    font-size: clamp(45px, 6vw, 78px);
-
-    line-height: 1.05;
+    margin-bottom: 20px;
 }
 
-.welcome > p {
-    margin-top: 25px;
-
-    font-size: 20px;
+.welcome p {
+    font-size: 19px;
 
     line-height: 1.5;
 
-    max-width: 530px;
+    max-width: 460px;
 }
 
 
-/* =====================================
-   CLIQUE
-===================================== */
+/* =====================================================
+   ÁREA DO CLIQUE
+===================================================== */
 
 .click-area {
-    margin-top: 35px;
+    margin-top: 25px;
 
     display: flex;
-
     flex-direction: column;
 
     align-items: flex-start;
-
-    gap: 4px;
-
-    animation: breathe 2.5s infinite ease-in-out;
 }
 
 .mouse-icon {
-    font-size: 30px;
+    font-size: 27px;
+
+    animation:
+        clickBounce 1.5s infinite;
 }
 
 .click-area strong {
-    font-size: 21px;
+    margin-top: 5px;
 
-    color: #ffe070;
+    font-size: 18px;
 }
 
 .click-area span {
-    font-size: 15px;
+    margin-top: 4px;
+
+    font-size: 14px;
+
+    opacity: 0.85;
+}
+
+@keyframes clickBounce {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(7px);
+    }
+
 }
 
 
-/* =====================================
+/* =====================================================
    BORBOLETAS
-===================================== */
+===================================================== */
 
 #butterflies {
     position: absolute;
 
     inset: 0;
 
-    z-index: 100;
+    z-index: 40;
 
     pointer-events: none;
 
     overflow: hidden;
 }
 
+
+/* corpo da borboleta */
+
 .butterfly {
     position: absolute;
 
-    width: 25px;
-    height: 20px;
-
-    opacity: 0;
-
-    z-index: 100;
-
-    filter:
-        drop-shadow(
-            0 0 7px rgba(255, 218, 30, 0.8)
-        );
+    width: 34px;
+    height: 26px;
 
     animation:
-        butterflyFly var(--duration)
-        cubic-bezier(.25, .1, .25, 1)
-        forwards;
+        butterflyFlight var(--duration) cubic-bezier(.2,.7,.3,1) forwards;
+
+    transform-origin: center;
+
+    filter:
+        drop-shadow(0 4px 4px rgba(0,0,0,0.15));
 }
 
 
-/* Corpo */
+/* corpo */
 
+.butterfly .body {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 5px;
+    height: 22px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #6c4308,
+            #2f210c
+        );
+
+    z-index: 5;
+}
+
+
+/* asas */
+
+.butterfly .wing {
+    position: absolute;
+
+    width: 18px;
+    height: 22px;
+
+    top: 2px;
+
+    background:
+        radial-gradient(
+            circle at 65% 35%,
+            #fff4a1 0%,
+            #ffd83d 38%,
+            #f2b719 72%,
+            #d7950d 100%
+        );
+
+    border: 1px solid rgba(154, 94, 0, 0.45);
+
+    box-shadow:
+        inset 0 0 5px rgba(255,255,255,0.45);
+
+    z-index: 3;
+
+    animation:
+        wingFlap 0.18s ease-in-out infinite alternate;
+}
+
+
+/* asa esquerda */
+
+.wing-left {
+    right: 50%;
+
+    border-radius:
+        80% 25% 65% 30%;
+
+    transform-origin: right center;
+}
+
+
+/* asa direita */
+
+.wing-right {
+    left: 50%;
+
+    border-radius:
+        25% 80% 30% 65%;
+
+    transform-origin: left center;
+}
+
+
+/* antenas */
+
+.butterfly::before,
 .butterfly::after {
     content: "";
 
     position: absolute;
 
-    width: 4px;
-    height: 18px;
+    width: 9px;
+    height: 9px;
 
-    left: 11px;
-    top: 1px;
+    top: -5px;
 
-    border-radius: 10px;
+    border-top: 1px solid #4e340b;
 
-    background: #5a3b0b;
+    z-index: 1;
 }
-
-
-/* Asas */
 
 .butterfly::before {
-    content: "";
+    left: 8px;
 
-    position: absolute;
+    transform: rotate(-25deg);
+}
 
-    width: 25px;
-    height: 20px;
+.butterfly::after {
+    right: 8px;
 
-    left: 0;
-    top: 0;
-
-    background:
-        radial-gradient(
-            ellipse at 25% 50%,
-            #ffe45b 0 45%,
-            #e7a900 47% 70%,
-            transparent 72%
-        ),
-        radial-gradient(
-            ellipse at 75% 50%,
-            #ffe45b 0 45%,
-            #e7a900 47% 70%,
-            transparent 72%
-        );
+    transform: rotate(25deg);
 }
 
 
-@keyframes butterflyFly {
+@keyframes wingFlap {
+
+    from {
+        transform: rotateY(18deg) rotateZ(-3deg);
+    }
+
+    to {
+        transform: rotateY(68deg) rotateZ(5deg);
+    }
+
+}
+
+
+/* voo mais natural */
+
+@keyframes butterflyFlight {
 
     0% {
         opacity: 0;
 
         transform:
-            translate(0, 0)
-            rotate(-10deg)
-            scale(0.4);
+            translate3d(0, 0, 0)
+            rotate(-8deg)
+            scale(0.45);
     }
 
-    12% {
+    10% {
         opacity: 1;
     }
 
-    30% {
+    23% {
         transform:
-            translate(
-                calc(var(--distance) * 0.2),
-                calc(var(--distance) * -0.15)
+            translate3d(
+                calc(var(--dx) * 0.16),
+                calc(var(--dy) * 0.20),
+                0
             )
-            rotate(8deg)
-            scale(0.8);
+            rotate(10deg)
+            scale(0.72);
     }
 
-    55% {
+    40% {
         transform:
-            translate(
-                calc(var(--distance) * 0.55),
-                calc(var(--distance) * -0.65)
+            translate3d(
+                calc(var(--dx) * 0.36),
+                calc(var(--dy) * 0.42),
+                0
             )
-            rotate(-5deg)
+            rotate(-8deg)
+            scale(0.9);
+    }
+
+    57% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.57),
+                calc(var(--dy) * 0.52),
+                0
+            )
+            rotate(9deg)
             scale(1);
     }
 
-    80% {
-        opacity: 1;
+    75% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.76),
+                calc(var(--dy) * 0.72),
+                0
+            )
+            rotate(-7deg)
+            scale(0.95);
+    }
+
+    90% {
+        opacity: 0.8;
+
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.92),
+                calc(var(--dy) * 0.91),
+                0
+            )
+            rotate(7deg)
+            scale(0.85);
     }
 
     100% {
         opacity: 0;
 
         transform:
-            translate(
-                var(--distance),
-                calc(var(--distance) * -1.15)
+            translate3d(
+                var(--dx),
+                var(--dy),
+                0
             )
-            rotate(15deg)
-            scale(1.1);
+            rotate(-5deg)
+            scale(0.7);
     }
 }
 
 
-/* =====================================
+/* =====================================================
    PARTÍCULAS
-===================================== */
+===================================================== */
 
 #particles {
     position: absolute;
@@ -774,36 +1001,31 @@ body {
 
     pointer-events: none;
 
-    z-index: 90;
+    z-index: 35;
 }
 
 .particle {
     position: absolute;
 
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
 
     border-radius: 50%;
 
-    background: #ffe76a;
-
-    box-shadow:
-        0 0 10px #ffe76a;
+    background: rgba(255, 242, 145, 0.8);
 
     animation:
-        particleFly var(--duration)
-        linear forwards;
+        particleFloat 2s ease-out forwards;
 }
 
-@keyframes particleFly {
+@keyframes particleFloat {
 
     0% {
-        opacity: 0;
-        transform: translate(0, 0);
-    }
-
-    20% {
         opacity: 1;
+
+        transform:
+            translate(0,0)
+            scale(1);
     }
 
     100% {
@@ -811,88 +1033,91 @@ body {
 
         transform:
             translate(
-                var(--x),
-                var(--y)
-            );
+                var(--px),
+                var(--py)
+            )
+            scale(0);
     }
+
 }
 
 
-/* =====================================
+/* =====================================================
    BARRA INFERIOR
-===================================== */
+===================================================== */
 
 .bottom-bar {
     position: absolute;
 
-    left: 0;
-    bottom: 0;
+    bottom: 20px;
 
-    width: 100%;
-    height: 65px;
+    left: 50%;
 
-    z-index: 120;
+    transform: translateX(-50%);
+
+    width: min(90%, 850px);
 
     display: flex;
 
-    align-items: center;
-    justify-content: center;
-
-    gap: 50px;
-
-    background:
-        rgba(18, 25, 10, 0.75);
-
-    backdrop-filter: blur(8px);
+    justify-content: space-between;
 
     color: white;
 
     font-size: 14px;
+
+    z-index: 50;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,0.5);
 }
 
 
-/* =====================================
-   TRANSIÇÃO
-===================================== */
+/* =====================================================
+   SAÍDA
+===================================================== */
 
 #home.leaving {
     opacity: 0;
 
-    transform: scale(1.08);
+    transform:
+        scale(1.08)
+        translateY(-20px);
+
+    pointer-events: none;
 }
 
 
-/* =====================================
+/* =====================================================
    VÍDEO
-===================================== */
+===================================================== */
 
 #videoSection {
     min-height: 100vh;
 
-    padding: 100px 6%;
+    padding:
+        70px 20px;
 
     display: flex;
 
-    justify-content: center;
     align-items: center;
+
+    justify-content: center;
 
     background:
         linear-gradient(
             135deg,
-            #182719,
-            #405526,
-            #6f6428
+            #fff7c2,
+            #ffd84c,
+            #f2b900
         );
-
-    color: white;
 
     opacity: 0;
 
     transform: translateY(50px);
 
     transition:
-        opacity 1.5s ease,
-        transform 1.5s ease;
+        opacity 1s ease,
+        transform 1s ease;
 }
 
 #videoSection.visible {
@@ -902,56 +1127,69 @@ body {
 }
 
 .video-content {
-    width: min(1000px, 100%);
+    width: min(100%, 950px);
 
     text-align: center;
 }
 
 .video-label {
-    color: #ffe15a;
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.55);
+
+    color: #694900;
 
     font-size: 13px;
 
-    letter-spacing: 3px;
-
     font-weight: bold;
+
+    letter-spacing: 2px;
 }
 
 .video-content h2 {
-    margin: 20px 0;
+    font-size: clamp(35px, 5vw, 60px);
 
-    font-family:
-        Georgia,
-        serif;
+    color: #4f3900;
 
-    font-size: clamp(40px, 6vw, 70px);
+    margin-bottom: 15px;
 }
 
-.video-content > p {
-    max-width: 700px;
+.video-content p {
+    max-width: 650px;
 
-    margin: auto auto 40px;
+    margin: 0 auto 30px;
 
-    color: #edf0dd;
-
-    font-size: 18px;
+    color: #624d13;
 
     line-height: 1.6;
+
+    font-size: 17px;
 }
 
+
+/* vídeo */
+
 .video-box {
+    position: relative;
+
     width: 100%;
 
     aspect-ratio: 16 / 9;
 
     overflow: hidden;
 
-    border-radius: 25px;
+    border-radius: 22px;
 
     background: #111;
 
     box-shadow:
-        0 25px 70px rgba(0, 0, 0, 0.5);
+        0 20px 50px rgba(80,55,0,0.3);
 }
 
 .video-box iframe {
@@ -962,113 +1200,85 @@ body {
 }
 
 
-/* =====================================
-   ANIMAÇÕES
-===================================== */
-
-@keyframes breathe {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-7px);
-    }
-}
-
-
-/* =====================================
+/* =====================================================
    CELULAR
-===================================== */
+===================================================== */
 
 @media (max-width: 700px) {
 
-    #home {
-        min-height: 650px;
+    .sun {
+        width: 125px;
+        height: 125px;
+
+        left: 70%;
+        top: 13%;
+    }
+
+    .sun-glow {
+        left: 70%;
     }
 
     .welcome {
+        top: 7%;
         left: 6%;
-        right: 6%;
-        top: 17%;
-        max-width: none;
+
+        max-width: 85%;
     }
 
     .welcome h1 {
-        font-size: 43px;
+        font-size: 40px;
     }
 
-    .welcome > p {
-        font-size: 17px;
-    }
-
-    .label {
-        font-size: 11px;
-        letter-spacing: 3px;
+    .welcome p {
+        font-size: 16px;
     }
 
     .click-area {
-        margin-top: 25px;
+        margin-top: 15px;
+    }
+
+    .field {
+        height: 48%;
     }
 
     .sunflower {
-        transform: scale(0.65) !important;
+        transform:
+            translateX(-50%)
+            scale(0.7);
     }
 
-    .flower-1 {
-        left: -30px;
-        bottom: -40px;
+    .sunflower:hover {
+        transform:
+            translateX(-50%)
+            scale(0.75);
     }
 
-    .flower-2 {
-        left: 17%;
-        bottom: -60px;
-    }
-
-    .flower-3 {
-        left: 40%;
-        bottom: -70px;
-    }
-
-    .flower-4 {
-        left: 61%;
-        bottom: -55px;
-    }
-
-    .flower-5 {
-        left: 78%;
-        bottom: -65px;
-    }
-
-    .flower-6 {
-        right: -50px;
-        bottom: -40px;
+    .flower-9,
+    .flower-10,
+    .flower-11,
+    .flower-12,
+    .flower-13,
+    .flower-14,
+    .flower-15 {
+        display: none;
     }
 
     .bottom-bar {
-        height: 55px;
-
-        gap: 15px;
+        bottom: 10px;
 
         font-size: 11px;
     }
 
-    .video-content h2 {
-        font-size: 43px;
-    }
-
-    .video-content > p {
-        font-size: 16px;
+    .bottom-bar span:nth-child(2) {
+        display: none;
     }
 
 }
 
 
-/* =====================================
-   REDUZIR MOVIMENTO
-===================================== */
+/* =====================================================
+   REDUÇÃO DE MOVIMENTO
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1077,8 +1287,8 @@ body {
     *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
     }
 
 }

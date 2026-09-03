@@ -1,143 +1,312 @@
-/* =====================================
-   ELEMENTOS
-===================================== */
-
 const home = document.getElementById("home");
+const field = document.getElementById("flowerField");
+
 const videoSection = document.getElementById("videoSection");
 
 const butterflies = document.getElementById("butterflies");
 const particles = document.getElementById("particles");
 
-const flowers = document.querySelectorAll(
-    ".sunflower, .small-flower"
-);
-
 let journeyStarted = false;
 
 
-/* =====================================
+/* =====================================================
+   CRIAR GIRASSÓIS
+===================================================== */
+
+const flowers = [];
+
+const flowerPositions = [
+    ["flower-1", 4, -30, 170, 1],
+    ["flower-2", 15, -45, 220, 1],
+    ["flower-3", 27, -25, 155, 0.95],
+    ["flower-4", 39, -55, 230, 1],
+    ["flower-5", 51, -30, 175, 1],
+    ["flower-6", 63, -48, 215, 1],
+    ["flower-7", 76, -30, 165, 1],
+    ["flower-8", 88, -55, 230, 1],
+
+    ["flower-9", 9, 27, 100, 0.8],
+    ["flower-10", 23, 30, 115, 0.8],
+    ["flower-11", 35, 24, 95, 0.8],
+    ["flower-12", 48, 29, 110, 0.8],
+    ["flower-13", 60, 25, 100, 0.8],
+    ["flower-14", 73, 30, 115, 0.8],
+    ["flower-15", 86, 26, 100, 0.8]
+];
+
+
+function createFlower(data) {
+
+    const [className, left, bottom, size, scale] = data;
+
+    const button = document.createElement("button");
+
+    button.className = `sunflower ${className}`;
+
+    button.style.setProperty("--left", `${left}%`);
+
+    button.style.setProperty(
+        "--bottom",
+        bottom < 0
+            ? `${bottom}px`
+            : `${bottom}%`
+    );
+
+    button.style.setProperty("--size", `${size}px`);
+
+    button.style.setProperty("--scale", scale);
+
+    button.setAttribute(
+        "aria-label",
+        "Clique neste girassol para continuar"
+    );
+
+
+    const stem = document.createElement("span");
+
+    stem.className = "stem";
+
+
+    const leafLeft = document.createElement("span");
+
+    leafLeft.className = "leaf leaf-left";
+
+
+    const leafRight = document.createElement("span");
+
+    leafRight.className = "leaf leaf-right";
+
+
+    const head = document.createElement("span");
+
+    head.className = "flower-head";
+
+
+    for (let i = 0; i < 12; i++) {
+
+        const petal = document.createElement("span");
+
+        petal.className = "petal";
+
+        head.appendChild(petal);
+    }
+
+
+    const center = document.createElement("span");
+
+    center.className = "flower-center";
+
+    head.appendChild(center);
+
+
+    button.appendChild(stem);
+
+    button.appendChild(leafLeft);
+
+    button.appendChild(leafRight);
+
+    button.appendChild(head);
+
+
+    field.appendChild(button);
+
+    flowers.push(button);
+}
+
+
+flowerPositions.forEach(createFlower);
+
+
+/* =====================================================
    BORBOLETA
-===================================== */
+===================================================== */
 
 function createButterfly(x, y, delay = 0) {
 
-    const butterfly =
-        document.createElement("span");
+    const butterfly = document.createElement("span");
 
     butterfly.className = "butterfly";
 
+
+    butterfly.innerHTML = `
+        <span class="wing wing-left"></span>
+        <span class="body"></span>
+        <span class="wing wing-right"></span>
+    `;
+
+
     butterfly.style.left = `${x}px`;
+
     butterfly.style.top = `${y}px`;
 
+
+    /*
+        movimento horizontal:
+        algumas vão para a esquerda,
+        outras para a direita
+    */
+
+    const direction =
+        Math.random() > 0.5
+            ? 1
+            : -1;
+
+
+    const dx =
+        direction *
+        (180 + Math.random() * 520);
+
+
+    /*
+        movimento para cima
+    */
+
+    const dy =
+        -(350 + Math.random() * 500);
+
+
     butterfly.style.setProperty(
-        "--distance",
-        `${300 + Math.random() * 500}px`
+        "--dx",
+        `${dx}px`
     );
+
+    butterfly.style.setProperty(
+        "--dy",
+        `${dy}px`
+    );
+
 
     butterfly.style.setProperty(
         "--duration",
-        `${3.5 + Math.random() * 2}s`
+        `${4.5 + Math.random() * 2.5}s`
     );
+
 
     butterfly.style.animationDelay =
         `${delay}s`;
+
 
     butterflies.appendChild(butterfly);
 
 
     setTimeout(() => {
+
         butterfly.remove();
-    }, 7000);
+
+    }, 8000);
 }
 
 
-/* =====================================
-   PARTÍCULA
-===================================== */
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
 
 function createParticle(x, y) {
 
-    const particle =
-        document.createElement("span");
+    const particle = document.createElement("span");
 
     particle.className = "particle";
 
-    particle.style.left = `${x}px`;
-    particle.style.top = `${y}px`;
+
+    particle.style.left =
+        `${x}px`;
+
+    particle.style.top =
+        `${y}px`;
+
 
     particle.style.setProperty(
-        "--x",
-        `${(Math.random() - 0.2) * 500}px`
+        "--px",
+        `${(Math.random() - 0.5) * 160}px`
     );
 
     particle.style.setProperty(
-        "--y",
-        `${-200 - Math.random() * 450}px`
+        "--py",
+        `${-(50 + Math.random() * 180)}px`
     );
 
-    particle.style.setProperty(
-        "--duration",
-        `${2 + Math.random() * 2}s`
-    );
 
     particles.appendChild(particle);
 
 
     setTimeout(() => {
+
         particle.remove();
-    }, 4500);
+
+    }, 2200);
 }
 
 
-/* =====================================
+/* =====================================================
    BORBOLETAS SAINDO DO GIRASSOL
-===================================== */
+===================================================== */
 
 function launchFromFlower(element) {
 
     const rect =
         element.getBoundingClientRect();
 
+
     const centerX =
         rect.left + rect.width / 2;
 
+
     const centerY =
-        rect.top + rect.height / 2;
+        rect.top + rect.height * 0.25;
 
 
-    /* Borboletas */
+    /*
+        muitas borboletas
+    */
 
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 28; i++) {
+
+        const x =
+            centerX +
+            (Math.random() - 0.5) *
+            90;
+
+
+        const y =
+            centerY +
+            (Math.random() - 0.5) *
+            55;
+
 
         createButterfly(
-            centerX + (Math.random() - 0.5) * 50,
-            centerY + (Math.random() - 0.5) * 40,
-            i * 0.06
+            x,
+            y,
+            i * 0.045
         );
-
     }
 
 
-    /* Partículas */
+    /*
+        brilho / partículas
+    */
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 45; i++) {
 
         setTimeout(() => {
 
             createParticle(
-                centerX + (Math.random() - 0.5) * 80,
-                centerY + (Math.random() - 0.5) * 60
+                centerX +
+                (Math.random() - 0.5) *
+                100,
+
+                centerY +
+                (Math.random() - 0.5) *
+                80
             );
 
-        }, i * 45);
-
+        }, i * 30);
     }
 }
 
 
-/* =====================================
-   BORBOLETAS PELO CAMPO
-===================================== */
+/* =====================================================
+   BORBOLETAS NO CAMPO
+===================================================== */
 
 function createAmbientButterfly() {
 
@@ -149,25 +318,26 @@ function createAmbientButterfly() {
 
 
     const x =
-        Math.random() * width;
+        Math.random() *
+        width;
+
 
     const y =
-        height * (
-            0.60 +
-            Math.random() * 0.35
-        );
+        height *
+        (0.55 + Math.random() * 0.35);
 
 
     createButterfly(
         x,
-        y
+        y,
+        0
     );
 }
 
 
-/* =====================================
-   CLICAR
-===================================== */
+/* =====================================================
+   COMEÇAR JORNADA
+===================================================== */
 
 function startJourney(event) {
 
@@ -175,24 +345,29 @@ function startJourney(event) {
         return;
     }
 
+
     journeyStarted = true;
 
 
-    /* Desabilita os girassóis */
-
     flowers.forEach(flower => {
+
         flower.disabled = true;
+
     });
 
 
-    /* Borboletas saindo do girassol clicado */
+    /*
+        borboletas saindo do girassol clicado
+    */
 
     launchFromFlower(
         event.currentTarget
     );
 
 
-    /* Explosão de borboletas pelo campo */
+    /*
+        outras borboletas aparecem
+    */
 
     for (let i = 0; i < 45; i++) {
 
@@ -200,38 +375,44 @@ function startJourney(event) {
 
             createAmbientButterfly();
 
-        }, i * 70);
-
+        }, i * 75);
     }
 
 
-    /* Mais partículas */
+    /*
+        partículas pelo cenário
+    */
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 70; i++) {
 
         setTimeout(() => {
 
             createParticle(
-                Math.random() * window.innerWidth,
+                Math.random() *
+                window.innerWidth,
+
                 window.innerHeight *
-                (0.55 + Math.random() * 0.35)
+                (0.35 + Math.random() * 0.5)
             );
 
-        }, i * 45);
-
+        }, i * 40);
     }
 
 
-    /* Começa a saída */
+    /*
+        começa a desaparecer
+    */
 
     setTimeout(() => {
 
         home.classList.add("leaving");
 
-    }, 1000);
+    }, 1400);
 
 
-    /* Mostra o vídeo */
+    /*
+        mostra o vídeo
+    */
 
     setTimeout(() => {
 
@@ -243,14 +424,13 @@ function startJourney(event) {
             behavior: "smooth"
         });
 
-    }, 1900);
-
+    }, 2600);
 }
 
 
-/* =====================================
-   EVENTOS
-===================================== */
+/* =====================================================
+   CLIQUE
+===================================================== */
 
 flowers.forEach(flower => {
 
@@ -259,14 +439,6 @@ flowers.forEach(flower => {
         startJourney
     );
 
-});
-
-
-/* =====================================
-   ACESSIBILIDADE
-===================================== */
-
-flowers.forEach(flower => {
 
     flower.addEventListener(
         "keydown",
@@ -280,7 +452,6 @@ flowers.forEach(flower => {
                 event.preventDefault();
 
                 flower.click();
-
             }
 
         }

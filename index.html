@@ -12,16 +12,14 @@
 
 <body>
 
-    <!-- =========================
-         TELA INICIAL
-    ========================== -->
-
     <main id="home">
 
-        <!-- Céu -->
+        <!-- CÉU -->
         <div class="sky">
 
             <div class="sun"></div>
+
+            <div class="sun-glow"></div>
 
             <div class="cloud cloud-1"></div>
             <div class="cloud cloud-2"></div>
@@ -30,112 +28,15 @@
         </div>
 
 
-        <!-- Campo distante -->
+        <!-- CAMPO DISTANTE -->
         <div class="far-field"></div>
 
 
-        <!-- Campo principal -->
-        <div class="field">
-
-            <!-- Girassol 1 -->
-            <button class="sunflower flower-1" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
+        <!-- CAMPO PRINCIPAL -->
+        <div class="field" id="flowerField"></div>
 
 
-            <!-- Girassol 2 -->
-            <button class="sunflower flower-2" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
-
-
-            <!-- Girassol 3 -->
-            <button class="sunflower flower-3" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
-
-
-            <!-- Girassol 4 -->
-            <button class="sunflower flower-4" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
-
-
-            <!-- Girassol 5 -->
-            <button class="sunflower flower-5" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
-
-
-            <!-- Girassol 6 -->
-            <button class="sunflower flower-6" aria-label="Começar a jornada">
-                <span class="stem"></span>
-                <span class="leaves left"></span>
-                <span class="leaves right"></span>
-
-                <span class="flower">
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                    <i></i><i></i><i></i><i></i>
-                </span>
-            </button>
-
-
-            <!-- Girassóis pequenos ao fundo -->
-
-            <button class="small-flower sf-1" aria-label="Começar"></button>
-            <button class="small-flower sf-2" aria-label="Começar"></button>
-            <button class="small-flower sf-3" aria-label="Começar"></button>
-            <button class="small-flower sf-4" aria-label="Começar"></button>
-            <button class="small-flower sf-5" aria-label="Começar"></button>
-
-        </div>
-
-
-        <!-- =========================
-             TEXTO
-        ========================== -->
-
+        <!-- TEXTO -->
         <section class="welcome">
 
             <span class="label">
@@ -170,15 +71,15 @@
         </section>
 
 
-        <!-- Borboletas -->
+        <!-- BORBOLETAS -->
         <div id="butterflies"></div>
 
 
-        <!-- Brilhos -->
+        <!-- PARTÍCULAS -->
         <div id="particles"></div>
 
 
-        <!-- Rodapé -->
+        <!-- FRASES -->
         <div class="bottom-bar">
 
             <span>
@@ -194,9 +95,7 @@
     </main>
 
 
-    <!-- =========================
-         VÍDEO
-    ========================== -->
+    <!-- VÍDEO -->
 
     <section id="videoSection">
 
@@ -212,14 +111,13 @@
 
             <p>
                 Reserve alguns minutos para assistir e refletir
-                sobre a importância do cuidado, da escuta
-                e do acolhimento.
+                sobre a importância do cuidado, da escuta e do acolhimento.
             </p>
 
 
             <div class="video-box">
 
-                <!-- COLOQUE O LINK DO SEU VÍDEO AQUI -->
+                <!-- TROQUE SEU_VIDEO_AQUI PELO ID DO SEU VÍDEO -->
 
                 <iframe
                     src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
