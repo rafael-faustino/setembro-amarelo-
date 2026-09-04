@@ -1,17 +1,10 @@
 const home = document.getElementById("home");
 const field = document.getElementById("flowerField");
-
 const videoSection = document.getElementById("videoSection");
-
 const butterflies = document.getElementById("butterflies");
 const particles = document.getElementById("particles");
 
 let journeyStarted = false;
-
-
-/* =====================================================
-   CRIAR GIRASSÓIS
-===================================================== */
 
 const flowers = [];
 
@@ -34,13 +27,13 @@ const flowerPositions = [
     ["flower-15", 86, 26, 100, 0.8]
 ];
 
-
 function createFlower(data) {
 
     const [className, left, bottom, size, scale] = data;
 
     const button = document.createElement("button");
 
+    button.type = "button";
     button.className = `sunflower ${className}`;
 
     button.style.setProperty("--left", `${left}%`);
@@ -53,7 +46,6 @@ function createFlower(data) {
     );
 
     button.style.setProperty("--size", `${size}px`);
-
     button.style.setProperty("--scale", scale);
 
     button.setAttribute(
@@ -61,26 +53,17 @@ function createFlower(data) {
         "Clique neste girassol para continuar"
     );
 
-
     const stem = document.createElement("span");
-
     stem.className = "stem";
 
-
     const leafLeft = document.createElement("span");
-
     leafLeft.className = "leaf leaf-left";
 
-
     const leafRight = document.createElement("span");
-
     leafRight.className = "leaf leaf-right";
 
-
     const head = document.createElement("span");
-
     head.className = "flower-head";
-
 
     for (let i = 0; i < 12; i++) {
 
@@ -91,28 +74,21 @@ function createFlower(data) {
         head.appendChild(petal);
     }
 
-
     const center = document.createElement("span");
 
     center.className = "flower-center";
 
     head.appendChild(center);
 
-
     button.appendChild(stem);
-
     button.appendChild(leafLeft);
-
     button.appendChild(leafRight);
-
     button.appendChild(head);
-
 
     field.appendChild(button);
 
     flowers.push(button);
 }
-
 
 flowerPositions.forEach(createFlower);
 
@@ -127,43 +103,26 @@ function createButterfly(x, y, delay = 0) {
 
     butterfly.className = "butterfly";
 
-
     butterfly.innerHTML = `
         <span class="wing wing-left"></span>
         <span class="body"></span>
         <span class="wing wing-right"></span>
     `;
 
-
     butterfly.style.left = `${x}px`;
-
     butterfly.style.top = `${y}px`;
-
-
-    /*
-        movimento horizontal:
-        algumas vão para a esquerda,
-        outras para a direita
-    */
 
     const direction =
         Math.random() > 0.5
             ? 1
             : -1;
 
-
     const dx =
         direction *
         (180 + Math.random() * 520);
 
-
-    /*
-        movimento para cima
-    */
-
     const dy =
         -(350 + Math.random() * 500);
-
 
     butterfly.style.setProperty(
         "--dx",
@@ -175,19 +134,15 @@ function createButterfly(x, y, delay = 0) {
         `${dy}px`
     );
 
-
     butterfly.style.setProperty(
         "--duration",
         `${4.5 + Math.random() * 2.5}s`
     );
 
-
     butterfly.style.animationDelay =
         `${delay}s`;
 
-
     butterflies.appendChild(butterfly);
-
 
     setTimeout(() => {
 
@@ -207,13 +162,11 @@ function createParticle(x, y) {
 
     particle.className = "particle";
 
-
     particle.style.left =
         `${x}px`;
 
     particle.style.top =
         `${y}px`;
-
 
     particle.style.setProperty(
         "--px",
@@ -225,9 +178,7 @@ function createParticle(x, y) {
         `${-(50 + Math.random() * 180)}px`
     );
 
-
     particles.appendChild(particle);
-
 
     setTimeout(() => {
 
@@ -246,18 +197,11 @@ function launchFromFlower(element) {
     const rect =
         element.getBoundingClientRect();
 
-
     const centerX =
         rect.left + rect.width / 2;
 
-
     const centerY =
         rect.top + rect.height * 0.25;
-
-
-    /*
-        muitas borboletas
-    */
 
     for (let i = 0; i < 28; i++) {
 
@@ -266,12 +210,10 @@ function launchFromFlower(element) {
             (Math.random() - 0.5) *
             90;
 
-
         const y =
             centerY +
             (Math.random() - 0.5) *
             55;
-
 
         createButterfly(
             x,
@@ -279,11 +221,6 @@ function launchFromFlower(element) {
             i * 0.045
         );
     }
-
-
-    /*
-        brilho / partículas
-    */
 
     for (let i = 0; i < 45; i++) {
 
@@ -316,16 +253,13 @@ function createAmbientButterfly() {
     const height =
         window.innerHeight;
 
-
     const x =
         Math.random() *
         width;
 
-
     const y =
         height *
         (0.55 + Math.random() * 0.35);
-
 
     createButterfly(
         x,
@@ -345,29 +279,15 @@ function startJourney(event) {
         return;
     }
 
-
     journeyStarted = true;
 
-
     flowers.forEach(flower => {
-
         flower.disabled = true;
-
     });
-
-
-    /*
-        borboletas saindo do girassol clicado
-    */
 
     launchFromFlower(
         event.currentTarget
     );
-
-
-    /*
-        outras borboletas aparecem
-    */
 
     for (let i = 0; i < 45; i++) {
 
@@ -377,11 +297,6 @@ function startJourney(event) {
 
         }, i * 75);
     }
-
-
-    /*
-        partículas pelo cenário
-    */
 
     for (let i = 0; i < 70; i++) {
 
@@ -398,21 +313,11 @@ function startJourney(event) {
         }, i * 40);
     }
 
-
-    /*
-        começa a desaparecer
-    */
-
     setTimeout(() => {
 
         home.classList.add("leaving");
 
     }, 1400);
-
-
-    /*
-        mostra o vídeo
-    */
 
     setTimeout(() => {
 
@@ -421,7 +326,8 @@ function startJourney(event) {
         videoSection.classList.add("visible");
 
         videoSection.scrollIntoView({
-            behavior: "smooth"
+            behavior: "smooth",
+            block: "start"
         });
 
     }, 2600);
@@ -429,7 +335,7 @@ function startJourney(event) {
 
 
 /* =====================================================
-   CLIQUE
+   CLIQUE / TECLADO
 ===================================================== */
 
 flowers.forEach(flower => {
@@ -438,7 +344,6 @@ flowers.forEach(flower => {
         "click",
         startJourney
     );
-
 
     flower.addEventListener(
         "keydown",
@@ -458,3 +363,58 @@ flowers.forEach(flower => {
     );
 
 });
+
+
+/* =====================================================
+   ANIMAÇÃO DAS INFORMAÇÕES
+===================================================== */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("show");
+
+                        revealObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+    revealElements.forEach(element => {
+
+        revealObserver.observe(
+            element
+        );
+
+    });
+
+} else {
+
+    revealElements.forEach(element => {
+
+        element.classList.add("show");
+
+    });
+
+}

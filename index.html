@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="description" content="Projeto educativo sobre Setembro Amarelo, cuidado, acolhimento e saúde mental.">
+
     <title>Setembro Amarelo | Você Importa</title>
 
     <link rel="stylesheet" href="style.css">
@@ -14,36 +16,24 @@
 
     <main id="home">
 
-        <!-- CÉU -->
-        <div class="sky">
-
+        <div class="sky" aria-hidden="true">
             <div class="sun"></div>
-
             <div class="sun-glow"></div>
 
             <div class="cloud cloud-1"></div>
             <div class="cloud cloud-2"></div>
             <div class="cloud cloud-3"></div>
-
         </div>
 
+        <div class="far-field" aria-hidden="true"></div>
 
-        <!-- CAMPO DISTANTE -->
-        <div class="far-field"></div>
+        <div class="field" id="flowerField" aria-label="Campo de girassóis"></div>
 
+        <section class="welcome" aria-labelledby="home-title">
 
-        <!-- CAMPO PRINCIPAL -->
-        <div class="field" id="flowerField"></div>
+            <span class="label">SETEMBRO AMARELO</span>
 
-
-        <!-- TEXTO -->
-        <section class="welcome">
-
-            <span class="label">
-                SETEMBRO AMARELO
-            </span>
-
-            <h1>
+            <h1 id="home-title">
                 Você não está sozinho.
             </h1>
 
@@ -53,51 +43,30 @@
             </p>
 
             <div class="click-area">
+                <div class="mouse-icon" aria-hidden="true">👆</div>
 
-                <div class="mouse-icon">
-                    👆
-                </div>
-
-                <strong>
-                    Clique em um girassol
-                </strong>
+                <strong>Clique em um girassol</strong>
 
                 <span>
                     e comece sua jornada
                 </span>
-
             </div>
 
         </section>
 
+        <div id="butterflies" aria-hidden="true"></div>
 
-        <!-- BORBOLETAS -->
-        <div id="butterflies"></div>
+        <div id="particles" aria-hidden="true"></div>
 
-
-        <!-- PARTÍCULAS -->
-        <div id="particles"></div>
-
-
-        <!-- FRASES -->
-        <div class="bottom-bar">
-
-            <span>
-                💛 Cuidar também é ouvir.
-            </span>
-
-            <span>
-                🎗️ Você importa.
-            </span>
-
+        <div class="bottom-bar" aria-hidden="true">
+            <span>💛 Cuidar também é ouvir.</span>
+            <span>🎗️ Você importa.</span>
         </div>
 
     </main>
 
 
-    <!-- VÍDEO -->
-
-    <section id="videoSection">
+    <section id="videoSection" aria-labelledby="video-title">
 
         <div class="video-content">
 
@@ -105,7 +74,7 @@
                 UMA PAUSA PARA REFLETIR
             </span>
 
-            <h2>
+            <h2 id="video-title">
                 A vida importa. 💛
             </h2>
 
@@ -114,7 +83,6 @@
                 sobre a importância do cuidado, da escuta e do acolhimento.
             </p>
 
-
             <div class="video-box">
 
                 <!-- TROQUE SEU_VIDEO_AQUI PELO ID DO SEU VÍDEO -->
@@ -122,11 +90,411 @@
                 <iframe
                     src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
                     title="Vídeo sobre Setembro Amarelo"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
                 </iframe>
 
             </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="infoSection" aria-labelledby="info-title">
+
+        <div class="info-container">
+
+            <div class="info-intro reveal">
+
+                <span class="info-label">
+                    INFORME-SE 💛
+                </span>
+
+                <h2 id="info-title">
+                    Conhecimento também é uma forma de cuidado.
+                </h2>
+
+                <p>
+                    Entender a saúde mental ajuda a reconhecer mudanças,
+                    diminuir preconceitos e incentivar a busca por apoio.
+                </p>
+
+            </div>
+
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+                    <div class="card-icon" aria-hidden="true">🧠</div>
+
+                    <span class="card-number">01</span>
+                </div>
+
+                <h3>
+                    O que é depressão?
+                </h3>
+
+                <p>
+                    A depressão é uma condição de saúde mental que pode
+                    afetar o humor, os interesses, a energia, a concentração
+                    e também aspectos do dia a dia.
+                </p>
+
+                <p>
+                    Ela não é simplesmente "falta de força de vontade".
+                    Pode estar relacionada a diferentes fatores e merece
+                    atenção e cuidado profissional.
+                </p>
+
+            </article>
+
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+                    <div class="card-icon" aria-hidden="true">🔎</div>
+
+                    <span class="card-number">02</span>
+                </div>
+
+                <h3>
+                    Sinais que merecem atenção
+                </h3>
+
+                <p>
+                    Algumas mudanças persistentes podem indicar que uma
+                    pessoa está passando por um momento difícil e precisa
+                    de acolhimento.
+                </p>
+
+                <div class="sign-list">
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Mudanças persistentes no humor</span>
+                    </div>
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Perda de interesse por atividades</span>
+                    </div>
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Cansaço ou falta de energia</span>
+                    </div>
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Alterações no sono</span>
+                    </div>
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Dificuldade de concentração</span>
+                    </div>
+
+                    <div class="sign-item">
+                        <span aria-hidden="true">●</span>
+                        <span>Sentimento frequente de culpa ou desânimo</span>
+                    </div>
+
+                </div>
+
+                <div class="attention-box">
+                    <strong>Importante:</strong>
+                    ter um desses sinais, sozinho, não significa que uma
+                    pessoa tenha depressão. O diagnóstico deve ser realizado
+                    por um profissional de saúde.
+                </div>
+
+            </article>
+
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+                    <div class="card-icon" aria-hidden="true">🌱</div>
+
+                    <span class="card-number">03</span>
+                </div>
+
+                <h3>
+                    O que pode influenciar a saúde mental?
+                </h3>
+
+                <p>
+                    A saúde mental é influenciada por diferentes aspectos
+                    da vida. Esses fatores podem se combinar e variar de
+                    pessoa para pessoa.
+                </p>
+
+                <div class="factor-grid">
+
+                    <div class="factor">
+                        <div class="factor-icon" aria-hidden="true">🧬</div>
+                        <h4>Biológicos</h4>
+                        <p>
+                            Características e processos do organismo.
+                        </p>
+                    </div>
+
+                    <div class="factor">
+                        <div class="factor-icon" aria-hidden="true">💭</div>
+                        <h4>Psicológicos</h4>
+                        <p>
+                            Pensamentos, emoções e experiências.
+                        </p>
+                    </div>
+
+                    <div class="factor">
+                        <div class="factor-icon" aria-hidden="true">👥</div>
+                        <h4>Sociais</h4>
+                        <p>
+                            Relações, ambiente e condições de vida.
+                        </p>
+                    </div>
+
+                    <div class="factor">
+                        <div class="factor-icon" aria-hidden="true">🌦️</div>
+                        <h4>Momentos difíceis</h4>
+                        <p>
+                            Situações que podem gerar sofrimento ou estresse.
+                        </p>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="pcd-card reveal">
+
+                <div class="pcd-icon" aria-hidden="true">♿</div>
+
+                <div class="pcd-content">
+
+                    <div class="card-top pcd-top">
+                        <span class="card-number">04</span>
+                    </div>
+
+                    <h3>
+                        Saúde mental e pessoas com deficiência
+                    </h3>
+
+                    <p>
+                        Pessoas com deficiência têm direito ao cuidado integral
+                        em saúde. Para que esse cuidado realmente aconteça,
+                        é importante considerar acessibilidade, comunicação,
+                        respeito, autonomia e acolhimento.
+                    </p>
+
+                    <p>
+                        Barreiras físicas, de comunicação, informação e
+                        atitudes preconceituosas podem dificultar o acesso
+                        aos serviços. Por isso, inclusão também faz parte
+                        do cuidado.
+                    </p>
+
+                    <div class="pcd-points">
+
+                        <div>
+                            <strong>♿ Acessibilidade</strong>
+                            <span>Ambientes e informações acessíveis.</span>
+                        </div>
+
+                        <div>
+                            <strong>🤝 Respeito</strong>
+                            <span>Valorizar a autonomia e as escolhas.</span>
+                        </div>
+
+                        <div>
+                            <strong>💛 Acolhimento</strong>
+                            <span>Ouvir sem julgamentos e com atenção.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="info-card help-card reveal">
+
+                <div class="card-top">
+                    <div class="card-icon" aria-hidden="true">🤝</div>
+
+                    <span class="card-number">05</span>
+                </div>
+
+                <h3>
+                    Como posso ajudar alguém?
+                </h3>
+
+                <div class="help-list">
+
+                    <div class="help-item">
+                        <span class="help-number">1</span>
+
+                        <div>
+                            <strong>Escute</strong>
+
+                            <p>
+                                Dê espaço para a pessoa falar e demonstre
+                                que você está presente.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="help-item">
+                        <span class="help-number">2</span>
+
+                        <div>
+                            <strong>Acolha</strong>
+
+                            <p>
+                                Evite julgamentos e trate o sofrimento
+                                com seriedade e respeito.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="help-item">
+                        <span class="help-number">3</span>
+
+                        <div>
+                            <strong>Incentive a busca por ajuda</strong>
+
+                            <p>
+                                Sugira conversar com um profissional de saúde
+                                ou procurar um serviço do SUS.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <section class="help-location reveal" aria-labelledby="help-title">
+
+                <div class="location-heading">
+
+                    <span class="info-label">
+                        ONDE PROCURAR AJUDA 🏥
+                    </span>
+
+                    <h2 id="help-title">
+                        Você não precisa enfrentar tudo sozinho.
+                    </h2>
+
+                    <p>
+                        O SUS oferece diferentes pontos de cuidado em saúde
+                        mental. A porta de entrada pode ser a Atenção Primária,
+                        como uma UBS, e o cuidado também pode envolver os CAPS
+                        e outros serviços da rede.
+                    </p>
+
+                </div>
+
+                <div class="locations-grid">
+
+                    <article class="location-card">
+                        <div class="location-icon" aria-hidden="true">🏥</div>
+
+                        <h3>UBS</h3>
+
+                        <p>
+                            Unidade Básica de Saúde. Pode orientar, acolher
+                            e encaminhar para outros serviços quando necessário.
+                        </p>
+                    </article>
+
+                    <article class="location-card">
+                        <div class="location-icon" aria-hidden="true">🫂</div>
+
+                        <h3>CAPS</h3>
+
+                        <p>
+                            Serviços públicos de atenção psicossocial com
+                            equipe multiprofissional e acompanhamento.
+                        </p>
+                    </article>
+
+                    <article class="location-card">
+                        <div class="location-icon" aria-hidden="true">👩‍⚕️</div>
+
+                        <h3>Profissionais</h3>
+
+                        <p>
+                            Psicólogos, médicos e outros profissionais podem
+                            avaliar a situação e orientar o cuidado adequado.
+                        </p>
+                    </article>
+
+                </div>
+
+                <div class="emergency-note">
+
+                    <div class="emergency-icon" aria-hidden="true">
+                        🚨
+                    </div>
+
+                    <div>
+                        <strong>
+                            Em uma situação que precise de atendimento imediato
+                        </strong>
+
+                        <p>
+                            Procure um serviço de urgência e emergência,
+                            como uma UPA ou pronto-socorro, ou acione o
+                            SAMU pelo <strong>192</strong>.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <div class="final-message reveal">
+
+                <div class="final-flower" aria-hidden="true">
+                    🌻
+                </div>
+
+                <span>
+                    SETEMBRO AMARELO
+                </span>
+
+                <h2>
+                    Falar, ouvir e acolher também são formas de cuidar.
+                </h2>
+
+                <p>
+                    Uma conversa respeitosa pode ser importante.
+                    Procurar ajuda também é uma forma de cuidado.
+                </p>
+
+            </div>
+
+
+            <footer class="sources">
+
+                <p>
+                    Conteúdo educativo elaborado com base em informações
+                    do Ministério da Saúde.
+                </p>
+
+                <p>
+                    Projeto educativo — Setembro Amarelo
+                </p>
+
+            </footer>
 
         </div>
 
