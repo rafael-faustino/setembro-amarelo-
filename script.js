@@ -402,19 +402,10 @@ function startJourney(event) {
     );
 
 
-    /*
-        Borboletas saindo
-        do girassol clicado
-    */
-
     launchFromFlower(
         event.currentTarget
     );
 
-
-    /*
-        Borboletas pelo campo
-    */
 
     for (
         let i = 0;
@@ -429,10 +420,6 @@ function startJourney(event) {
         }, i * 75);
     }
 
-
-    /*
-        Partículas
-    */
 
     for (
         let i = 0;
@@ -459,10 +446,6 @@ function startJourney(event) {
     }
 
 
-    /*
-        Faz a primeira tela desaparecer
-    */
-
     setTimeout(() => {
 
         home.classList.add(
@@ -471,10 +454,6 @@ function startJourney(event) {
 
     }, 1400);
 
-
-    /*
-        Mostra o vídeo
-    */
 
     setTimeout(() => {
 
@@ -520,11 +499,8 @@ flowers.forEach(
             event => {
 
                 if (
-                    event.key ===
-                        "Enter" ||
-
-                    event.key ===
-                        " "
+                    event.key === "Enter" ||
+                    event.key === " "
                 ) {
 
                     event.preventDefault();
@@ -624,65 +600,165 @@ const accessibilityToggle =
         "accessibilityToggle"
     );
 
-
 const accessibilityPanel =
     document.getElementById(
         "accessibilityPanel"
     );
-
 
 const accessibilityClose =
     document.getElementById(
         "accessibilityClose"
     );
 
-
 const accessibilityStatus =
     document.getElementById(
         "accessibilityStatus"
     );
-
 
 const increaseText =
     document.getElementById(
         "increaseText"
     );
 
-
 const decreaseText =
     document.getElementById(
         "decreaseText"
     );
-
 
 const contrastToggle =
     document.getElementById(
         "contrastToggle"
     );
 
-
 const spacingToggle =
     document.getElementById(
         "spacingToggle"
     );
-
 
 const animationToggle =
     document.getElementById(
         "animationToggle"
     );
 
-
 const focusToggle =
     document.getElementById(
         "focusToggle"
     );
 
-
 const vlibrasButton =
     document.getElementById(
         "vlibrasButton"
     );
+
+
+/* =====================================================
+   VOLTAR AO INÍCIO
+===================================================== */
+
+const backHomeButton =
+    document.getElementById(
+        "backHomeButton"
+    );
+
+
+function showBackHomeButton() {
+
+    if (!backHomeButton) {
+        return;
+    }
+
+    backHomeButton.classList.add(
+        "visible"
+    );
+}
+
+
+function hideBackHomeButton() {
+
+    if (!backHomeButton) {
+        return;
+    }
+
+    backHomeButton.classList.remove(
+        "visible"
+    );
+}
+
+
+if (backHomeButton) {
+
+    backHomeButton.addEventListener(
+        "click",
+        () => {
+
+            home.style.display =
+                "block";
+
+            home.classList.remove(
+                "leaving"
+            );
+
+            videoSection.classList.add(
+                "visible"
+            );
+
+            journeyStarted =
+                false;
+
+
+            flowers.forEach(
+                flower => {
+
+                    flower.disabled =
+                        false;
+
+                }
+            );
+
+
+            butterflies.innerHTML =
+                "";
+
+            particles.innerHTML =
+                "";
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior:
+                    "smooth"
+
+            });
+
+
+            hideBackHomeButton();
+
+        }
+    );
+
+}
+
+
+/*
+    Verifica quando a primeira tela
+    já desapareceu e mostra o botão.
+*/
+
+setInterval(() => {
+
+    if (
+        backHomeButton &&
+        journeyStarted &&
+        home.style.display === "none"
+    ) {
+
+        showBackHomeButton();
+
+    }
+
+}, 300);
 
 
 /* =====================================================
@@ -699,12 +775,14 @@ function setAccessibilityStatus(
 
         accessibilityStatus.textContent =
             message;
+
     }
+
 }
 
 
 /* =====================================================
-   ABRIR ACESSIBILIDADE
+   ABRIR MENU
 ===================================================== */
 
 function openAccessibility() {
@@ -712,16 +790,16 @@ function openAccessibility() {
     accessibilityPanel.hidden =
         false;
 
-
     accessibilityToggle.setAttribute(
         "aria-expanded",
         "true"
     );
+
 }
 
 
 /* =====================================================
-   FECHAR ACESSIBILIDADE
+   FECHAR MENU
 ===================================================== */
 
 function closeAccessibility() {
@@ -729,11 +807,11 @@ function closeAccessibility() {
     accessibilityPanel.hidden =
         true;
 
-
     accessibilityToggle.setAttribute(
         "aria-expanded",
         "false"
     );
+
 }
 
 
@@ -764,7 +842,7 @@ accessibilityClose.addEventListener(
 
 
 /* =====================================================
-   AUMENTAR / DIMINUIR TEXTO
+   TAMANHO DO TEXTO
 ===================================================== */
 
 let textLevel = 0;
@@ -786,6 +864,7 @@ function updateTextSize() {
         document.documentElement.classList.add(
             "text-small"
         );
+
     }
 
 
@@ -796,6 +875,7 @@ function updateTextSize() {
         document.documentElement.classList.add(
             "text-large"
         );
+
     }
 
 
@@ -806,7 +886,9 @@ function updateTextSize() {
         document.documentElement.classList.add(
             "text-extra-large"
         );
+
     }
+
 }
 
 
@@ -819,31 +901,35 @@ increaseText.addEventListener(
         ) {
 
             textLevel++;
-        }
 
+        }
 
         updateTextSize();
 
 
-        const messages = [
+        if (
+            textLevel === 1
+        ) {
 
-            "Texto aumentado.",
+            setAccessibilityStatus(
+                "Texto aumentado."
+            );
 
-            "Texto aumentado novamente.",
+        } else if (
+            textLevel === 2
+        ) {
 
-            "Tamanho máximo de texto ativado."
+            setAccessibilityStatus(
+                "Tamanho máximo de texto ativado."
+            );
 
-        ];
+        } else {
 
+            setAccessibilityStatus(
+                "Texto aumentado novamente."
+            );
 
-        setAccessibilityStatus(
-            messages[
-                Math.min(
-                    textLevel,
-                    2
-                )
-            ]
-        );
+        }
 
     }
 );
@@ -858,6 +944,7 @@ decreaseText.addEventListener(
         ) {
 
             textLevel--;
+
         }
 
 
@@ -866,6 +953,7 @@ decreaseText.addEventListener(
         ) {
 
             textLevel = -1;
+
         }
 
 
@@ -905,6 +993,12 @@ contrastToggle.addEventListener(
             );
 
 
+        contrastToggle.setAttribute(
+            "aria-pressed",
+            String(enabled)
+        );
+
+
         setAccessibilityStatus(
 
             enabled
@@ -913,12 +1007,6 @@ contrastToggle.addEventListener(
 
                 : "Alto contraste desativado."
 
-        );
-
-
-        contrastToggle.setAttribute(
-            "aria-pressed",
-            enabled.toString()
         );
 
     }
@@ -944,6 +1032,12 @@ spacingToggle.addEventListener(
             );
 
 
+        spacingToggle.setAttribute(
+            "aria-pressed",
+            String(enabled)
+        );
+
+
         setAccessibilityStatus(
 
             enabled
@@ -952,12 +1046,6 @@ spacingToggle.addEventListener(
 
                 : "Espaçamento normal restaurado."
 
-        );
-
-
-        spacingToggle.setAttribute(
-            "aria-pressed",
-            enabled.toString()
         );
 
     }
@@ -983,6 +1071,12 @@ animationToggle.addEventListener(
             );
 
 
+        animationToggle.setAttribute(
+            "aria-pressed",
+            String(enabled)
+        );
+
+
         setAccessibilityStatus(
 
             enabled
@@ -991,12 +1085,6 @@ animationToggle.addEventListener(
 
                 : "Animações normais restauradas."
 
-        );
-
-
-        animationToggle.setAttribute(
-            "aria-pressed",
-            enabled.toString()
         );
 
     }
@@ -1022,6 +1110,12 @@ focusToggle.addEventListener(
             );
 
 
+        focusToggle.setAttribute(
+            "aria-pressed",
+            String(enabled)
+        );
+
+
         setAccessibilityStatus(
 
             enabled
@@ -1032,18 +1126,12 @@ focusToggle.addEventListener(
 
         );
 
-
-        focusToggle.setAttribute(
-            "aria-pressed",
-            enabled.toString()
-        );
-
     }
 );
 
 
 /* =====================================================
-   LIBRAS / VLibras
+   LIBRAS
 ===================================================== */
 
 vlibrasButton.addEventListener(
@@ -1080,6 +1168,1107 @@ vlibrasButton.addEventListener(
 
 
 /* =====================================================
+   TRADUÇÕES COMPLETAS
+===================================================== */
+
+const translations = {
+
+    pt: {
+
+        lang: "pt-BR",
+
+        accessibility: "Acessibilidade",
+        resources: "RECURSOS",
+        increase: "Aumentar texto",
+        decrease: "Diminuir texto",
+        contrast: "Alto contraste",
+        spacing: "Aumentar espaçamento",
+        animations: "Reduzir animações",
+        focus: "Destacar foco",
+        libras: "Ativar Libras",
+        status: "Recursos de acessibilidade disponíveis.",
+        language: "IDIOMA 🌎",
+
+        homeLabel: "SETEMBRO AMARELO",
+        homeTitle: "Você não está sozinho.",
+        homeText: "Informação, acolhimento e esperança podem transformar vidas.",
+        clickFlower: "Clique em um girassol",
+        startJourney: "e comece sua jornada",
+        care: "💛 Cuidar também é ouvir.",
+        matter: "🎗️ Você importa.",
+
+        videoLabel: "UMA PAUSA PARA REFLETIR",
+        videoTitle: "A vida importa. 💛",
+        videoText: "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.",
+
+        infoLabel: "INFORME-SE 💛",
+        infoTitle: "Conhecimento também é uma forma de cuidado.",
+        infoText: "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.",
+
+        depressionTitle: "O que é depressão?",
+        depression1: "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.",
+        depression2: "Ela não é simplesmente \"falta de força de vontade\". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.",
+
+        signsTitle: "Sinais que merecem atenção",
+        signsIntro: "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.",
+        sign1: "Mudanças persistentes no humor",
+        sign2: "Perda de interesse por atividades",
+        sign3: "Cansaço ou falta de energia",
+        sign4: "Alterações no sono",
+        sign5: "Dificuldade de concentração",
+        sign6: "Sentimento frequente de culpa ou desânimo",
+        important: "Importante:",
+        attention: "Ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.",
+
+        factorsTitle: "O que pode influenciar a saúde mental?",
+        factorsIntro: "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.",
+
+        biological: "Biológicos",
+        biologicalText: "Características e processos do organismo.",
+
+        psychological: "Psicológicos",
+        psychologicalText: "Pensamentos, emoções e experiências.",
+
+        social: "Sociais",
+        socialText: "Relações, ambiente e condições de vida.",
+
+        difficult: "Momentos difíceis",
+        difficultText: "Situações que podem gerar sofrimento ou estresse.",
+
+        pcdTitle: "Saúde mental e pessoas com deficiência",
+        pcd1: "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.",
+        pcd2: "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.",
+
+        accessibilityPoint: "♿ Acessibilidade",
+        accessibilityPointText: "Ambientes e informações acessíveis.",
+
+        respectPoint: "🤝 Respeito",
+        respectPointText: "Valorizar a autonomia e as escolhas.",
+
+        welcomePoint: "💛 Acolhimento",
+        welcomePointText: "Ouvir sem julgamentos e com atenção.",
+
+        helpTitle: "Como posso ajudar alguém?",
+
+        listen: "Escute",
+        listenText: "Dê espaço para a pessoa falar e demonstre que você está presente.",
+
+        welcome: "Acolha",
+        welcomeText: "Evite julgamentos e trate o sofrimento com seriedade e respeito.",
+
+        encourage: "Incentive a busca por ajuda",
+        encourageText: "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.",
+
+        whereHelp: "ONDE PROCURAR AJUDA 🏥",
+        helpHeading: "Você não precisa enfrentar tudo sozinho.",
+        helpIntro: "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.",
+
+        ubsTitle: "UBS",
+        ubsText: "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.",
+
+        capsTitle: "CAPS",
+        capsText: "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.",
+
+        professionalsTitle: "Profissionais",
+        professionalsText: "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.",
+
+        emergencyTitle: "Em uma situação que precise de atendimento imediato",
+        emergencyText: "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o SAMU pelo 192.",
+
+        finalTitle: "Falar, ouvir e acolher também são formas de cuidar.",
+        finalText: "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.",
+
+        footer1: "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.",
+        footer2: "Projeto educativo — Setembro Amarelo",
+
+        backHome: "Início",
+        backHomeAria: "Voltar para a tela inicial"
+    },
+
+
+    en: {
+
+        lang: "en",
+
+        accessibility: "Accessibility",
+        resources: "RESOURCES",
+        increase: "Increase text",
+        decrease: "Decrease text",
+        contrast: "High contrast",
+        spacing: "Increase spacing",
+        animations: "Reduce animations",
+        focus: "Highlight focus",
+        libras: "Activate Libras",
+        status: "Accessibility features are available.",
+        language: "LANGUAGE 🌎",
+
+        homeLabel: "YELLOW SEPTEMBER",
+        homeTitle: "You are not alone.",
+        homeText: "Information, support and hope can transform lives.",
+        clickFlower: "Click on a sunflower",
+        startJourney: "and start your journey",
+        care: "💛 Caring also means listening.",
+        matter: "🎗️ You matter.",
+
+        videoLabel: "A MOMENT TO REFLECT",
+        videoTitle: "Life matters. 💛",
+        videoText: "Take a few minutes to watch and reflect on the importance of care, listening and support.",
+
+        infoLabel: "LEARN MORE 💛",
+        infoTitle: "Knowledge is also a form of care.",
+        infoText: "Understanding mental health helps recognize changes, reduce prejudice and encourage seeking support.",
+
+        depressionTitle: "What is depression?",
+        depression1: "Depression is a mental health condition that can affect mood, interests, energy, concentration and everyday life.",
+        depression2: "It is not simply a lack of willpower. It can be related to different factors and deserves attention and professional care.",
+
+        signsTitle: "Signs that deserve attention",
+        signsIntro: "Some persistent changes may indicate that a person is going through a difficult time and needs support.",
+        sign1: "Persistent changes in mood",
+        sign2: "Loss of interest in activities",
+        sign3: "Tiredness or lack of energy",
+        sign4: "Changes in sleep",
+        sign5: "Difficulty concentrating",
+        sign6: "Frequent feelings of guilt or discouragement",
+        important: "Important:",
+        attention: "Having one of these signs alone does not mean that a person has depression. A diagnosis should be made by a health professional.",
+
+        factorsTitle: "What can influence mental health?",
+        factorsIntro: "Mental health is influenced by different aspects of life. These factors can combine and vary from person to person.",
+
+        biological: "Biological",
+        biologicalText: "Characteristics and processes of the body.",
+
+        psychological: "Psychological",
+        psychologicalText: "Thoughts, emotions and experiences.",
+
+        social: "Social",
+        socialText: "Relationships, environment and living conditions.",
+
+        difficult: "Difficult moments",
+        difficultText: "Situations that can cause distress or stress.",
+
+        pcdTitle: "Mental health and people with disabilities",
+        pcd1: "People with disabilities have the right to comprehensive health care. This care should consider accessibility, communication, respect, autonomy and support.",
+        pcd2: "Physical, communication, information and attitudinal barriers can make access to services more difficult. Inclusion is therefore also part of care.",
+
+        accessibilityPoint: "♿ Accessibility",
+        accessibilityPointText: "Accessible environments and information.",
+
+        respectPoint: "🤝 Respect",
+        respectPointText: "Value autonomy and choices.",
+
+        welcomePoint: "💛 Support",
+        welcomePointText: "Listen without judgment and with attention.",
+
+        helpTitle: "How can I help someone?",
+
+        listen: "Listen",
+        listenText: "Give the person space to talk and show that you are there.",
+
+        welcome: "Support",
+        welcomeText: "Avoid judgment and treat their suffering with seriousness and respect.",
+
+        encourage: "Encourage seeking help",
+        encourageText: "Suggest talking to a health professional or looking for a public health service.",
+
+        whereHelp: "WHERE TO SEEK HELP 🏥",
+        helpHeading: "You do not have to face everything alone.",
+        helpIntro: "Public health services offer different points of care for mental health. Primary care, such as a basic health unit, can be a starting point, along with specialized services.",
+
+        ubsTitle: "Primary Care",
+        ubsText: "A basic health unit can provide guidance, support and referral to other services when needed.",
+
+        capsTitle: "CAPS",
+        capsText: "Public psychosocial care services with multidisciplinary teams and ongoing support.",
+
+        professionalsTitle: "Professionals",
+        professionalsText: "Psychologists, doctors and other professionals can assess the situation and guide appropriate care.",
+
+        emergencyTitle: "In a situation requiring immediate care",
+        emergencyText: "Seek an emergency service, such as an emergency unit or hospital emergency room, or call SAMU at 192.",
+
+        finalTitle: "Talking, listening and supporting are also ways to care.",
+        finalText: "A respectful conversation can be important. Seeking help is also a form of care.",
+
+        footer1: "Educational content based on information from the Brazilian Ministry of Health.",
+        footer2: "Educational project — Yellow September",
+
+        backHome: "Home",
+        backHomeAria: "Return to the home screen"
+    },
+
+
+    es: {
+
+        lang: "es",
+
+        accessibility: "Accesibilidad",
+        resources: "RECURSOS",
+        increase: "Aumentar texto",
+        decrease: "Disminuir texto",
+        contrast: "Alto contraste",
+        spacing: "Aumentar espaciado",
+        animations: "Reducir animaciones",
+        focus: "Resaltar enfoque",
+        libras: "Activar Libras",
+        status: "Funciones de accesibilidad disponibles.",
+        language: "IDIOMA 🌎",
+
+        homeLabel: "SEPTIEMBRE AMARILLO",
+        homeTitle: "No estás solo.",
+        homeText: "La información, el apoyo y la esperanza pueden transformar vidas.",
+        clickFlower: "Haz clic en un girasol",
+        startJourney: "y comienza tu camino",
+        care: "💛 Cuidar también es escuchar.",
+        matter: "🎗️ Tú importas.",
+
+        videoLabel: "UN MOMENTO PARA REFLEXIONAR",
+        videoTitle: "La vida importa. 💛",
+        videoText: "Tómate unos minutos para ver y reflexionar sobre la importancia del cuidado, la escucha y el apoyo.",
+
+        infoLabel: "INFÓRMATE 💛",
+        infoTitle: "El conocimiento también es una forma de cuidado.",
+        infoText: "Comprender la salud mental ayuda a reconocer cambios, reducir prejuicios y fomentar la búsqueda de apoyo.",
+
+        depressionTitle: "¿Qué es la depresión?",
+        depression1: "La depresión es una condición de salud mental que puede afectar el estado de ánimo, los intereses, la energía, la concentración y la vida cotidiana.",
+        depression2: "No es simplemente falta de voluntad. Puede estar relacionada con distintos factores y merece atención y cuidado profesional.",
+
+        signsTitle: "Señales que merecen atención",
+        signsIntro: "Algunos cambios persistentes pueden indicar que una persona está pasando por un momento difícil y necesita apoyo.",
+        sign1: "Cambios persistentes en el estado de ánimo",
+        sign2: "Pérdida de interés en actividades",
+        sign3: "Cansancio o falta de energía",
+        sign4: "Cambios en el sueño",
+        sign5: "Dificultad para concentrarse",
+        sign6: "Sentimientos frecuentes de culpa o desánimo",
+        important: "Importante:",
+        attention: "Tener uno de estos signos, por sí solo, no significa que una persona tenga depresión. El diagnóstico debe ser realizado por un profesional de la salud.",
+
+        factorsTitle: "¿Qué puede influir en la salud mental?",
+        factorsIntro: "La salud mental está influida por diferentes aspectos de la vida. Estos factores pueden combinarse y variar de una persona a otra.",
+
+        biological: "Biológicos",
+        biologicalText: "Características y procesos del organismo.",
+
+        psychological: "Psicológicos",
+        psychologicalText: "Pensamientos, emociones y experiencias.",
+
+        social: "Sociales",
+        socialText: "Relaciones, entorno y condiciones de vida.",
+
+        difficult: "Momentos difíciles",
+        difficultText: "Situaciones que pueden generar sufrimiento o estrés.",
+
+        pcdTitle: "Salud mental y personas con discapacidad",
+        pcd1: "Las personas con discapacidad tienen derecho a una atención integral en salud. Este cuidado debe considerar accesibilidad, comunicación, respeto, autonomía y apoyo.",
+        pcd2: "Las barreras físicas, de comunicación, de información y las actitudes prejuiciosas pueden dificultar el acceso a los servicios. Por eso, la inclusión también forma parte del cuidado.",
+
+        accessibilityPoint: "♿ Accesibilidad",
+        accessibilityPointText: "Entornos e información accesibles.",
+
+        respectPoint: "🤝 Respeto",
+        respectPointText: "Valorar la autonomía y las decisiones.",
+
+        welcomePoint: "💛 Acogida",
+        welcomePointText: "Escuchar sin juzgar y con atención.",
+
+        helpTitle: "¿Cómo puedo ayudar a alguien?",
+
+        listen: "Escucha",
+        listenText: "Da espacio para que la persona hable y demuestra que estás presente.",
+
+        welcome: "Acoge",
+        welcomeText: "Evita juzgar y trata el sufrimiento con seriedad y respeto.",
+
+        encourage: "Anima a buscar ayuda",
+        encourageText: "Sugiere hablar con un profesional de la salud o buscar un servicio público.",
+
+        whereHelp: "DÓNDE BUSCAR AYUDA 🏥",
+        helpHeading: "No tienes que enfrentar todo solo.",
+        helpIntro: "El sistema público de salud ofrece diferentes puntos de atención en salud mental. La atención primaria, como una unidad básica de salud, puede ser un punto de partida junto con otros servicios.",
+
+        ubsTitle: "Atención primaria",
+        ubsText: "Una unidad básica de salud puede orientar, acoger y derivar a otros servicios cuando sea necesario.",
+
+        capsTitle: "CAPS",
+        capsText: "Servicios públicos de atención psicosocial con equipos multidisciplinarios y acompañamiento.",
+
+        professionalsTitle: "Profesionales",
+        professionalsText: "Psicólogos, médicos y otros profesionales pueden evaluar la situación y orientar el cuidado adecuado.",
+
+        emergencyTitle: "En una situación que requiera atención inmediata",
+        emergencyText: "Busca un servicio de urgencia y emergencia, como una UPA o una sala de emergencias, o llama al SAMU al 192.",
+
+        finalTitle: "Hablar, escuchar y acoger también son formas de cuidar.",
+        finalText: "Una conversación respetuosa puede ser importante. Buscar ayuda también es una forma de cuidado.",
+
+        footer1: "Contenido educativo basado en información del Ministerio de Salud de Brasil.",
+        footer2: "Proyecto educativo — Septiembre Amarillo",
+
+        backHome: "Inicio",
+        backHomeAria: "Volver a la pantalla de inicio"
+    },
+
+
+    fr: {
+
+        lang: "fr",
+
+        accessibility: "Accessibilité",
+        resources: "RESSOURCES",
+        increase: "Agrandir le texte",
+        decrease: "Réduire le texte",
+        contrast: "Contraste élevé",
+        spacing: "Augmenter l'espacement",
+        animations: "Réduire les animations",
+        focus: "Mettre le focus en évidence",
+        libras: "Activer Libras",
+        status: "Fonctions d'accessibilité disponibles.",
+        language: "LANGUE 🌎",
+
+        homeLabel: "SEPTEMBRE JAUNE",
+        homeTitle: "Vous n'êtes pas seul.",
+        homeText: "L'information, le soutien et l'espoir peuvent transformer des vies.",
+        clickFlower: "Cliquez sur un tournesol",
+        startJourney: "et commencez votre parcours",
+        care: "💛 Prendre soin, c'est aussi écouter.",
+        matter: "🎗️ Vous comptez.",
+
+        videoLabel: "UN MOMENT POUR RÉFLÉCHIR",
+        videoTitle: "La vie compte. 💛",
+        videoText: "Prenez quelques minutes pour regarder et réfléchir à l'importance du soin, de l'écoute et du soutien.",
+
+        infoLabel: "INFORMEZ-VOUS 💛",
+        infoTitle: "La connaissance est aussi une forme de soin.",
+        infoText: "Comprendre la santé mentale aide à reconnaître les changements, à réduire les préjugés et à encourager la recherche de soutien.",
+
+        depressionTitle: "Qu'est-ce que la dépression ?",
+        depression1: "La dépression est un trouble de la santé mentale qui peut affecter l'humeur, les intérêts, l'énergie, la concentration et la vie quotidienne.",
+        depression2: "Ce n'est pas simplement un manque de volonté. Elle peut être liée à différents facteurs et mérite une attention et un accompagnement professionnel.",
+
+        signsTitle: "Signes qui méritent de l'attention",
+        signsIntro: "Certains changements persistants peuvent indiquer qu'une personne traverse une période difficile et a besoin de soutien.",
+        sign1: "Changements persistants de l'humeur",
+        sign2: "Perte d'intérêt pour les activités",
+        sign3: "Fatigue ou manque d'énergie",
+        sign4: "Changements dans le sommeil",
+        sign5: "Difficultés de concentration",
+        sign6: "Sentiment fréquent de culpabilité ou de découragement",
+        important: "Important :",
+        attention: "Présenter l'un de ces signes ne signifie pas, à lui seul, qu'une personne souffre de dépression. Le diagnostic doit être posé par un professionnel de santé.",
+
+        factorsTitle: "Qu'est-ce qui peut influencer la santé mentale ?",
+        factorsIntro: "La santé mentale est influencée par différents aspects de la vie. Ces facteurs peuvent se combiner et varier d'une personne à l'autre.",
+
+        biological: "Biologiques",
+        biologicalText: "Caractéristiques et processus de l'organisme.",
+
+        psychological: "Psychologiques",
+        psychologicalText: "Pensées, émotions et expériences.",
+
+        social: "Sociaux",
+        socialText: "Relations, environnement et conditions de vie.",
+
+        difficult: "Moments difficiles",
+        difficultText: "Situations pouvant provoquer de la souffrance ou du stress.",
+
+        pcdTitle: "Santé mentale et personnes handicapées",
+        pcd1: "Les personnes handicapées ont droit à des soins de santé complets. Ces soins doivent tenir compte de l'accessibilité, de la communication, du respect, de l'autonomie et du soutien.",
+        pcd2: "Les obstacles physiques, de communication, d'information et les attitudes préjudiciables peuvent rendre l'accès aux services plus difficile. L'inclusion fait donc aussi partie du soin.",
+
+        accessibilityPoint: "♿ Accessibilité",
+        accessibilityPointText: "Environnements et informations accessibles.",
+
+        respectPoint: "🤝 Respect",
+        respectPointText: "Valoriser l'autonomie et les choix.",
+
+        welcomePoint: "💛 Accueil",
+        welcomePointText: "Écouter sans juger et avec attention.",
+
+        helpTitle: "Comment puis-je aider quelqu'un ?",
+
+        listen: "Écouter",
+        listenText: "Laissez la personne parler et montrez-lui que vous êtes présent.",
+
+        welcome: "Accueillir",
+        welcomeText: "Évitez les jugements et prenez la souffrance au sérieux avec respect.",
+
+        encourage: "Encourager la recherche d'aide",
+        encourageText: "Suggérez de parler à un professionnel de santé ou de rechercher un service public.",
+
+        whereHelp: "OÙ CHERCHER DE L'AIDE 🏥",
+        helpHeading: "Vous n'avez pas à tout affronter seul.",
+        helpIntro: "Le système public de santé offre différents points de prise en charge en santé mentale. Les soins primaires, comme une unité de santé de base, peuvent constituer un point de départ avec d'autres services.",
+
+        ubsTitle: "Soins primaires",
+        ubsText: "Une unité de santé de base peut orienter, accueillir et adresser vers d'autres services si nécessaire.",
+
+        capsTitle: "CAPS",
+        capsText: "Services publics de soins psychosociaux avec des équipes pluridisciplinaires et un accompagnement.",
+
+        professionalsTitle: "Professionnels",
+        professionalsText: "Les psychologues, médecins et autres professionnels peuvent évaluer la situation et orienter les soins appropriés.",
+
+        emergencyTitle: "En cas de situation nécessitant des soins immédiats",
+        emergencyText: "Adressez-vous à un service d'urgence, comme une UPA ou un service d'urgences hospitalières, ou appelez le SAMU au 192.",
+
+        finalTitle: "Parler, écouter et accueillir sont aussi des façons de prendre soin.",
+        finalText: "Une conversation respectueuse peut être importante. Chercher de l'aide est aussi une forme de soin.",
+
+        footer1: "Contenu éducatif basé sur des informations du ministère brésilien de la Santé.",
+        footer2: "Projet éducatif — Septembre Jaune",
+
+        backHome: "Accueil",
+        backHomeAria: "Retourner à l'écran d'accueil"
+    }
+};
+
+
+/* =====================================================
+   FUNÇÕES DE TRADUÇÃO
+===================================================== */
+
+function setText(
+    selector,
+    text
+) {
+
+    const element =
+        document.querySelector(
+            selector
+        );
+
+    if (element) {
+
+        element.textContent =
+            text;
+
+    }
+
+}
+
+
+function setTexts(
+    selector,
+    texts
+) {
+
+    document.querySelectorAll(
+        selector
+    ).forEach(
+        (element, index) => {
+
+            if (
+                texts[index] !== undefined
+            ) {
+
+                element.textContent =
+                    texts[index];
+
+            }
+
+        }
+    );
+
+}
+
+
+function setTextWithin(
+    parent,
+    selector,
+    text
+) {
+
+    const element =
+        parent.querySelector(
+            selector
+        );
+
+    if (element) {
+
+        element.textContent =
+            text;
+
+    }
+
+}
+
+
+function setTextsWithin(
+    parent,
+    selector,
+    texts
+) {
+
+    parent.querySelectorAll(
+        selector
+    ).forEach(
+        (element, index) => {
+
+            if (
+                texts[index] !== undefined
+            ) {
+
+                element.textContent =
+                    texts[index];
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   APLICAR IDIOMA
+===================================================== */
+
+function applyLanguage(
+    language
+) {
+
+    const t =
+        translations[language];
+
+    if (!t) {
+        return;
+    }
+
+
+    document.documentElement.lang =
+        t.lang;
+
+
+    /* Acessibilidade */
+
+    setText(
+        ".accessibility-toggle span",
+        t.accessibility
+    );
+
+    setText(
+        ".accessibility-small-title",
+        t.resources
+    );
+
+    setText(
+        ".accessibility-header h2",
+        t.accessibility
+    );
+
+    setText(
+        "#increaseText span:last-child",
+        t.increase
+    );
+
+    setText(
+        "#decreaseText span:last-child",
+        t.decrease
+    );
+
+    setText(
+        "#contrastToggle span:last-child",
+        t.contrast
+    );
+
+    setText(
+        "#spacingToggle span:last-child",
+        t.spacing
+    );
+
+    setText(
+        "#animationToggle span:last-child",
+        t.animations
+    );
+
+    setText(
+        "#focusToggle span:last-child",
+        t.focus
+    );
+
+    setText(
+        "#vlibrasButton span:last-child",
+        t.libras
+    );
+
+    setText(
+        ".language-title",
+        t.language
+    );
+
+
+    /* Botão voltar */
+
+    setText(
+        "#backHomeButton span",
+        t.backHome
+    );
+
+
+    if (backHomeButton) {
+
+        backHomeButton.setAttribute(
+            "aria-label",
+            t.backHomeAria
+        );
+
+        backHomeButton.setAttribute(
+            "title",
+            t.backHomeAria
+        );
+
+    }
+
+
+    /* Primeira tela */
+
+    setText(
+        ".welcome .label",
+        t.homeLabel
+    );
+
+    setText(
+        "#home-title",
+        t.homeTitle
+    );
+
+    setText(
+        ".welcome p",
+        t.homeText
+    );
+
+    setText(
+        ".click-area strong",
+        t.clickFlower
+    );
+
+    setText(
+        ".click-area span",
+        t.startJourney
+    );
+
+    setTexts(
+        ".bottom-bar span",
+        [
+            t.care,
+            t.matter
+        ]
+    );
+
+
+    /* Vídeo */
+
+    setText(
+        ".video-label",
+        t.videoLabel
+    );
+
+    setText(
+        "#video-title",
+        t.videoTitle
+    );
+
+    setText(
+        ".video-content > p",
+        t.videoText
+    );
+
+
+    /* Introdução */
+
+    setText(
+        ".info-intro .info-label",
+        t.infoLabel
+    );
+
+    setText(
+        "#info-title",
+        t.infoTitle
+    );
+
+    setText(
+        ".info-intro > p",
+        t.infoText
+    );
+
+
+    /* Cards */
+
+    const cards =
+        document.querySelectorAll(
+            ".info-card"
+        );
+
+
+    if (
+        cards.length >= 3
+    ) {
+
+        /* Depressão */
+
+        setTextWithin(
+            cards[0],
+            "h3",
+            t.depressionTitle
+        );
+
+        setTextsWithin(
+            cards[0],
+            "p",
+            [
+                t.depression1,
+                t.depression2
+            ]
+        );
+
+
+        /* Sinais */
+
+        setTextWithin(
+            cards[1],
+            "h3",
+            t.signsTitle
+        );
+
+        setTextWithin(
+            cards[1],
+            "> p",
+            t.signsIntro
+        );
+
+        setTextsWithin(
+            cards[1],
+            ".sign-item span:last-child",
+            [
+                t.sign1,
+                t.sign2,
+                t.sign3,
+                t.sign4,
+                t.sign5,
+                t.sign6
+            ]
+        );
+
+
+        const attentionBox =
+            cards[1].querySelector(
+                ".attention-box"
+            );
+
+        if (
+            attentionBox
+        ) {
+
+            attentionBox.innerHTML =
+                `<strong>${t.important}</strong> ${t.attention}`;
+
+        }
+
+
+        /* Fatores */
+
+        setTextWithin(
+            cards[2],
+            "h3",
+            t.factorsTitle
+        );
+
+        setTextWithin(
+            cards[2],
+            "> p",
+            t.factorsIntro
+        );
+
+        setTextsWithin(
+            cards[2],
+            ".factor h4",
+            [
+                t.biological,
+                t.psychological,
+                t.social,
+                t.difficult
+            ]
+        );
+
+        setTextsWithin(
+            cards[2],
+            ".factor p",
+            [
+                t.biologicalText,
+                t.psychologicalText,
+                t.socialText,
+                t.difficultText
+            ]
+        );
+
+
+        /* Como ajudar */
+
+        if (
+            cards.length >= 4
+        ) {
+
+            setTextWithin(
+                cards[3],
+                "h3",
+                t.helpTitle
+            );
+
+            setTextsWithin(
+                cards[3],
+                ".help-item strong",
+                [
+                    t.listen,
+                    t.welcome,
+                    t.encourage
+                ]
+            );
+
+            setTextsWithin(
+                cards[3],
+                ".help-item p",
+                [
+                    t.listenText,
+                    t.welcomeText,
+                    t.encourageText
+                ]
+            );
+
+        }
+
+    }
+
+
+    /* PCD */
+
+    setText(
+        ".pcd-content h3",
+        t.pcdTitle
+    );
+
+    setTexts(
+        ".pcd-content > p",
+        [
+            t.pcd1,
+            t.pcd2
+        ]
+    );
+
+    setTexts(
+        ".pcd-points strong",
+        [
+            t.accessibilityPoint,
+            t.respectPoint,
+            t.welcomePoint
+        ]
+    );
+
+    setTexts(
+        ".pcd-points span",
+        [
+            t.accessibilityPointText,
+            t.respectPointText,
+            t.welcomePointText
+        ]
+    );
+
+
+    /* Onde procurar ajuda */
+
+    setText(
+        ".help-location .info-label",
+        t.whereHelp
+    );
+
+    setText(
+        "#help-title",
+        t.helpHeading
+    );
+
+    setText(
+        ".location-heading > p",
+        t.helpIntro
+    );
+
+    setTexts(
+        ".location-card h3",
+        [
+            t.ubsTitle,
+            t.capsTitle,
+            t.professionalsTitle
+        ]
+    );
+
+    setTexts(
+        ".location-card p",
+        [
+            t.ubsText,
+            t.capsText,
+            t.professionalsText
+        ]
+    );
+
+
+    /* Emergência */
+
+    const emergencyStrong =
+        document.querySelector(
+            ".emergency-note > div:last-child > strong"
+        );
+
+    if (
+        emergencyStrong
+    ) {
+
+        emergencyStrong.textContent =
+            t.emergencyTitle;
+
+    }
+
+
+    const emergencyP =
+        document.querySelector(
+            ".emergency-note p"
+        );
+
+    if (
+        emergencyP
+    ) {
+
+        emergencyP.textContent =
+            t.emergencyText;
+
+    }
+
+
+    /* Mensagem final */
+
+    setText(
+        ".final-message > span",
+        t.homeLabel
+    );
+
+    setText(
+        ".final-message h2",
+        t.finalTitle
+    );
+
+    setText(
+        ".final-message p",
+        t.finalText
+    );
+
+
+    /* Rodapé */
+
+    setTexts(
+        ".sources p",
+        [
+            t.footer1,
+            t.footer2
+        ]
+    );
+
+
+    /* Girassóis */
+
+    flowers.forEach(
+        flower => {
+
+            flower.setAttribute(
+                "aria-label",
+                t.clickFlower
+            );
+
+        }
+    );
+
+
+    /* Idioma selecionado */
+
+    languageButtons.forEach(
+        button => {
+
+            const selected =
+                button.dataset.language ===
+                language;
+
+            button.classList.toggle(
+                "active",
+                selected
+            );
+
+            button.setAttribute(
+                "aria-pressed",
+                String(selected)
+            );
+
+        }
+    );
+
+
+    localStorage.setItem(
+        "siteLanguage",
+        language
+    );
+
+}
+
+
+/* =====================================================
+   BOTÕES DE IDIOMA
+===================================================== */
+
+const languageButtons =
+    document.querySelectorAll(
+        ".language-button"
+    );
+
+
+languageButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                applyLanguage(
+                    button.dataset.language
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   IDIOMA SALVO
+===================================================== */
+
+const savedLanguage =
+    localStorage.getItem(
+        "siteLanguage"
+    );
+
+
+applyLanguage(
+
+    savedLanguage &&
+    translations[savedLanguage]
+
+        ? savedLanguage
+
+        : "pt"
+
+);
+
+
+/* =====================================================
    ESC FECHA O MENU
 ===================================================== */
 
@@ -1089,12 +2278,14 @@ document.addEventListener(
 
         if (
             event.key === "Escape" &&
+            accessibilityPanel &&
             !accessibilityPanel.hidden
         ) {
 
             closeAccessibility();
 
             accessibilityToggle.focus();
+
         }
 
     }
@@ -1110,6 +2301,7 @@ document.addEventListener(
     event => {
 
         if (
+            !accessibilityPanel ||
             accessibilityPanel.hidden
         ) {
 
@@ -1123,7 +2315,7 @@ document.addEventListener(
             );
 
 
-        const clickedButton =
+        const clickedToggle =
             accessibilityToggle.contains(
                 event.target
             );
@@ -1131,10 +2323,11 @@ document.addEventListener(
 
         if (
             !clickedInside &&
-            !clickedButton
+            !clickedToggle
         ) {
 
             closeAccessibility();
+
         }
 
     }

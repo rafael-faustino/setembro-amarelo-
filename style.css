@@ -2383,3 +2383,126 @@ body.reduced-motion .mouse-icon {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* =====================================================
+   BOTÃO PARA VOLTAR À TELA DOS GIRASSÓIS
+===================================================== */
+
+.back-home-button {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 10000;
+
+    display: none;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 46px;
+    padding: 10px 15px;
+
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+
+    background: rgba(78, 55, 5, 0.96);
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-home-button.visible {
+    display: flex;
+}
+
+.back-home-button:hover {
+    transform: translateY(-2px);
+    background: rgba(54, 39, 4, 0.98);
+}
+
+.back-home-button:focus-visible {
+    outline: 5px solid #00ffff;
+    outline-offset: 4px;
+}
+
+/* =====================================================
+   SELETOR DE IDIOMAS
+===================================================== */
+
+.language-section {
+    margin-top: 16px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(120, 87, 0, 0.15);
+}
+
+.language-title {
+    display: block;
+    margin-bottom: 10px;
+    color: #9a7100;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.language-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.language-button {
+    min-height: 42px;
+    padding: 8px;
+
+    border: 1px solid rgba(119, 87, 0, 0.15);
+    border-radius: 11px;
+
+    background: #fff9dc;
+    color: #523c06;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.language-button:hover {
+    background: #ffe77a;
+    transform: translateY(-1px);
+}
+
+.language-button.active {
+    background: #f1c928;
+    color: #4b3500;
+    box-shadow: inset 0 0 0 2px rgba(120, 80, 0, 0.15);
+}
+
+.language-button:focus-visible {
+    outline: 4px solid #00ffff;
+    outline-offset: 3px;
+}
+
+body.high-contrast .language-button {
+    background: #000;
+    color: #fff;
+    border-color: #fff;
+}
+
+@media (max-width: 700px) {
+    .back-home-button {
+        left: 12px;
+        bottom: 12px;
+        min-height: 44px;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+}
