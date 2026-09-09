@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Projeto educativo sobre Setembro Amarelo, cuidado, acolhimento e saúde mental.">
+    <meta
+        name="description"
+        content="Projeto educativo sobre Setembro Amarelo, cuidado, acolhimento e saúde mental."
+    >
 
     <title>Setembro Amarelo | Você Importa</title>
 
@@ -14,59 +17,275 @@
 
 <body>
 
+    <!-- =====================================================
+         MENU DE ACESSIBILIDADE
+    ====================================================== -->
+
+    <button
+        id="accessibilityToggle"
+        class="accessibility-toggle"
+        type="button"
+        aria-label="Abrir menu de acessibilidade"
+        aria-expanded="false"
+        aria-controls="accessibilityPanel"
+    >
+        ♿
+        <span>Acessibilidade</span>
+    </button>
+
+    <aside
+        id="accessibilityPanel"
+        class="accessibility-panel"
+        aria-label="Menu de acessibilidade"
+        hidden
+    >
+
+        <div class="accessibility-header">
+
+            <div>
+                <span class="accessibility-small-title">
+                    RECURSOS
+                </span>
+
+                <h2>
+                    Acessibilidade
+                </h2>
+            </div>
+
+            <button
+                id="accessibilityClose"
+                class="accessibility-close"
+                type="button"
+                aria-label="Fechar menu de acessibilidade"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="accessibility-options">
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="increaseText"
+                aria-label="Aumentar tamanho do texto"
+            >
+                <span>🔠</span>
+                <span>Aumentar texto</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="decreaseText"
+                aria-label="Diminuir tamanho do texto"
+            >
+                <span>🔡</span>
+                <span>Diminuir texto</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="contrastToggle"
+                aria-pressed="false"
+            >
+                <span>◐</span>
+                <span>Alto contraste</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="spacingToggle"
+                aria-pressed="false"
+            >
+                <span>↔️</span>
+                <span>Aumentar espaçamento</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="animationToggle"
+                aria-pressed="false"
+            >
+                <span>🎞️</span>
+                <span>Reduzir animações</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="focusToggle"
+                aria-pressed="false"
+            >
+                <span>👁️</span>
+                <span>Destacar foco</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="vlibrasButton"
+            >
+                <span>🤟</span>
+                <span>Ativar Libras</span>
+            </button>
+
+        </div>
+
+
+        <div
+            class="accessibility-status"
+            id="accessibilityStatus"
+            aria-live="polite"
+        >
+            Recursos de acessibilidade disponíveis.
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         PRIMEIRA PARTE — CAMPO DE GIRASSÓIS
+    ====================================================== -->
+
     <main id="home">
 
+        <!-- CÉU -->
+
         <div class="sky" aria-hidden="true">
+
             <div class="sun"></div>
+
             <div class="sun-glow"></div>
 
             <div class="cloud cloud-1"></div>
+
             <div class="cloud cloud-2"></div>
+
             <div class="cloud cloud-3"></div>
+
         </div>
 
-        <div class="far-field" aria-hidden="true"></div>
 
-        <div class="field" id="flowerField" aria-label="Campo de girassóis"></div>
+        <!-- CAMPO DISTANTE -->
 
-        <section class="welcome" aria-labelledby="home-title">
+        <div
+            class="far-field"
+            aria-hidden="true"
+        ></div>
 
-            <span class="label">SETEMBRO AMARELO</span>
+
+        <!-- CAMPO PRINCIPAL -->
+
+        <div
+            class="field"
+            id="flowerField"
+            aria-label="Campo de girassóis"
+        ></div>
+
+
+        <!-- TEXTO -->
+
+        <section
+            class="welcome"
+            aria-labelledby="home-title"
+        >
+
+            <span class="label">
+                SETEMBRO AMARELO
+            </span>
+
 
             <h1 id="home-title">
                 Você não está sozinho.
             </h1>
+
 
             <p>
                 Informação, acolhimento e esperança
                 podem transformar vidas.
             </p>
 
-            <div class="click-area">
-                <div class="mouse-icon" aria-hidden="true">👆</div>
 
-                <strong>Clique em um girassol</strong>
+            <div class="click-area">
+
+                <div
+                    class="mouse-icon"
+                    aria-hidden="true"
+                >
+                    👆
+                </div>
+
+
+                <strong>
+                    Clique em um girassol
+                </strong>
+
 
                 <span>
                     e comece sua jornada
                 </span>
+
             </div>
 
         </section>
 
-        <div id="butterflies" aria-hidden="true"></div>
 
-        <div id="particles" aria-hidden="true"></div>
+        <!-- BORBOLETAS -->
 
-        <div class="bottom-bar" aria-hidden="true">
-            <span>💛 Cuidar também é ouvir.</span>
-            <span>🎗️ Você importa.</span>
+        <div
+            id="butterflies"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- PARTÍCULAS -->
+
+        <div
+            id="particles"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- FRASES -->
+
+        <div
+            class="bottom-bar"
+            aria-hidden="true"
+        >
+
+            <span>
+                💛 Cuidar também é ouvir.
+            </span>
+
+            <span>
+                🎗️ Você importa.
+            </span>
+
         </div>
 
     </main>
 
 
-    <section id="videoSection" aria-labelledby="video-title">
+    <!-- =====================================================
+         SEGUNDA PARTE — VÍDEO
+    ====================================================== -->
+
+    <section
+        id="videoSection"
+        aria-labelledby="video-title"
+    >
 
         <div class="video-content">
 
@@ -74,26 +293,45 @@
                 UMA PAUSA PARA REFLETIR
             </span>
 
+
             <h2 id="video-title">
                 A vida importa. 💛
             </h2>
+
 
             <p>
                 Reserve alguns minutos para assistir e refletir
                 sobre a importância do cuidado, da escuta e do acolhimento.
             </p>
 
+
             <div class="video-box">
 
-                <!-- TROQUE SEU_VIDEO_AQUI PELO ID DO SEU VÍDEO -->
+                <!--
+                    TROQUE SEU_VIDEO_AQUI PELO ID DO SEU VÍDEO.
+
+                    Exemplo:
+                    https://www.youtube.com/watch?v=ABC123
+
+                    Fica:
+                    https://www.youtube.com/embed/ABC123
+                -->
 
                 <iframe
                     src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
                     title="Vídeo sobre Setembro Amarelo"
                     loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
+                    allow="
+                        accelerometer;
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        gyroscope;
+                        picture-in-picture;
+                        web-share
+                    "
+                    allowfullscreen
+                ></iframe>
 
             </div>
 
@@ -102,9 +340,19 @@
     </section>
 
 
-    <section id="infoSection" aria-labelledby="info-title">
+    <!-- =====================================================
+         TERCEIRA PARTE — INFORMAÇÕES
+    ====================================================== -->
+
+    <section
+        id="infoSection"
+        aria-labelledby="info-title"
+    >
 
         <div class="info-container">
+
+
+            <!-- INTRODUÇÃO -->
 
             <div class="info-intro reveal">
 
@@ -112,9 +360,11 @@
                     INFORME-SE 💛
                 </span>
 
+
                 <h2 id="info-title">
                     Conhecimento também é uma forma de cuidado.
                 </h2>
+
 
                 <p>
                     Entender a saúde mental ajuda a reconhecer mudanças,
@@ -124,23 +374,40 @@
             </div>
 
 
+            <!-- =================================================
+                 DEPRESSÃO
+            ================================================== -->
+
             <article class="info-card reveal">
 
                 <div class="card-top">
-                    <div class="card-icon" aria-hidden="true">🧠</div>
 
-                    <span class="card-number">01</span>
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🧠
+                    </div>
+
+
+                    <span class="card-number">
+                        01
+                    </span>
+
                 </div>
+
 
                 <h3>
                     O que é depressão?
                 </h3>
+
 
                 <p>
                     A depressão é uma condição de saúde mental que pode
                     afetar o humor, os interesses, a energia, a concentração
                     e também aspectos do dia a dia.
                 </p>
+
 
                 <p>
                     Ela não é simplesmente "falta de força de vontade".
@@ -151,17 +418,33 @@
             </article>
 
 
+            <!-- =================================================
+                 SINAIS
+            ================================================== -->
+
             <article class="info-card reveal">
 
                 <div class="card-top">
-                    <div class="card-icon" aria-hidden="true">🔎</div>
 
-                    <span class="card-number">02</span>
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🔎
+                    </div>
+
+
+                    <span class="card-number">
+                        02
+                    </span>
+
                 </div>
+
 
                 <h3>
                     Sinais que merecem atenção
                 </h3>
+
 
                 <p>
                     Algumas mudanças persistentes podem indicar que uma
@@ -169,61 +452,132 @@
                     de acolhimento.
                 </p>
 
+
                 <div class="sign-list">
 
-                    <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Mudanças persistentes no humor</span>
-                    </div>
 
                     <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Perda de interesse por atividades</span>
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Mudanças persistentes no humor
+                        </span>
+
                     </div>
 
-                    <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Cansaço ou falta de energia</span>
-                    </div>
 
                     <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Alterações no sono</span>
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Perda de interesse por atividades
+                        </span>
+
                     </div>
 
-                    <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Dificuldade de concentração</span>
-                    </div>
 
                     <div class="sign-item">
-                        <span aria-hidden="true">●</span>
-                        <span>Sentimento frequente de culpa ou desânimo</span>
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Cansaço ou falta de energia
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Alterações no sono
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Dificuldade de concentração
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Sentimento frequente de culpa ou desânimo
+                        </span>
+
                     </div>
 
                 </div>
 
+
                 <div class="attention-box">
-                    <strong>Importante:</strong>
+
+                    <strong>
+                        Importante:
+                    </strong>
+
                     ter um desses sinais, sozinho, não significa que uma
                     pessoa tenha depressão. O diagnóstico deve ser realizado
                     por um profissional de saúde.
+
                 </div>
 
             </article>
 
 
+            <!-- =================================================
+                 FATORES
+            ================================================== -->
+
             <article class="info-card reveal">
 
                 <div class="card-top">
-                    <div class="card-icon" aria-hidden="true">🌱</div>
 
-                    <span class="card-number">03</span>
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🌱
+                    </div>
+
+
+                    <span class="card-number">
+                        03
+                    </span>
+
                 </div>
+
 
                 <h3>
                     O que pode influenciar a saúde mental?
                 </h3>
+
 
                 <p>
                     A saúde mental é influenciada por diferentes aspectos
@@ -231,38 +585,95 @@
                     pessoa para pessoa.
                 </p>
 
+
                 <div class="factor-grid">
 
+
                     <div class="factor">
-                        <div class="factor-icon" aria-hidden="true">🧬</div>
-                        <h4>Biológicos</h4>
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            🧬
+                        </div>
+
+
+                        <h4>
+                            Biológicos
+                        </h4>
+
+
                         <p>
                             Características e processos do organismo.
                         </p>
+
                     </div>
 
+
                     <div class="factor">
-                        <div class="factor-icon" aria-hidden="true">💭</div>
-                        <h4>Psicológicos</h4>
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            💭
+                        </div>
+
+
+                        <h4>
+                            Psicológicos
+                        </h4>
+
+
                         <p>
                             Pensamentos, emoções e experiências.
                         </p>
+
                     </div>
 
+
                     <div class="factor">
-                        <div class="factor-icon" aria-hidden="true">👥</div>
-                        <h4>Sociais</h4>
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            👥
+                        </div>
+
+
+                        <h4>
+                            Sociais
+                        </h4>
+
+
                         <p>
                             Relações, ambiente e condições de vida.
                         </p>
+
                     </div>
 
+
                     <div class="factor">
-                        <div class="factor-icon" aria-hidden="true">🌦️</div>
-                        <h4>Momentos difíceis</h4>
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            🌦️
+                        </div>
+
+
+                        <h4>
+                            Momentos difíceis
+                        </h4>
+
+
                         <p>
                             Situações que podem gerar sofrimento ou estresse.
                         </p>
+
                     </div>
 
                 </div>
@@ -270,19 +681,35 @@
             </article>
 
 
+            <!-- =================================================
+                 PCD
+            ================================================== -->
+
             <article class="pcd-card reveal">
 
-                <div class="pcd-icon" aria-hidden="true">♿</div>
+                <div
+                    class="pcd-icon"
+                    aria-hidden="true"
+                >
+                    ♿
+                </div>
+
 
                 <div class="pcd-content">
 
                     <div class="card-top pcd-top">
-                        <span class="card-number">04</span>
+
+                        <span class="card-number">
+                            04
+                        </span>
+
                     </div>
+
 
                     <h3>
                         Saúde mental e pessoas com deficiência
                     </h3>
+
 
                     <p>
                         Pessoas com deficiência têm direito ao cuidado integral
@@ -291,6 +718,7 @@
                         respeito, autonomia e acolhimento.
                     </p>
 
+
                     <p>
                         Barreiras físicas, de comunicação, informação e
                         atitudes preconceituosas podem dificultar o acesso
@@ -298,21 +726,46 @@
                         do cuidado.
                     </p>
 
+
                     <div class="pcd-points">
 
-                        <div>
-                            <strong>♿ Acessibilidade</strong>
-                            <span>Ambientes e informações acessíveis.</span>
-                        </div>
 
                         <div>
-                            <strong>🤝 Respeito</strong>
-                            <span>Valorizar a autonomia e as escolhas.</span>
+
+                            <strong>
+                                ♿ Acessibilidade
+                            </strong>
+
+                            <span>
+                                Ambientes e informações acessíveis.
+                            </span>
+
                         </div>
 
+
                         <div>
-                            <strong>💛 Acolhimento</strong>
-                            <span>Ouvir sem julgamentos e com atenção.</span>
+
+                            <strong>
+                                🤝 Respeito
+                            </strong>
+
+                            <span>
+                                Valorizar a autonomia e as escolhas.
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                💛 Acolhimento
+                            </strong>
+
+                            <span>
+                                Ouvir sem julgamentos e com atenção.
+                            </span>
+
                         </div>
 
                     </div>
@@ -322,57 +775,103 @@
             </article>
 
 
+            <!-- =================================================
+                 COMO AJUDAR
+            ================================================== -->
+
             <article class="info-card help-card reveal">
 
                 <div class="card-top">
-                    <div class="card-icon" aria-hidden="true">🤝</div>
 
-                    <span class="card-number">05</span>
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🤝
+                    </div>
+
+
+                    <span class="card-number">
+                        05
+                    </span>
+
                 </div>
+
 
                 <h3>
                     Como posso ajudar alguém?
                 </h3>
 
+
                 <div class="help-list">
 
+
                     <div class="help-item">
-                        <span class="help-number">1</span>
+
+                        <span class="help-number">
+                            1
+                        </span>
+
 
                         <div>
-                            <strong>Escute</strong>
+
+                            <strong>
+                                Escute
+                            </strong>
 
                             <p>
                                 Dê espaço para a pessoa falar e demonstre
                                 que você está presente.
                             </p>
+
                         </div>
+
                     </div>
 
+
                     <div class="help-item">
-                        <span class="help-number">2</span>
+
+                        <span class="help-number">
+                            2
+                        </span>
+
 
                         <div>
-                            <strong>Acolha</strong>
+
+                            <strong>
+                                Acolha
+                            </strong>
 
                             <p>
                                 Evite julgamentos e trate o sofrimento
                                 com seriedade e respeito.
                             </p>
+
                         </div>
+
                     </div>
 
+
                     <div class="help-item">
-                        <span class="help-number">3</span>
+
+                        <span class="help-number">
+                            3
+                        </span>
+
 
                         <div>
-                            <strong>Incentive a busca por ajuda</strong>
+
+                            <strong>
+                                Incentive a busca por ajuda
+                            </strong>
 
                             <p>
                                 Sugira conversar com um profissional de saúde
                                 ou procurar um serviço do SUS.
                             </p>
+
                         </div>
+
                     </div>
 
                 </div>
@@ -380,7 +879,14 @@
             </article>
 
 
-            <section class="help-location reveal" aria-labelledby="help-title">
+            <!-- =================================================
+                 ONDE PROCURAR AJUDA
+            ================================================== -->
+
+            <section
+                class="help-location reveal"
+                aria-labelledby="help-title"
+            >
 
                 <div class="location-heading">
 
@@ -388,9 +894,11 @@
                         ONDE PROCURAR AJUDA 🏥
                     </span>
 
+
                     <h2 id="help-title">
                         Você não precisa enfrentar tudo sozinho.
                     </h2>
+
 
                     <p>
                         O SUS oferece diferentes pontos de cuidado em saúde
@@ -401,59 +909,104 @@
 
                 </div>
 
+
                 <div class="locations-grid">
 
-                    <article class="location-card">
-                        <div class="location-icon" aria-hidden="true">🏥</div>
 
-                        <h3>UBS</h3>
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            🏥
+                        </div>
+
+
+                        <h3>
+                            UBS
+                        </h3>
+
 
                         <p>
                             Unidade Básica de Saúde. Pode orientar, acolher
                             e encaminhar para outros serviços quando necessário.
                         </p>
+
                     </article>
 
-                    <article class="location-card">
-                        <div class="location-icon" aria-hidden="true">🫂</div>
 
-                        <h3>CAPS</h3>
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            🫂
+                        </div>
+
+
+                        <h3>
+                            CAPS
+                        </h3>
+
 
                         <p>
                             Serviços públicos de atenção psicossocial com
                             equipe multiprofissional e acompanhamento.
                         </p>
+
                     </article>
 
-                    <article class="location-card">
-                        <div class="location-icon" aria-hidden="true">👩‍⚕️</div>
 
-                        <h3>Profissionais</h3>
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            👩‍⚕️
+                        </div>
+
+
+                        <h3>
+                            Profissionais
+                        </h3>
+
 
                         <p>
                             Psicólogos, médicos e outros profissionais podem
                             avaliar a situação e orientar o cuidado adequado.
                         </p>
+
                     </article>
 
                 </div>
 
+
                 <div class="emergency-note">
 
-                    <div class="emergency-icon" aria-hidden="true">
+                    <div
+                        class="emergency-icon"
+                        aria-hidden="true"
+                    >
                         🚨
                     </div>
 
+
                     <div>
+
                         <strong>
                             Em uma situação que precise de atendimento imediato
                         </strong>
+
 
                         <p>
                             Procure um serviço de urgência e emergência,
                             como uma UPA ou pronto-socorro, ou acione o
                             SAMU pelo <strong>192</strong>.
                         </p>
+
                     </div>
 
                 </div>
@@ -461,19 +1014,29 @@
             </section>
 
 
+            <!-- =================================================
+                 MENSAGEM FINAL
+            ================================================== -->
+
             <div class="final-message reveal">
 
-                <div class="final-flower" aria-hidden="true">
+                <div
+                    class="final-flower"
+                    aria-hidden="true"
+                >
                     🌻
                 </div>
+
 
                 <span>
                     SETEMBRO AMARELO
                 </span>
 
+
                 <h2>
                     Falar, ouvir e acolher também são formas de cuidar.
                 </h2>
+
 
                 <p>
                     Uma conversa respeitosa pode ser importante.
@@ -483,12 +1046,17 @@
             </div>
 
 
+            <!-- =================================================
+                 FONTES
+            ================================================== -->
+
             <footer class="sources">
 
                 <p>
                     Conteúdo educativo elaborado com base em informações
                     do Ministério da Saúde.
                 </p>
+
 
                 <p>
                     Projeto educativo — Setembro Amarelo
@@ -501,7 +1069,56 @@
     </section>
 
 
+    <!-- =====================================================
+         VLibras
+    ====================================================== -->
+
+    <div
+        vw
+        class="enabled"
+    >
+
+        <div
+            vw-access-button
+            class="active"
+            aria-label="Abrir ferramenta VLibras"
+        ></div>
+
+
+        <div vw-plugin-wrapper>
+
+            <div class="vw-plugin-top-wrapper"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JAVASCRIPT DO SITE -->
+
     <script src="script.js"></script>
+
+
+    <!-- VLibras -->
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <script>
+
+        new window.VLibras.Widget({
+
+            rootPath:
+                "https://vlibras.gov.br/app",
+
+            avatar:
+                "random",
+
+            position:
+                "R"
+
+        });
+
+    </script>
 
 </body>
 
