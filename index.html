@@ -18,6 +18,20 @@
 <body>
 
     <!-- =====================================================
+         BOTÃO INÍCIO
+    ====================================================== -->
+
+    <button
+        id="backHomeButton"
+        class="back-home-button"
+        type="button"
+        aria-label="Voltar para o início"
+    >
+        🏠 <span>Início</span>
+    </button>
+
+
+    <!-- =====================================================
          MENU DE ACESSIBILIDADE
     ====================================================== -->
 
@@ -32,6 +46,7 @@
         ♿
         <span>Acessibilidade</span>
     </button>
+
 
     <aside
         id="accessibilityPanel"
@@ -144,6 +159,63 @@
         </div>
 
 
+        <!-- =================================================
+             IDIOMAS
+        ================================================== -->
+
+        <div class="language-section">
+
+            <span class="language-title">
+                IDIOMA 🌎
+            </span>
+
+            <div
+                class="language-options"
+                role="group"
+                aria-label="Selecionar idioma"
+            >
+
+                <button
+                    type="button"
+                    class="language-button active"
+                    data-language="pt"
+                    aria-pressed="true"
+                >
+                    🇧🇷 Português
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="en"
+                    aria-pressed="false"
+                >
+                    🇺🇸 English
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="es"
+                    aria-pressed="false"
+                >
+                    🇪🇸 Español
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="fr"
+                    aria-pressed="false"
+                >
+                    🇫🇷 Français
+                </button>
+
+            </div>
+
+        </div>
+
+
         <div
             class="accessibility-status"
             id="accessibilityStatus"
@@ -163,18 +235,16 @@
 
         <!-- CÉU -->
 
-        <div class="sky" aria-hidden="true">
-
+        <div
+            class="sky"
+            aria-hidden="true"
+        >
             <div class="sun"></div>
-
             <div class="sun-glow"></div>
 
             <div class="cloud cloud-1"></div>
-
             <div class="cloud cloud-2"></div>
-
             <div class="cloud cloud-3"></div>
-
         </div>
 
 
@@ -206,11 +276,9 @@
                 SETEMBRO AMARELO
             </span>
 
-
             <h1 id="home-title">
                 Você não está sozinho.
             </h1>
-
 
             <p>
                 Informação, acolhimento e esperança
@@ -227,11 +295,9 @@
                     👆
                 </div>
 
-
                 <strong>
                     Clique em um girassol
                 </strong>
-
 
                 <span>
                     e comece sua jornada
@@ -293,11 +359,9 @@
                 UMA PAUSA PARA REFLETIR
             </span>
 
-
             <h2 id="video-title">
                 A vida importa. 💛
             </h2>
-
 
             <p>
                 Reserve alguns minutos para assistir e refletir
@@ -321,15 +385,7 @@
                     src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
                     title="Vídeo sobre Setembro Amarelo"
                     loading="lazy"
-                    allow="
-                        accelerometer;
-                        autoplay;
-                        clipboard-write;
-                        encrypted-media;
-                        gyroscope;
-                        picture-in-picture;
-                        web-share
-                    "
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen
                 ></iframe>
 
@@ -352,7 +408,9 @@
         <div class="info-container">
 
 
-            <!-- INTRODUÇÃO -->
+            <!-- =================================================
+                 INTRODUÇÃO
+            ================================================== -->
 
             <div class="info-intro reveal">
 
@@ -360,11 +418,9 @@
                     INFORME-SE 💛
                 </span>
 
-
                 <h2 id="info-title">
                     Conhecimento também é uma forma de cuidado.
                 </h2>
-
 
                 <p>
                     Entender a saúde mental ajuda a reconhecer mudanças,
@@ -389,7 +445,6 @@
                         🧠
                     </div>
 
-
                     <span class="card-number">
                         01
                     </span>
@@ -407,7 +462,6 @@
                     afetar o humor, os interesses, a energia, a concentração
                     e também aspectos do dia a dia.
                 </p>
-
 
                 <p>
                     Ela não é simplesmente "falta de força de vontade".
@@ -433,7 +487,6 @@
                         🔎
                     </div>
 
-
                     <span class="card-number">
                         02
                     </span>
@@ -454,7 +507,6 @@
 
 
                 <div class="sign-list">
-
 
                     <div class="sign-item">
 
@@ -566,7 +618,6 @@
                         🌱
                     </div>
 
-
                     <span class="card-number">
                         03
                     </span>
@@ -598,11 +649,9 @@
                             🧬
                         </div>
 
-
                         <h4>
                             Biológicos
                         </h4>
-
 
                         <p>
                             Características e processos do organismo.
@@ -620,11 +669,9 @@
                             💭
                         </div>
 
-
                         <h4>
                             Psicológicos
                         </h4>
-
 
                         <p>
                             Pensamentos, emoções e experiências.
@@ -642,11 +689,9 @@
                             👥
                         </div>
 
-
                         <h4>
                             Sociais
                         </h4>
-
 
                         <p>
                             Relações, ambiente e condições de vida.
@@ -664,11 +709,9 @@
                             🌦️
                         </div>
 
-
                         <h4>
                             Momentos difíceis
                         </h4>
-
 
                         <p>
                             Situações que podem gerar sofrimento ou estresse.
@@ -790,7 +833,6 @@
                         🤝
                     </div>
 
-
                     <span class="card-number">
                         05
                     </span>
@@ -811,7 +853,6 @@
                         <span class="help-number">
                             1
                         </span>
-
 
                         <div>
 
@@ -835,7 +876,6 @@
                             2
                         </span>
 
-
                         <div>
 
                             <strong>
@@ -857,7 +897,6 @@
                         <span class="help-number">
                             3
                         </span>
-
 
                         <div>
 
@@ -894,11 +933,9 @@
                         ONDE PROCURAR AJUDA 🏥
                     </span>
 
-
                     <h2 id="help-title">
                         Você não precisa enfrentar tudo sozinho.
                     </h2>
-
 
                     <p>
                         O SUS oferece diferentes pontos de cuidado em saúde
@@ -922,11 +959,9 @@
                             🏥
                         </div>
 
-
                         <h3>
                             UBS
                         </h3>
-
 
                         <p>
                             Unidade Básica de Saúde. Pode orientar, acolher
@@ -945,11 +980,9 @@
                             🫂
                         </div>
 
-
                         <h3>
                             CAPS
                         </h3>
-
 
                         <p>
                             Serviços públicos de atenção psicossocial com
@@ -968,11 +1001,9 @@
                             👩‍⚕️
                         </div>
 
-
                         <h3>
                             Profissionais
                         </h3>
-
 
                         <p>
                             Psicólogos, médicos e outros profissionais podem
@@ -993,13 +1024,11 @@
                         🚨
                     </div>
 
-
                     <div>
 
                         <strong>
                             Em uma situação que precise de atendimento imediato
                         </strong>
-
 
                         <p>
                             Procure um serviço de urgência e emergência,
@@ -1057,7 +1086,6 @@
                     do Ministério da Saúde.
                 </p>
 
-
                 <p>
                     Projeto educativo — Setembro Amarelo
                 </p>
@@ -1094,30 +1122,25 @@
     </div>
 
 
-    <!-- JAVASCRIPT DO SITE -->
+    <!-- =====================================================
+         JAVASCRIPT DO SITE
+    ====================================================== -->
 
     <script src="script.js"></script>
 
 
-    <!-- VLibras -->
+    <!-- =====================================================
+         VLibras
+    ====================================================== -->
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 
     <script>
-
         new window.VLibras.Widget({
-
-            rootPath:
-                "https://vlibras.gov.br/app",
-
-            avatar:
-                "random",
-
-            position:
-                "R"
-
+            rootPath: "https://vlibras.gov.br/app",
+            avatar: "random",
+            position: "R"
         });
-
     </script>
 
 </body>
