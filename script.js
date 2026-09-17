@@ -1,2334 +1,1599 @@
-const home = document.getElementById("home");
-const field = document.getElementById("flowerField");
-const videoSection = document.getElementById("videoSection");
-
-const butterflies = document.getElementById("butterflies");
-const particles = document.getElementById("particles");
-
-let journeyStarted = false;
-
-
 /* =====================================================
-   CRIAR GIRASSÓIS
+   TRADUÇÃO COMPLETA DO SITE
+   SISTEMA GLOBAL — TRADUZ TODOS OS TEXTOS
 ===================================================== */
 
-const flowers = [];
-
-const flowerPositions = [
-    ["flower-1", 4, -30, 170, 1],
-    ["flower-2", 15, -45, 220, 1],
-    ["flower-3", 27, -25, 155, 0.95],
-    ["flower-4", 39, -55, 230, 1],
-    ["flower-5", 51, -30, 175, 1],
-    ["flower-6", 63, -48, 215, 1],
-    ["flower-7", 76, -30, 165, 1],
-    ["flower-8", 88, -55, 230, 1],
-
-    ["flower-9", 9, 27, 100, 0.8],
-    ["flower-10", 23, 30, 115, 0.8],
-    ["flower-11", 35, 24, 95, 0.8],
-    ["flower-12", 48, 29, 110, 0.8],
-    ["flower-13", 60, 25, 100, 0.8],
-    ["flower-14", 73, 30, 115, 0.8],
-    ["flower-15", 86, 26, 100, 0.8]
-];
-
-
-function createFlower(data) {
-
-    const [className, left, bottom, size, scale] = data;
-
-    const button = document.createElement("button");
-
-    button.type = "button";
-
-    button.className =
-        `sunflower ${className}`;
-
-    button.style.setProperty(
-        "--left",
-        `${left}%`
-    );
-
-    button.style.setProperty(
-        "--bottom",
-        bottom < 0
-            ? `${bottom}px`
-            : `${bottom}%`
-    );
-
-    button.style.setProperty(
-        "--size",
-        `${size}px`
-    );
-
-    button.style.setProperty(
-        "--scale",
-        scale
-    );
-
-    button.setAttribute(
-        "aria-label",
-        "Clique neste girassol para continuar"
-    );
-
-
-    const stem =
-        document.createElement("span");
-
-    stem.className =
-        "stem";
-
-
-    const leafLeft =
-        document.createElement("span");
-
-    leafLeft.className =
-        "leaf leaf-left";
-
-
-    const leafRight =
-        document.createElement("span");
-
-    leafRight.className =
-        "leaf leaf-right";
-
-
-    const head =
-        document.createElement("span");
-
-    head.className =
-        "flower-head";
-
-
-    for (let i = 0; i < 12; i++) {
-
-        const petal =
-            document.createElement("span");
-
-        petal.className =
-            "petal";
-
-        head.appendChild(petal);
-    }
-
-
-    const center =
-        document.createElement("span");
-
-    center.className =
-        "flower-center";
-
-    head.appendChild(center);
-
-
-    button.appendChild(stem);
-
-    button.appendChild(leafLeft);
-
-    button.appendChild(leafRight);
-
-    button.appendChild(head);
-
-
-    field.appendChild(button);
-
-    flowers.push(button);
-}
-
-
-flowerPositions.forEach(
-    createFlower
-);
-
-
-/* =====================================================
-   CRIAR BORBOLETA
-===================================================== */
-
-function createButterfly(
-    x,
-    y,
-    delay = 0
-) {
-
-    const butterfly =
-        document.createElement("span");
-
-    butterfly.className =
-        "butterfly";
-
-
-    butterfly.innerHTML = `
-        <span class="wing wing-left"></span>
-        <span class="body"></span>
-        <span class="wing wing-right"></span>
-    `;
-
-
-    butterfly.style.left =
-        `${x}px`;
-
-    butterfly.style.top =
-        `${y}px`;
-
-
-    const direction =
-        Math.random() > 0.5
-            ? 1
-            : -1;
-
-
-    const dx =
-        direction *
-        (180 + Math.random() * 520);
-
-
-    const dy =
-        -(350 + Math.random() * 500);
-
-
-    butterfly.style.setProperty(
-        "--dx",
-        `${dx}px`
-    );
-
-    butterfly.style.setProperty(
-        "--dy",
-        `${dy}px`
-    );
-
-
-    butterfly.style.setProperty(
-        "--duration",
-        `${4.5 + Math.random() * 2.5}s`
-    );
-
-
-    butterfly.style.animationDelay =
-        `${delay}s`;
-
-
-    butterflies.appendChild(
-        butterfly
-    );
-
-
-    setTimeout(() => {
-
-        butterfly.remove();
-
-    }, 8000);
-}
-
-
-/* =====================================================
-   CRIAR PARTÍCULA
-===================================================== */
-
-function createParticle(
-    x,
-    y
-) {
-
-    const particle =
-        document.createElement("span");
-
-    particle.className =
-        "particle";
-
-
-    particle.style.left =
-        `${x}px`;
-
-    particle.style.top =
-        `${y}px`;
-
-
-    particle.style.setProperty(
-        "--px",
-        `${(Math.random() - 0.5) * 160}px`
-    );
-
-
-    particle.style.setProperty(
-        "--py",
-        `${-(50 + Math.random() * 180)}px`
-    );
-
-
-    particles.appendChild(
-        particle
-    );
-
-
-    setTimeout(() => {
-
-        particle.remove();
-
-    }, 2200);
-}
-
-
-/* =====================================================
-   BORBOLETAS SAINDO DO GIRASSOL
-===================================================== */
-
-function launchFromFlower(
-    element
-) {
-
-    const rect =
-        element.getBoundingClientRect();
-
-
-    const centerX =
-        rect.left +
-        rect.width / 2;
-
-
-    const centerY =
-        rect.top +
-        rect.height * 0.25;
-
-
-    for (
-        let i = 0;
-        i < 28;
-        i++
-    ) {
-
-        const x =
-            centerX +
-            (Math.random() - 0.5) *
-            90;
-
-
-        const y =
-            centerY +
-            (Math.random() - 0.5) *
-            55;
-
-
-        createButterfly(
-            x,
-            y,
-            i * 0.045
-        );
-    }
-
-
-    for (
-        let i = 0;
-        i < 45;
-        i++
-    ) {
-
-        setTimeout(() => {
-
-            createParticle(
-
-                centerX +
-                (Math.random() - 0.5) *
-                100,
-
-                centerY +
-                (Math.random() - 0.5) *
-                80
-
-            );
-
-        }, i * 30);
-    }
-}
-
-
-/* =====================================================
-   BORBOLETAS AMBIENTAIS
-===================================================== */
-
-function createAmbientButterfly() {
-
-    const width =
-        window.innerWidth;
-
-
-    const height =
-        window.innerHeight;
-
-
-    const x =
-        Math.random() *
-        width;
-
-
-    const y =
-        height *
-        (
-            0.55 +
-            Math.random() * 0.35
-        );
-
-
-    createButterfly(
-        x,
-        y,
-        0
-    );
-}
-
-
-/* =====================================================
-   COMEÇAR JORNADA
-===================================================== */
-
-function startJourney(event) {
-
-    if (journeyStarted) {
-        return;
-    }
-
-
-    journeyStarted = true;
-
-
-    flowers.forEach(
-        flower => {
-
-            flower.disabled =
-                true;
-
-        }
-    );
-
-
-    launchFromFlower(
-        event.currentTarget
-    );
-
-
-    for (
-        let i = 0;
-        i < 45;
-        i++
-    ) {
-
-        setTimeout(() => {
-
-            createAmbientButterfly();
-
-        }, i * 75);
-    }
-
-
-    for (
-        let i = 0;
-        i < 70;
-        i++
-    ) {
-
-        setTimeout(() => {
-
-            createParticle(
-
-                Math.random() *
-                window.innerWidth,
-
-                window.innerHeight *
-                (
-                    0.35 +
-                    Math.random() * 0.5
-                )
-
-            );
-
-        }, i * 40);
-    }
-
-
-    setTimeout(() => {
-
-        home.classList.add(
-            "leaving"
-        );
-
-    }, 1400);
-
-
-    setTimeout(() => {
-
-        home.style.display =
-            "none";
-
-
-        videoSection.classList.add(
-            "visible"
-        );
-
-
-        videoSection.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
-        });
-
-
-    }, 2600);
-}
-
-
-/* =====================================================
-   CLIQUE NOS GIRASSÓIS
-===================================================== */
-
-flowers.forEach(
-    flower => {
-
-        flower.addEventListener(
-            "click",
-            startJourney
-        );
-
-
-        flower.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" ||
-                    event.key === " "
-                ) {
-
-                    event.preventDefault();
-
-                    flower.click();
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   ANIMAÇÃO DAS INFORMAÇÕES
-===================================================== */
-
-const revealElements =
-    document.querySelectorAll(
-        ".reveal"
-    );
-
-
-if (
-    "IntersectionObserver"
-    in window
-) {
-
-    const revealObserver =
-        new IntersectionObserver(
-
-            entries => {
-
-                entries.forEach(
-                    entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "show"
-                            );
-
-
-                            revealObserver.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-
-            {
-                threshold:
-                    0.12
-            }
-
-        );
-
-
-    revealElements.forEach(
-        element => {
-
-            revealObserver.observe(
-                element
-            );
-
-        }
-    );
-
-
-} else {
-
-    revealElements.forEach(
-        element => {
-
-            element.classList.add(
-                "show"
-            );
-
-        }
-    );
-}
-
-
-/* =====================================================
-   MENU DE ACESSIBILIDADE
-===================================================== */
-
-const accessibilityToggle =
-    document.getElementById(
-        "accessibilityToggle"
-    );
-
-const accessibilityPanel =
-    document.getElementById(
-        "accessibilityPanel"
-    );
-
-const accessibilityClose =
-    document.getElementById(
-        "accessibilityClose"
-    );
-
-const accessibilityStatus =
-    document.getElementById(
-        "accessibilityStatus"
-    );
-
-const increaseText =
-    document.getElementById(
-        "increaseText"
-    );
-
-const decreaseText =
-    document.getElementById(
-        "decreaseText"
-    );
-
-const contrastToggle =
-    document.getElementById(
-        "contrastToggle"
-    );
-
-const spacingToggle =
-    document.getElementById(
-        "spacingToggle"
-    );
-
-const animationToggle =
-    document.getElementById(
-        "animationToggle"
-    );
-
-const focusToggle =
-    document.getElementById(
-        "focusToggle"
-    );
-
-const vlibrasButton =
-    document.getElementById(
-        "vlibrasButton"
-    );
-
-
-/* =====================================================
-   VOLTAR AO INÍCIO
-===================================================== */
-
-const backHomeButton =
-    document.getElementById(
-        "backHomeButton"
-    );
-
-
-function showBackHomeButton() {
-
-    if (!backHomeButton) {
-        return;
-    }
-
-    backHomeButton.classList.add(
-        "visible"
-    );
-}
-
-
-function hideBackHomeButton() {
-
-    if (!backHomeButton) {
-        return;
-    }
-
-    backHomeButton.classList.remove(
-        "visible"
-    );
-}
-
-
-if (backHomeButton) {
-
-    backHomeButton.addEventListener(
-        "click",
-        () => {
-
-            home.style.display =
-                "block";
-
-            home.classList.remove(
-                "leaving"
-            );
-
-            videoSection.classList.add(
-                "visible"
-            );
-
-            journeyStarted =
-                false;
-
-
-            flowers.forEach(
-                flower => {
-
-                    flower.disabled =
-                        false;
-
-                }
-            );
-
-
-            butterflies.innerHTML =
-                "";
-
-            particles.innerHTML =
-                "";
-
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior:
-                    "smooth"
-
-            });
-
-
-            hideBackHomeButton();
-
-        }
-    );
-
-}
-
-
-/*
-    Verifica quando a primeira tela
-    já desapareceu e mostra o botão.
-*/
-
-setInterval(() => {
-
-    if (
-        backHomeButton &&
-        journeyStarted &&
-        home.style.display === "none"
-    ) {
-
-        showBackHomeButton();
-
-    }
-
-}, 300);
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function setAccessibilityStatus(
-    message
-) {
-
-    if (
-        accessibilityStatus
-    ) {
-
-        accessibilityStatus.textContent =
-            message;
-
-    }
-
-}
-
-
-/* =====================================================
-   ABRIR MENU
-===================================================== */
-
-function openAccessibility() {
-
-    accessibilityPanel.hidden =
-        false;
-
-    accessibilityToggle.setAttribute(
-        "aria-expanded",
-        "true"
-    );
-
-}
-
-
-/* =====================================================
-   FECHAR MENU
-===================================================== */
-
-function closeAccessibility() {
-
-    accessibilityPanel.hidden =
-        true;
-
-    accessibilityToggle.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-}
-
-
-accessibilityToggle.addEventListener(
-    "click",
-    () => {
-
-        if (
-            accessibilityPanel.hidden
-        ) {
-
-            openAccessibility();
-
-        } else {
-
-            closeAccessibility();
-
-        }
-
-    }
-);
-
-
-accessibilityClose.addEventListener(
-    "click",
-    closeAccessibility
-);
-
-
-/* =====================================================
-   TAMANHO DO TEXTO
-===================================================== */
-
-let textLevel = 0;
-
-
-function updateTextSize() {
-
-    document.documentElement.classList.remove(
-        "text-small",
-        "text-large",
-        "text-extra-large"
-    );
-
-
-    if (
-        textLevel === -1
-    ) {
-
-        document.documentElement.classList.add(
-            "text-small"
-        );
-
-    }
-
-
-    if (
-        textLevel === 1
-    ) {
-
-        document.documentElement.classList.add(
-            "text-large"
-        );
-
-    }
-
-
-    if (
-        textLevel >= 2
-    ) {
-
-        document.documentElement.classList.add(
-            "text-extra-large"
-        );
-
-    }
-
-}
-
-
-increaseText.addEventListener(
-    "click",
-    () => {
-
-        if (
-            textLevel < 2
-        ) {
-
-            textLevel++;
-
-        }
-
-        updateTextSize();
-
-
-        if (
-            textLevel === 1
-        ) {
-
-            setAccessibilityStatus(
-                "Texto aumentado."
-            );
-
-        } else if (
-            textLevel === 2
-        ) {
-
-            setAccessibilityStatus(
-                "Tamanho máximo de texto ativado."
-            );
-
-        } else {
-
-            setAccessibilityStatus(
-                "Texto aumentado novamente."
-            );
-
-        }
-
-    }
-);
-
-
-decreaseText.addEventListener(
-    "click",
-    () => {
-
-        if (
-            textLevel > -1
-        ) {
-
-            textLevel--;
-
-        }
-
-
-        if (
-            textLevel < -1
-        ) {
-
-            textLevel = -1;
-
-        }
-
-
-        updateTextSize();
-
-
-        setAccessibilityStatus(
-
-            textLevel === -1
-
-                ? "Texto reduzido."
-
-                : "Tamanho do texto ajustado."
-
-        );
-
-    }
-);
-
-
-/* =====================================================
-   ALTO CONTRASTE
-===================================================== */
-
-contrastToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "high-contrast"
-        );
-
-
-        const enabled =
-            document.body.classList.contains(
-                "high-contrast"
-            );
-
-
-        contrastToggle.setAttribute(
-            "aria-pressed",
-            String(enabled)
-        );
-
-
-        setAccessibilityStatus(
-
-            enabled
-
-                ? "Alto contraste ativado."
-
-                : "Alto contraste desativado."
-
-        );
-
-    }
-);
-
-
-/* =====================================================
-   ESPAÇAMENTO
-===================================================== */
-
-spacingToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "extra-spacing"
-        );
-
-
-        const enabled =
-            document.body.classList.contains(
-                "extra-spacing"
-            );
-
-
-        spacingToggle.setAttribute(
-            "aria-pressed",
-            String(enabled)
-        );
-
-
-        setAccessibilityStatus(
-
-            enabled
-
-                ? "Espaçamento maior ativado."
-
-                : "Espaçamento normal restaurado."
-
-        );
-
-    }
-);
-
-
-/* =====================================================
-   REDUZIR ANIMAÇÕES
-===================================================== */
-
-animationToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "reduced-motion"
-        );
-
-
-        const enabled =
-            document.body.classList.contains(
-                "reduced-motion"
-            );
-
-
-        animationToggle.setAttribute(
-            "aria-pressed",
-            String(enabled)
-        );
-
-
-        setAccessibilityStatus(
-
-            enabled
-
-                ? "Animações reduzidas."
-
-                : "Animações normais restauradas."
-
-        );
-
-    }
-);
-
-
-/* =====================================================
-   DESTACAR FOCO
-===================================================== */
-
-focusToggle.addEventListener(
-    "click",
-    () => {
-
-        document.body.classList.toggle(
-            "strong-focus"
-        );
-
-
-        const enabled =
-            document.body.classList.contains(
-                "strong-focus"
-            );
-
-
-        focusToggle.setAttribute(
-            "aria-pressed",
-            String(enabled)
-        );
-
-
-        setAccessibilityStatus(
-
-            enabled
-
-                ? "Destaque de foco ativado."
-
-                : "Destaque de foco desativado."
-
-        );
-
-    }
-);
-
-
-/* =====================================================
-   LIBRAS
-===================================================== */
-
-vlibrasButton.addEventListener(
-    "click",
-    () => {
-
-        const vlibrasAccessButton =
-            document.querySelector(
-                "[vw-access-button]"
-            );
-
-
-        if (
-            vlibrasAccessButton
-        ) {
-
-            vlibrasAccessButton.click();
-
-
-            setAccessibilityStatus(
-                "VLibras ativado."
-            );
-
-        } else {
-
-            setAccessibilityStatus(
-                "A ferramenta Libras ainda está carregando. Tente novamente em alguns segundos."
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   TRADUÇÕES COMPLETAS
-===================================================== */
-
-const translations = {
+const siteTranslations = {
 
     pt: {
 
-        lang: "pt-BR",
+        /* MENU */
 
-        accessibility: "Acessibilidade",
-        resources: "RECURSOS",
-        increase: "Aumentar texto",
-        decrease: "Diminuir texto",
-        contrast: "Alto contraste",
-        spacing: "Aumentar espaçamento",
-        animations: "Reduzir animações",
-        focus: "Destacar foco",
-        libras: "Ativar Libras",
-        status: "Recursos de acessibilidade disponíveis.",
-        language: "IDIOMA 🌎",
+        "Acessibilidade":
+            "Acessibilidade",
 
-        homeLabel: "SETEMBRO AMARELO",
-        homeTitle: "Você não está sozinho.",
-        homeText: "Informação, acolhimento e esperança podem transformar vidas.",
-        clickFlower: "Clique em um girassol",
-        startJourney: "e comece sua jornada",
-        care: "💛 Cuidar também é ouvir.",
-        matter: "🎗️ Você importa.",
+        "RECURSOS":
+            "RECURSOS",
 
-        videoLabel: "UMA PAUSA PARA REFLETIR",
-        videoTitle: "A vida importa. 💛",
-        videoText: "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.",
+        "Aumentar texto":
+            "Aumentar texto",
 
-        infoLabel: "INFORME-SE 💛",
-        infoTitle: "Conhecimento também é uma forma de cuidado.",
-        infoText: "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.",
+        "Diminuir texto":
+            "Diminuir texto",
 
-        depressionTitle: "O que é depressão?",
-        depression1: "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.",
-        depression2: "Ela não é simplesmente \"falta de força de vontade\". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.",
+        "Alto contraste":
+            "Alto contraste",
 
-        signsTitle: "Sinais que merecem atenção",
-        signsIntro: "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.",
-        sign1: "Mudanças persistentes no humor",
-        sign2: "Perda de interesse por atividades",
-        sign3: "Cansaço ou falta de energia",
-        sign4: "Alterações no sono",
-        sign5: "Dificuldade de concentração",
-        sign6: "Sentimento frequente de culpa ou desânimo",
-        important: "Importante:",
-        attention: "Ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.",
+        "Aumentar espaçamento":
+            "Aumentar espaçamento",
 
-        factorsTitle: "O que pode influenciar a saúde mental?",
-        factorsIntro: "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.",
+        "Reduzir animações":
+            "Reduzir animações",
 
-        biological: "Biológicos",
-        biologicalText: "Características e processos do organismo.",
+        "Destacar foco":
+            "Destacar foco",
 
-        psychological: "Psicológicos",
-        psychologicalText: "Pensamentos, emoções e experiências.",
+        "Ativar Libras":
+            "Ativar Libras",
 
-        social: "Sociais",
-        socialText: "Relações, ambiente e condições de vida.",
+        "IDIOMA 🌎":
+            "IDIOMA 🌎",
 
-        difficult: "Momentos difíceis",
-        difficultText: "Situações que podem gerar sofrimento ou estresse.",
+        "Recursos de acessibilidade disponíveis.":
+            "Recursos de acessibilidade disponíveis.",
 
-        pcdTitle: "Saúde mental e pessoas com deficiência",
-        pcd1: "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.",
-        pcd2: "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.",
+        "Início":
+            "Início",
 
-        accessibilityPoint: "♿ Acessibilidade",
-        accessibilityPointText: "Ambientes e informações acessíveis.",
+        /* PRIMEIRA TELA */
 
-        respectPoint: "🤝 Respeito",
-        respectPointText: "Valorizar a autonomia e as escolhas.",
+        "SETEMBRO AMARELO":
+            "SETEMBRO AMARELO",
 
-        welcomePoint: "💛 Acolhimento",
-        welcomePointText: "Ouvir sem julgamentos e com atenção.",
+        "Você não está sozinho.":
+            "Você não está sozinho.",
 
-        helpTitle: "Como posso ajudar alguém?",
+        "Informação, acolhimento e esperança podem transformar vidas.":
+            "Informação, acolhimento e esperança podem transformar vidas.",
 
-        listen: "Escute",
-        listenText: "Dê espaço para a pessoa falar e demonstre que você está presente.",
+        "Clique em um girassol":
+            "Clique em um girassol",
 
-        welcome: "Acolha",
-        welcomeText: "Evite julgamentos e trate o sofrimento com seriedade e respeito.",
+        "e comece sua jornada":
+            "e comece sua jornada",
 
-        encourage: "Incentive a busca por ajuda",
-        encourageText: "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.",
+        "💛 Cuidar também é ouvir.":
+            "💛 Cuidar também é ouvir.",
 
-        whereHelp: "ONDE PROCURAR AJUDA 🏥",
-        helpHeading: "Você não precisa enfrentar tudo sozinho.",
-        helpIntro: "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.",
+        "🎗️ Você importa.":
+            "🎗️ Você importa.",
 
-        ubsTitle: "UBS",
-        ubsText: "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.",
+        /* VÍDEO */
 
-        capsTitle: "CAPS",
-        capsText: "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.",
+        "UMA PAUSA PARA REFLETIR":
+            "UMA PAUSA PARA REFLETIR",
 
-        professionalsTitle: "Profissionais",
-        professionalsText: "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.",
+        "A vida importa. 💛":
+            "A vida importa. 💛",
 
-        emergencyTitle: "Em uma situação que precise de atendimento imediato",
-        emergencyText: "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o SAMU pelo 192.",
+        "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.":
+            "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.",
 
-        finalTitle: "Falar, ouvir e acolher também são formas de cuidar.",
-        finalText: "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.",
+        /* INFORMAÇÕES */
 
-        footer1: "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.",
-        footer2: "Projeto educativo — Setembro Amarelo",
+        "INFORME-SE 💛":
+            "INFORME-SE 💛",
 
-        backHome: "Início",
-        backHomeAria: "Voltar para a tela inicial"
+        "Conhecimento também é uma forma de cuidado.":
+            "Conhecimento também é uma forma de cuidado.",
+
+        "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.":
+            "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.",
+
+        /* DEPRESSÃO */
+
+        "O que é depressão?":
+            "O que é depressão?",
+
+        "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.":
+            "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.",
+
+        'Ela não é simplesmente "falta de força de vontade". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.':
+            'Ela não é simplesmente "falta de força de vontade". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.',
+
+        /* SINAIS */
+
+        "Sinais que merecem atenção":
+            "Sinais que merecem atenção",
+
+        "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.":
+            "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.",
+
+        "Mudanças persistentes no humor":
+            "Mudanças persistentes no humor",
+
+        "Perda de interesse por atividades":
+            "Perda de interesse por atividades",
+
+        "Cansaço ou falta de energia":
+            "Cansaço ou falta de energia",
+
+        "Alterações no sono":
+            "Alterações no sono",
+
+        "Dificuldade de concentração":
+            "Dificuldade de concentração",
+
+        "Sentimento frequente de culpa ou desânimo":
+            "Sentimento frequente de culpa ou desânimo",
+
+        "Importante:":
+            "Importante:",
+
+        "ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.":
+            "ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.",
+
+        /* FATORES */
+
+        "O que pode influenciar a saúde mental?":
+            "O que pode influenciar a saúde mental?",
+
+        "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.":
+            "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.",
+
+        "Biológicos":
+            "Biológicos",
+
+        "Características e processos do organismo.":
+            "Características e processos do organismo.",
+
+        "Psicológicos":
+            "Psicológicos",
+
+        "Pensamentos, emoções e experiências.":
+            "Pensamentos, emoções e experiências.",
+
+        "Sociais":
+            "Sociais",
+
+        "Relações, ambiente e condições de vida.":
+            "Relações, ambiente e condições de vida.",
+
+        "Momentos difíceis":
+            "Momentos difíceis",
+
+        "Situações que podem gerar sofrimento ou estresse.":
+            "Situações que podem gerar sofrimento ou estresse.",
+
+        /* PCD */
+
+        "Saúde mental e pessoas com deficiência":
+            "Saúde mental e pessoas com deficiência",
+
+        "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.":
+            "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.",
+
+        "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.":
+            "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.",
+
+        "♿ Acessibilidade":
+            "♿ Acessibilidade",
+
+        "Ambientes e informações acessíveis.":
+            "Ambientes e informações acessíveis.",
+
+        "🤝 Respeito":
+            "🤝 Respeito",
+
+        "Valorizar a autonomia e as escolhas.":
+            "Valorizar a autonomia e as escolhas.",
+
+        "💛 Acolhimento":
+            "💛 Acolhimento",
+
+        "Ouvir sem julgamentos e com atenção.":
+            "Ouvir sem julgamentos e com atenção.",
+
+        /* COMO AJUDAR */
+
+        "Como posso ajudar alguém?":
+            "Como posso ajudar alguém?",
+
+        "Escute":
+            "Escute",
+
+        "Dê espaço para a pessoa falar e demonstre que você está presente.":
+            "Dê espaço para a pessoa falar e demonstre que você está presente.",
+
+        "Acolha":
+            "Acolha",
+
+        "Evite julgamentos e trate o sofrimento com seriedade e respeito.":
+            "Evite julgamentos e trate o sofrimento com seriedade e respeito.",
+
+        "Incentive a busca por ajuda":
+            "Incentive a busca por ajuda",
+
+        "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.":
+            "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.",
+
+        /* AJUDA */
+
+        "ONDE PROCURAR AJUDA 🏥":
+            "ONDE PROCURAR AJUDA 🏥",
+
+        "Você não precisa enfrentar tudo sozinho.":
+            "Você não precisa enfrentar tudo sozinho.",
+
+        "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.":
+            "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.",
+
+        "UBS":
+            "UBS",
+
+        "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.":
+            "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.",
+
+        "CAPS":
+            "CAPS",
+
+        "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.":
+            "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.",
+
+        "Profissionais":
+            "Profissionais",
+
+        "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.":
+            "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.",
+
+        /* EMERGÊNCIA */
+
+        "Em uma situação que precise de atendimento imediato":
+            "Em uma situação que precise de atendimento imediato",
+
+        "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o":
+            "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o",
+
+        "pelo":
+            "pelo",
+
+        /* FINAL */
+
+        "Falar, ouvir e acolher também são formas de cuidar.":
+            "Falar, ouvir e acolher também são formas de cuidar.",
+
+        "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.":
+            "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.",
+
+        /* FONTES */
+
+        "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.":
+            "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.",
+
+        "Projeto educativo — Setembro Amarelo":
+            "Projeto educativo — Setembro Amarelo"
     },
 
+
+    /* =====================================================
+       INGLÊS
+    ===================================================== */
 
     en: {
 
-        lang: "en",
+        "Acessibilidade":
+            "Accessibility",
 
-        accessibility: "Accessibility",
-        resources: "RESOURCES",
-        increase: "Increase text",
-        decrease: "Decrease text",
-        contrast: "High contrast",
-        spacing: "Increase spacing",
-        animations: "Reduce animations",
-        focus: "Highlight focus",
-        libras: "Activate Libras",
-        status: "Accessibility features are available.",
-        language: "LANGUAGE 🌎",
+        "RECURSOS":
+            "RESOURCES",
 
-        homeLabel: "YELLOW SEPTEMBER",
-        homeTitle: "You are not alone.",
-        homeText: "Information, support and hope can transform lives.",
-        clickFlower: "Click on a sunflower",
-        startJourney: "and start your journey",
-        care: "💛 Caring also means listening.",
-        matter: "🎗️ You matter.",
+        "Aumentar texto":
+            "Increase text",
 
-        videoLabel: "A MOMENT TO REFLECT",
-        videoTitle: "Life matters. 💛",
-        videoText: "Take a few minutes to watch and reflect on the importance of care, listening and support.",
+        "Diminuir texto":
+            "Decrease text",
 
-        infoLabel: "LEARN MORE 💛",
-        infoTitle: "Knowledge is also a form of care.",
-        infoText: "Understanding mental health helps recognize changes, reduce prejudice and encourage seeking support.",
+        "Alto contraste":
+            "High contrast",
 
-        depressionTitle: "What is depression?",
-        depression1: "Depression is a mental health condition that can affect mood, interests, energy, concentration and everyday life.",
-        depression2: "It is not simply a lack of willpower. It can be related to different factors and deserves attention and professional care.",
+        "Aumentar espaçamento":
+            "Increase spacing",
 
-        signsTitle: "Signs that deserve attention",
-        signsIntro: "Some persistent changes may indicate that a person is going through a difficult time and needs support.",
-        sign1: "Persistent changes in mood",
-        sign2: "Loss of interest in activities",
-        sign3: "Tiredness or lack of energy",
-        sign4: "Changes in sleep",
-        sign5: "Difficulty concentrating",
-        sign6: "Frequent feelings of guilt or discouragement",
-        important: "Important:",
-        attention: "Having one of these signs alone does not mean that a person has depression. A diagnosis should be made by a health professional.",
+        "Reduzir animações":
+            "Reduce animations",
 
-        factorsTitle: "What can influence mental health?",
-        factorsIntro: "Mental health is influenced by different aspects of life. These factors can combine and vary from person to person.",
+        "Destacar foco":
+            "Highlight focus",
 
-        biological: "Biological",
-        biologicalText: "Characteristics and processes of the body.",
+        "Ativar Libras":
+            "Activate Sign Language",
 
-        psychological: "Psychological",
-        psychologicalText: "Thoughts, emotions and experiences.",
+        "IDIOMA 🌎":
+            "LANGUAGE 🌎",
 
-        social: "Social",
-        socialText: "Relationships, environment and living conditions.",
+        "Recursos de acessibilidade disponíveis.":
+            "Accessibility features available.",
 
-        difficult: "Difficult moments",
-        difficultText: "Situations that can cause distress or stress.",
+        "Início":
+            "Home",
 
-        pcdTitle: "Mental health and people with disabilities",
-        pcd1: "People with disabilities have the right to comprehensive health care. This care should consider accessibility, communication, respect, autonomy and support.",
-        pcd2: "Physical, communication, information and attitudinal barriers can make access to services more difficult. Inclusion is therefore also part of care.",
+        "SETEMBRO AMARELO":
+            "YELLOW SEPTEMBER",
 
-        accessibilityPoint: "♿ Accessibility",
-        accessibilityPointText: "Accessible environments and information.",
+        "Você não está sozinho.":
+            "You are not alone.",
 
-        respectPoint: "🤝 Respect",
-        respectPointText: "Value autonomy and choices.",
+        "Informação, acolhimento e esperança podem transformar vidas.":
+            "Information, support and hope can transform lives.",
 
-        welcomePoint: "💛 Support",
-        welcomePointText: "Listen without judgment and with attention.",
+        "Clique em um girassol":
+            "Click on a sunflower",
 
-        helpTitle: "How can I help someone?",
+        "e comece sua jornada":
+            "and begin your journey",
 
-        listen: "Listen",
-        listenText: "Give the person space to talk and show that you are there.",
+        "💛 Cuidar também é ouvir.":
+            "💛 Caring also means listening.",
 
-        welcome: "Support",
-        welcomeText: "Avoid judgment and treat their suffering with seriousness and respect.",
+        "🎗️ Você importa.":
+            "🎗️ You matter.",
 
-        encourage: "Encourage seeking help",
-        encourageText: "Suggest talking to a health professional or looking for a public health service.",
+        "UMA PAUSA PARA REFLETIR":
+            "A MOMENT TO REFLECT",
 
-        whereHelp: "WHERE TO SEEK HELP 🏥",
-        helpHeading: "You do not have to face everything alone.",
-        helpIntro: "Public health services offer different points of care for mental health. Primary care, such as a basic health unit, can be a starting point, along with specialized services.",
+        "A vida importa. 💛":
+            "Life matters. 💛",
 
-        ubsTitle: "Primary Care",
-        ubsText: "A basic health unit can provide guidance, support and referral to other services when needed.",
+        "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.":
+            "Take a few minutes to watch and reflect on the importance of care, listening and support.",
 
-        capsTitle: "CAPS",
-        capsText: "Public psychosocial care services with multidisciplinary teams and ongoing support.",
+        "INFORME-SE 💛":
+            "LEARN MORE 💛",
 
-        professionalsTitle: "Professionals",
-        professionalsText: "Psychologists, doctors and other professionals can assess the situation and guide appropriate care.",
+        "Conhecimento também é uma forma de cuidado.":
+            "Knowledge is also a form of care.",
 
-        emergencyTitle: "In a situation requiring immediate care",
-        emergencyText: "Seek an emergency service, such as an emergency unit or hospital emergency room, or call SAMU at 192.",
+        "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.":
+            "Understanding mental health helps us recognize changes, reduce prejudice and encourage people to seek support.",
 
-        finalTitle: "Talking, listening and supporting are also ways to care.",
-        finalText: "A respectful conversation can be important. Seeking help is also a form of care.",
+        "O que é depressão?":
+            "What is depression?",
 
-        footer1: "Educational content based on information from the Brazilian Ministry of Health.",
-        footer2: "Educational project — Yellow September",
+        "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.":
+            "Depression is a mental health condition that can affect mood, interests, energy, concentration and aspects of everyday life.",
 
-        backHome: "Home",
-        backHomeAria: "Return to the home screen"
+        'Ela não é simplesmente "falta de força de vontade". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.':
+            'It is not simply a "lack of willpower". It can be related to different factors and deserves attention and professional care.',
+
+        "Sinais que merecem atenção":
+            "Signs that deserve attention",
+
+        "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.":
+            "Some persistent changes may indicate that a person is going through a difficult time and needs support.",
+
+        "Mudanças persistentes no humor":
+            "Persistent changes in mood",
+
+        "Perda de interesse por atividades":
+            "Loss of interest in activities",
+
+        "Cansaço ou falta de energia":
+            "Tiredness or lack of energy",
+
+        "Alterações no sono":
+            "Changes in sleep",
+
+        "Dificuldade de concentração":
+            "Difficulty concentrating",
+
+        "Sentimento frequente de culpa ou desânimo":
+            "Frequent feelings of guilt or discouragement",
+
+        "Importante:":
+            "Important:",
+
+        "ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.":
+            "Having one of these signs alone does not mean that a person has depression. A diagnosis should be made by a health professional.",
+
+        "O que pode influenciar a saúde mental?":
+            "What can influence mental health?",
+
+        "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.":
+            "Mental health is influenced by different aspects of life. These factors can combine and vary from person to person.",
+
+        "Biológicos":
+            "Biological",
+
+        "Características e processos do organismo.":
+            "Characteristics and processes of the body.",
+
+        "Psicológicos":
+            "Psychological",
+
+        "Pensamentos, emoções e experiências.":
+            "Thoughts, emotions and experiences.",
+
+        "Sociais":
+            "Social",
+
+        "Relações, ambiente e condições de vida.":
+            "Relationships, environment and living conditions.",
+
+        "Momentos difíceis":
+            "Difficult moments",
+
+        "Situações que podem gerar sofrimento ou estresse.":
+            "Situations that can cause distress or stress.",
+
+        "Saúde mental e pessoas com deficiência":
+            "Mental health and people with disabilities",
+
+        "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.":
+            "People with disabilities have the right to comprehensive health care. Accessibility, communication, respect, autonomy and support are important for this care to truly happen.",
+
+        "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.":
+            "Physical, communication and information barriers, as well as prejudice, can make access to services more difficult. Therefore, inclusion is also part of care.",
+
+        "♿ Acessibilidade":
+            "♿ Accessibility",
+
+        "Ambientes e informações acessíveis.":
+            "Accessible environments and information.",
+
+        "🤝 Respeito":
+            "🤝 Respect",
+
+        "Valorizar a autonomia e as escolhas.":
+            "Value autonomy and choices.",
+
+        "💛 Acolhimento":
+            "💛 Support",
+
+        "Ouvir sem julgamentos e com atenção.":
+            "Listen without judgment and with attention.",
+
+        "Como posso ajudar alguém?":
+            "How can I help someone?",
+
+        "Escute":
+            "Listen",
+
+        "Dê espaço para a pessoa falar e demonstre que você está presente.":
+            "Give the person space to talk and show that you are present.",
+
+        "Acolha":
+            "Support",
+
+        "Evite julgamentos e trate o sofrimento com seriedade e respeito.":
+            "Avoid judgment and treat suffering with seriousness and respect.",
+
+        "Incentive a busca por ajuda":
+            "Encourage seeking help",
+
+        "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.":
+            "Suggest talking to a health professional or looking for a public health service.",
+
+        "ONDE PROCURAR AJUDA 🏥":
+            "WHERE TO SEEK HELP 🏥",
+
+        "Você não precisa enfrentar tudo sozinho.":
+            "You do not have to face everything alone.",
+
+        "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.":
+            "Brazil's public health system offers different mental health services. A starting point may be primary care, such as a UBS, and care may also involve CAPS and other services.",
+
+        "UBS":
+            "Primary Care Unit",
+
+        "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.":
+            "Basic health service that can provide guidance, support and referrals when necessary.",
+
+        "CAPS":
+            "CAPS",
+
+        "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.":
+            "Public psychosocial care services with a multidisciplinary team and follow-up.",
+
+        "Profissionais":
+            "Professionals",
+
+        "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.":
+            "Psychologists, doctors and other professionals can assess the situation and guide appropriate care.",
+
+        "Em uma situação que precise de atendimento imediato":
+            "In a situation requiring immediate care",
+
+        "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o":
+            "Seek an emergency service, such as an emergency clinic or hospital, or call",
+
+        "pelo":
+            "at",
+
+        "Falar, ouvir e acolher também são formas de cuidar.":
+            "Talking, listening and supporting are also forms of care.",
+
+        "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.":
+            "A respectful conversation can be important. Seeking help is also a form of care.",
+
+        "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.":
+            "Educational content based on information from Brazil's Ministry of Health.",
+
+        "Projeto educativo — Setembro Amarelo":
+            "Educational project — Yellow September"
     },
 
+
+    /* =====================================================
+       ESPANHOL
+    ===================================================== */
 
     es: {
 
-        lang: "es",
+        "Acessibilidade":
+            "Accesibilidad",
 
-        accessibility: "Accesibilidad",
-        resources: "RECURSOS",
-        increase: "Aumentar texto",
-        decrease: "Disminuir texto",
-        contrast: "Alto contraste",
-        spacing: "Aumentar espaciado",
-        animations: "Reducir animaciones",
-        focus: "Resaltar enfoque",
-        libras: "Activar Libras",
-        status: "Funciones de accesibilidad disponibles.",
-        language: "IDIOMA 🌎",
+        "RECURSOS":
+            "RECURSOS",
 
-        homeLabel: "SEPTIEMBRE AMARILLO",
-        homeTitle: "No estás solo.",
-        homeText: "La información, el apoyo y la esperanza pueden transformar vidas.",
-        clickFlower: "Haz clic en un girasol",
-        startJourney: "y comienza tu camino",
-        care: "💛 Cuidar también es escuchar.",
-        matter: "🎗️ Tú importas.",
+        "Aumentar texto":
+            "Aumentar texto",
 
-        videoLabel: "UN MOMENTO PARA REFLEXIONAR",
-        videoTitle: "La vida importa. 💛",
-        videoText: "Tómate unos minutos para ver y reflexionar sobre la importancia del cuidado, la escucha y el apoyo.",
+        "Diminuir texto":
+            "Disminuir texto",
 
-        infoLabel: "INFÓRMATE 💛",
-        infoTitle: "El conocimiento también es una forma de cuidado.",
-        infoText: "Comprender la salud mental ayuda a reconocer cambios, reducir prejuicios y fomentar la búsqueda de apoyo.",
+        "Alto contraste":
+            "Alto contraste",
 
-        depressionTitle: "¿Qué es la depresión?",
-        depression1: "La depresión es una condición de salud mental que puede afectar el estado de ánimo, los intereses, la energía, la concentración y la vida cotidiana.",
-        depression2: "No es simplemente falta de voluntad. Puede estar relacionada con distintos factores y merece atención y cuidado profesional.",
+        "Aumentar espaçamento":
+            "Aumentar espaciado",
 
-        signsTitle: "Señales que merecen atención",
-        signsIntro: "Algunos cambios persistentes pueden indicar que una persona está pasando por un momento difícil y necesita apoyo.",
-        sign1: "Cambios persistentes en el estado de ánimo",
-        sign2: "Pérdida de interés en actividades",
-        sign3: "Cansancio o falta de energía",
-        sign4: "Cambios en el sueño",
-        sign5: "Dificultad para concentrarse",
-        sign6: "Sentimientos frecuentes de culpa o desánimo",
-        important: "Importante:",
-        attention: "Tener uno de estos signos, por sí solo, no significa que una persona tenga depresión. El diagnóstico debe ser realizado por un profesional de la salud.",
+        "Reduzir animações":
+            "Reducir animaciones",
 
-        factorsTitle: "¿Qué puede influir en la salud mental?",
-        factorsIntro: "La salud mental está influida por diferentes aspectos de la vida. Estos factores pueden combinarse y variar de una persona a otra.",
+        "Destacar foco":
+            "Resaltar enfoque",
 
-        biological: "Biológicos",
-        biologicalText: "Características y procesos del organismo.",
+        "Ativar Libras":
+            "Activar lengua de señas",
 
-        psychological: "Psicológicos",
-        psychologicalText: "Pensamientos, emociones y experiencias.",
+        "IDIOMA 🌎":
+            "IDIOMA 🌎",
 
-        social: "Sociales",
-        socialText: "Relaciones, entorno y condiciones de vida.",
+        "Recursos de acessibilidade disponíveis.":
+            "Recursos de accesibilidad disponibles.",
 
-        difficult: "Momentos difíciles",
-        difficultText: "Situaciones que pueden generar sufrimiento o estrés.",
+        "Início":
+            "Inicio",
 
-        pcdTitle: "Salud mental y personas con discapacidad",
-        pcd1: "Las personas con discapacidad tienen derecho a una atención integral en salud. Este cuidado debe considerar accesibilidad, comunicación, respeto, autonomía y apoyo.",
-        pcd2: "Las barreras físicas, de comunicación, de información y las actitudes prejuiciosas pueden dificultar el acceso a los servicios. Por eso, la inclusión también forma parte del cuidado.",
+        "SETEMBRO AMARELO":
+            "SEPTIEMBRE AMARILLO",
 
-        accessibilityPoint: "♿ Accesibilidad",
-        accessibilityPointText: "Entornos e información accesibles.",
+        "Você não está sozinho.":
+            "No estás solo.",
 
-        respectPoint: "🤝 Respeto",
-        respectPointText: "Valorar la autonomía y las decisiones.",
+        "Informação, acolhimento e esperança podem transformar vidas.":
+            "La información, el apoyo y la esperanza pueden transformar vidas.",
 
-        welcomePoint: "💛 Acogida",
-        welcomePointText: "Escuchar sin juzgar y con atención.",
+        "Clique em um girassol":
+            "Haz clic en un girasol",
 
-        helpTitle: "¿Cómo puedo ayudar a alguien?",
+        "e comece sua jornada":
+            "y comienza tu camino",
 
-        listen: "Escucha",
-        listenText: "Da espacio para que la persona hable y demuestra que estás presente.",
+        "💛 Cuidar também é ouvir.":
+            "💛 Cuidar también es escuchar.",
 
-        welcome: "Acoge",
-        welcomeText: "Evita juzgar y trata el sufrimiento con seriedad y respeto.",
+        "🎗️ Você importa.":
+            "🎗️ Tú importas.",
 
-        encourage: "Anima a buscar ayuda",
-        encourageText: "Sugiere hablar con un profesional de la salud o buscar un servicio público.",
+        "UMA PAUSA PARA REFLETIR":
+            "UNA PAUSA PARA REFLEXIONAR",
 
-        whereHelp: "DÓNDE BUSCAR AYUDA 🏥",
-        helpHeading: "No tienes que enfrentar todo solo.",
-        helpIntro: "El sistema público de salud ofrece diferentes puntos de atención en salud mental. La atención primaria, como una unidad básica de salud, puede ser un punto de partida junto con otros servicios.",
+        "A vida importa. 💛":
+            "La vida importa. 💛",
 
-        ubsTitle: "Atención primaria",
-        ubsText: "Una unidad básica de salud puede orientar, acoger y derivar a otros servicios cuando sea necesario.",
+        "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.":
+            "Dedica unos minutos para ver y reflexionar sobre la importancia del cuidado, la escucha y el apoyo.",
 
-        capsTitle: "CAPS",
-        capsText: "Servicios públicos de atención psicosocial con equipos multidisciplinarios y acompañamiento.",
+        "INFORME-SE 💛":
+            "INFÓRMATE 💛",
 
-        professionalsTitle: "Profesionales",
-        professionalsText: "Psicólogos, médicos y otros profesionales pueden evaluar la situación y orientar el cuidado adecuado.",
+        "Conhecimento também é uma forma de cuidado.":
+            "El conocimiento también es una forma de cuidado.",
 
-        emergencyTitle: "En una situación que requiera atención inmediata",
-        emergencyText: "Busca un servicio de urgencia y emergencia, como una UPA o una sala de emergencias, o llama al SAMU al 192.",
+        "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.":
+            "Comprender la salud mental ayuda a reconocer cambios, reducir prejuicios y fomentar la búsqueda de apoyo.",
 
-        finalTitle: "Hablar, escuchar y acoger también son formas de cuidar.",
-        finalText: "Una conversación respetuosa puede ser importante. Buscar ayuda también es una forma de cuidado.",
+        "O que é depressão?":
+            "¿Qué es la depresión?",
 
-        footer1: "Contenido educativo basado en información del Ministerio de Salud de Brasil.",
-        footer2: "Proyecto educativo — Septiembre Amarillo",
+        "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.":
+            "La depresión es una condición de salud mental que puede afectar el estado de ánimo, los intereses, la energía, la concentración y aspectos de la vida cotidiana.",
 
-        backHome: "Inicio",
-        backHomeAria: "Volver a la pantalla de inicio"
+        'Ela não é simplesmente "falta de força de vontade". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.':
+            'No es simplemente una "falta de voluntad". Puede estar relacionada con diferentes factores y merece atención y cuidado profesional.',
+
+        "Sinais que merecem atenção":
+            "Señales que merecen atención",
+
+        "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.":
+            "Algunos cambios persistentes pueden indicar que una persona está pasando por un momento difícil y necesita apoyo.",
+
+        "Mudanças persistentes no humor":
+            "Cambios persistentes en el estado de ánimo",
+
+        "Perda de interesse por atividades":
+            "Pérdida de interés por las actividades",
+
+        "Cansaço ou falta de energia":
+            "Cansancio o falta de energía",
+
+        "Alterações no sono":
+            "Cambios en el sueño",
+
+        "Dificuldade de concentração":
+            "Dificultad para concentrarse",
+
+        "Sentimento frequente de culpa ou desânimo":
+            "Sentimientos frecuentes de culpa o desánimo",
+
+        "Importante:":
+            "Importante:",
+
+        "ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.":
+            "Tener una de estas señales por sí sola no significa que una persona tenga depresión. El diagnóstico debe ser realizado por un profesional de la salud.",
+
+        "O que pode influenciar a saúde mental?":
+            "¿Qué puede influir en la salud mental?",
+
+        "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.":
+            "La salud mental está influenciada por diferentes aspectos de la vida. Estos factores pueden combinarse y variar de una persona a otra.",
+
+        "Biológicos":
+            "Biológicos",
+
+        "Características e processos do organismo.":
+            "Características y procesos del organismo.",
+
+        "Psicológicos":
+            "Psicológicos",
+
+        "Pensamentos, emoções e experiências.":
+            "Pensamientos, emociones y experiencias.",
+
+        "Sociais":
+            "Sociales",
+
+        "Relações, ambiente e condições de vida.":
+            "Relaciones, entorno y condiciones de vida.",
+
+        "Momentos difíceis":
+            "Momentos difíciles",
+
+        "Situações que podem gerar sofrimento ou estresse.":
+            "Situaciones que pueden generar sufrimiento o estrés.",
+
+        "Saúde mental e pessoas com deficiência":
+            "Salud mental y personas con discapacidad",
+
+        "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.":
+            "Las personas con discapacidad tienen derecho a una atención integral en salud. Es importante considerar la accesibilidad, la comunicación, el respeto, la autonomía y el apoyo.",
+
+        "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.":
+            "Las barreras físicas, de comunicación, de información y las actitudes prejuiciosas pueden dificultar el acceso a los servicios. Por eso, la inclusión también forma parte del cuidado.",
+
+        "♿ Acessibilidade":
+            "♿ Accesibilidad",
+
+        "Ambientes e informações acessíveis.":
+            "Entornos e información accesibles.",
+
+        "🤝 Respeito":
+            "🤝 Respeto",
+
+        "Valorizar a autonomia e as escolhas.":
+            "Valorar la autonomía y las decisiones.",
+
+        "💛 Acolhimento":
+            "💛 Acogida",
+
+        "Ouvir sem julgamentos e com atenção.":
+            "Escuchar sin juzgar y con atención.",
+
+        "Como posso ajudar alguém?":
+            "¿Cómo puedo ayudar a alguien?",
+
+        "Escute":
+            "Escucha",
+
+        "Dê espaço para a pessoa falar e demonstre que você está presente.":
+            "Dale espacio a la persona para hablar y demuestra que estás presente.",
+
+        "Acolha":
+            "Acoge",
+
+        "Evite julgamentos e trate o sofrimento com seriedade e respeito.":
+            "Evita juzgar y trata el sufrimiento con seriedad y respeto.",
+
+        "Incentive a busca por ajuda":
+            "Anima a buscar ayuda",
+
+        "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.":
+            "Sugiere hablar con un profesional de la salud o buscar un servicio público.",
+
+        "ONDE PROCURAR AJUDA 🏥":
+            "DÓNDE BUSCAR AYUDA 🏥",
+
+        "Você não precisa enfrentar tudo sozinho.":
+            "No tienes que enfrentar todo solo.",
+
+        "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.":
+            "El sistema público de salud ofrece diferentes puntos de atención en salud mental. La puerta de entrada puede ser la atención primaria, como una UBS, y la atención también puede involucrar a los CAPS y otros servicios.",
+
+        "UBS":
+            "UBS",
+
+        "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.":
+            "Unidad Básica de Salud. Puede orientar, acoger y derivar a otros servicios cuando sea necesario.",
+
+        "CAPS":
+            "CAPS",
+
+        "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.":
+            "Servicios públicos de atención psicosocial con un equipo multidisciplinario y seguimiento.",
+
+        "Profissionais":
+            "Profesionales",
+
+        "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.":
+            "Psicólogos, médicos y otros profesionales pueden evaluar la situación y orientar el cuidado adecuado.",
+
+        "Em uma situação que precise de atendimento imediato":
+            "En una situación que necesite atención inmediata",
+
+        "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o":
+            "Busca un servicio de urgencias y emergencias, como una UPA o un hospital, o llama al",
+
+        "pelo":
+            "al",
+
+        "Falar, ouvir e acolher também são formas de cuidar.":
+            "Hablar, escuchar y acoger también son formas de cuidar.",
+
+        "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.":
+            "Una conversación respetuosa puede ser importante. Buscar ayuda también es una forma de cuidado.",
+
+        "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.":
+            "Contenido educativo elaborado con base en información del Ministerio de Salud de Brasil.",
+
+        "Projeto educativo — Setembro Amarelo":
+            "Proyecto educativo — Septiembre Amarillo"
     },
 
 
+    /* =====================================================
+       FRANCÊS
+    ===================================================== */
+
     fr: {
 
-        lang: "fr",
+        "Acessibilidade":
+            "Accessibilité",
 
-        accessibility: "Accessibilité",
-        resources: "RESSOURCES",
-        increase: "Agrandir le texte",
-        decrease: "Réduire le texte",
-        contrast: "Contraste élevé",
-        spacing: "Augmenter l'espacement",
-        animations: "Réduire les animations",
-        focus: "Mettre le focus en évidence",
-        libras: "Activer Libras",
-        status: "Fonctions d'accessibilité disponibles.",
-        language: "LANGUE 🌎",
+        "RECURSOS":
+            "RESSOURCES",
 
-        homeLabel: "SEPTEMBRE JAUNE",
-        homeTitle: "Vous n'êtes pas seul.",
-        homeText: "L'information, le soutien et l'espoir peuvent transformer des vies.",
-        clickFlower: "Cliquez sur un tournesol",
-        startJourney: "et commencez votre parcours",
-        care: "💛 Prendre soin, c'est aussi écouter.",
-        matter: "🎗️ Vous comptez.",
+        "Aumentar texto":
+            "Agrandir le texte",
 
-        videoLabel: "UN MOMENT POUR RÉFLÉCHIR",
-        videoTitle: "La vie compte. 💛",
-        videoText: "Prenez quelques minutes pour regarder et réfléchir à l'importance du soin, de l'écoute et du soutien.",
+        "Diminuir texto":
+            "Réduire le texte",
 
-        infoLabel: "INFORMEZ-VOUS 💛",
-        infoTitle: "La connaissance est aussi une forme de soin.",
-        infoText: "Comprendre la santé mentale aide à reconnaître les changements, à réduire les préjugés et à encourager la recherche de soutien.",
+        "Alto contraste":
+            "Contraste élevé",
 
-        depressionTitle: "Qu'est-ce que la dépression ?",
-        depression1: "La dépression est un trouble de la santé mentale qui peut affecter l'humeur, les intérêts, l'énergie, la concentration et la vie quotidienne.",
-        depression2: "Ce n'est pas simplement un manque de volonté. Elle peut être liée à différents facteurs et mérite une attention et un accompagnement professionnel.",
+        "Aumentar espaçamento":
+            "Augmenter l'espacement",
 
-        signsTitle: "Signes qui méritent de l'attention",
-        signsIntro: "Certains changements persistants peuvent indiquer qu'une personne traverse une période difficile et a besoin de soutien.",
-        sign1: "Changements persistants de l'humeur",
-        sign2: "Perte d'intérêt pour les activités",
-        sign3: "Fatigue ou manque d'énergie",
-        sign4: "Changements dans le sommeil",
-        sign5: "Difficultés de concentration",
-        sign6: "Sentiment fréquent de culpabilité ou de découragement",
-        important: "Important :",
-        attention: "Présenter l'un de ces signes ne signifie pas, à lui seul, qu'une personne souffre de dépression. Le diagnostic doit être posé par un professionnel de santé.",
+        "Reduzir animações":
+            "Réduire les animations",
 
-        factorsTitle: "Qu'est-ce qui peut influencer la santé mentale ?",
-        factorsIntro: "La santé mentale est influencée par différents aspects de la vie. Ces facteurs peuvent se combiner et varier d'une personne à l'autre.",
+        "Destacar foco":
+            "Mettre le focus en évidence",
 
-        biological: "Biologiques",
-        biologicalText: "Caractéristiques et processus de l'organisme.",
+        "Ativar Libras":
+            "Activer la langue des signes",
 
-        psychological: "Psychologiques",
-        psychologicalText: "Pensées, émotions et expériences.",
+        "IDIOMA 🌎":
+            "LANGUE 🌎",
 
-        social: "Sociaux",
-        socialText: "Relations, environnement et conditions de vie.",
+        "Recursos de acessibilidade disponíveis.":
+            "Ressources d'accessibilité disponibles.",
 
-        difficult: "Moments difficiles",
-        difficultText: "Situations pouvant provoquer de la souffrance ou du stress.",
+        "Início":
+            "Accueil",
 
-        pcdTitle: "Santé mentale et personnes handicapées",
-        pcd1: "Les personnes handicapées ont droit à des soins de santé complets. Ces soins doivent tenir compte de l'accessibilité, de la communication, du respect, de l'autonomie et du soutien.",
-        pcd2: "Les obstacles physiques, de communication, d'information et les attitudes préjudiciables peuvent rendre l'accès aux services plus difficile. L'inclusion fait donc aussi partie du soin.",
+        "SETEMBRO AMARELO":
+            "SEPTEMBRE JAUNE",
 
-        accessibilityPoint: "♿ Accessibilité",
-        accessibilityPointText: "Environnements et informations accessibles.",
+        "Você não está sozinho.":
+            "Vous n'êtes pas seul.",
 
-        respectPoint: "🤝 Respect",
-        respectPointText: "Valoriser l'autonomie et les choix.",
+        "Informação, acolhimento e esperança podem transformar vidas.":
+            "L'information, l'accueil et l'espoir peuvent transformer des vies.",
 
-        welcomePoint: "💛 Accueil",
-        welcomePointText: "Écouter sans juger et avec attention.",
+        "Clique em um girassol":
+            "Cliquez sur un tournesol",
 
-        helpTitle: "Comment puis-je aider quelqu'un ?",
+        "e comece sua jornada":
+            "et commencez votre parcours",
 
-        listen: "Écouter",
-        listenText: "Laissez la personne parler et montrez-lui que vous êtes présent.",
+        "💛 Cuidar também é ouvir.":
+            "💛 Prendre soin, c'est aussi écouter.",
 
-        welcome: "Accueillir",
-        welcomeText: "Évitez les jugements et prenez la souffrance au sérieux avec respect.",
+        "🎗️ Você importa.":
+            "🎗️ Vous comptez.",
 
-        encourage: "Encourager la recherche d'aide",
-        encourageText: "Suggérez de parler à un professionnel de santé ou de rechercher un service public.",
+        "UMA PAUSA PARA REFLETIR":
+            "UN MOMENT POUR RÉFLÉCHIR",
 
-        whereHelp: "OÙ CHERCHER DE L'AIDE 🏥",
-        helpHeading: "Vous n'avez pas à tout affronter seul.",
-        helpIntro: "Le système public de santé offre différents points de prise en charge en santé mentale. Les soins primaires, comme une unité de santé de base, peuvent constituer un point de départ avec d'autres services.",
+        "A vida importa. 💛":
+            "La vie compte. 💛",
 
-        ubsTitle: "Soins primaires",
-        ubsText: "Une unité de santé de base peut orienter, accueillir et adresser vers d'autres services si nécessaire.",
+        "Reserve alguns minutos para assistir e refletir sobre a importância do cuidado, da escuta e do acolhimento.":
+            "Prenez quelques minutes pour regarder et réfléchir à l'importance du soin, de l'écoute et du soutien.",
 
-        capsTitle: "CAPS",
-        capsText: "Services publics de soins psychosociaux avec des équipes pluridisciplinaires et un accompagnement.",
+        "INFORME-SE 💛":
+            "INFORMEZ-VOUS 💛",
 
-        professionalsTitle: "Professionnels",
-        professionalsText: "Les psychologues, médecins et autres professionnels peuvent évaluer la situation et orienter les soins appropriés.",
+        "Conhecimento também é uma forma de cuidado.":
+            "La connaissance est aussi une forme de soin.",
 
-        emergencyTitle: "En cas de situation nécessitant des soins immédiats",
-        emergencyText: "Adressez-vous à un service d'urgence, comme une UPA ou un service d'urgences hospitalières, ou appelez le SAMU au 192.",
+        "Entender a saúde mental ajuda a reconhecer mudanças, diminuir preconceitos e incentivar a busca por apoio.":
+            "Comprendre la santé mentale aide à reconnaître les changements, à réduire les préjugés et à encourager la recherche de soutien.",
 
-        finalTitle: "Parler, écouter et accueillir sont aussi des façons de prendre soin.",
-        finalText: "Une conversation respectueuse peut être importante. Chercher de l'aide est aussi une forme de soin.",
+        "O que é depressão?":
+            "Qu'est-ce que la dépression ?",
 
-        footer1: "Contenu éducatif basé sur des informations du ministère brésilien de la Santé.",
-        footer2: "Projet éducatif — Septembre Jaune",
+        "A depressão é uma condição de saúde mental que pode afetar o humor, os interesses, a energia, a concentração e também aspectos do dia a dia.":
+            "La dépression est un problème de santé mentale qui peut affecter l'humeur, les intérêts, l'énergie, la concentration et certains aspects de la vie quotidienne.",
 
-        backHome: "Accueil",
-        backHomeAria: "Retourner à l'écran d'accueil"
+        'Ela não é simplesmente "falta de força de vontade". Pode estar relacionada a diferentes fatores e merece atenção e cuidado profissional.':
+            'Ce n\'est pas simplement un "manque de volonté". Elle peut être liée à différents facteurs et mérite une attention et des soins professionnels.',
+
+        "Sinais que merecem atenção":
+            "Signes qui méritent de l'attention",
+
+        "Algumas mudanças persistentes podem indicar que uma pessoa está passando por um momento difícil e precisa de acolhimento.":
+            "Certains changements persistants peuvent indiquer qu'une personne traverse une période difficile et a besoin de soutien.",
+
+        "Mudanças persistentes no humor":
+            "Changements persistants de l'humeur",
+
+        "Perda de interesse por atividades":
+            "Perte d'intérêt pour les activités",
+
+        "Cansaço ou falta de energia":
+            "Fatigue ou manque d'énergie",
+
+        "Alterações no sono":
+            "Modifications du sommeil",
+
+        "Dificuldade de concentração":
+            "Difficulté à se concentrer",
+
+        "Sentimento frequente de culpa ou desânimo":
+            "Sentiment fréquent de culpabilité ou de découragement",
+
+        "Importante:":
+            "Important :",
+
+        "ter um desses sinais, sozinho, não significa que uma pessoa tenha depressão. O diagnóstico deve ser realizado por um profissional de saúde.":
+            "Avoir un seul de ces signes ne signifie pas qu'une personne souffre de dépression. Le diagnostic doit être établi par un professionnel de santé.",
+
+        "O que pode influenciar a saúde mental?":
+            "Qu'est-ce qui peut influencer la santé mentale ?",
+
+        "A saúde mental é influenciada por diferentes aspectos da vida. Esses fatores podem se combinar e variar de pessoa para pessoa.":
+            "La santé mentale est influencée par différents aspects de la vie. Ces facteurs peuvent se combiner et varier d'une personne à l'autre.",
+
+        "Biológicos":
+            "Biologiques",
+
+        "Características e processos do organismo.":
+            "Caractéristiques et processus de l'organisme.",
+
+        "Psicológicos":
+            "Psychologiques",
+
+        "Pensamentos, emoções e experiências.":
+            "Pensées, émotions et expériences.",
+
+        "Sociais":
+            "Sociaux",
+
+        "Relações, ambiente e condições de vida.":
+            "Relations, environnement et conditions de vie.",
+
+        "Momentos difíceis":
+            "Moments difficiles",
+
+        "Situações que podem gerar sofrimento ou estresse.":
+            "Situations pouvant générer de la souffrance ou du stress.",
+
+        "Saúde mental e pessoas com deficiência":
+            "Santé mentale et personnes handicapées",
+
+        "Pessoas com deficiência têm direito ao cuidado integral em saúde. Para que esse cuidado realmente aconteça, é importante considerar acessibilidade, comunicação, respeito, autonomia e acolhimento.":
+            "Les personnes handicapées ont droit à des soins de santé complets. Il est important de prendre en compte l'accessibilité, la communication, le respect, l'autonomie et l'accueil.",
+
+        "Barreiras físicas, de comunicação, informação e atitudes preconceituosas podem dificultar o acesso aos serviços. Por isso, inclusão também faz parte do cuidado.":
+            "Les obstacles physiques, de communication et d'information, ainsi que les attitudes préjudiciables, peuvent rendre l'accès aux services plus difficile. L'inclusion fait donc aussi partie du soin.",
+
+        "♿ Acessibilidade":
+            "♿ Accessibilité",
+
+        "Ambientes e informações acessíveis.":
+            "Des environnements et des informations accessibles.",
+
+        "🤝 Respeito":
+            "🤝 Respect",
+
+        "Valorizar a autonomia e as escolhas.":
+            "Valoriser l'autonomie et les choix.",
+
+        "💛 Acolhimento":
+            "💛 Accueil",
+
+        "Ouvir sem julgamentos e com atenção.":
+            "Écouter sans jugement et avec attention.",
+
+        "Como posso ajudar alguém?":
+            "Comment puis-je aider quelqu'un ?",
+
+        "Escute":
+            "Écoutez",
+
+        "Dê espaço para a pessoa falar e demonstre que você está presente.":
+            "Laissez à la personne l'espace nécessaire pour parler et montrez que vous êtes présent.",
+
+        "Acolha":
+            "Accueillez",
+
+        "Evite julgamentos e trate o sofrimento com seriedade e respeito.":
+            "Évitez les jugements et prenez la souffrance au sérieux, avec respect.",
+
+        "Incentive a busca por ajuda":
+            "Encouragez la recherche d'aide",
+
+        "Sugira conversar com um profissional de saúde ou procurar um serviço do SUS.":
+            "Suggérez de parler à un professionnel de santé ou de chercher un service public.",
+
+        "ONDE PROCURAR AJUDA 🏥":
+            "OÙ CHERCHER DE L'AIDE 🏥",
+
+        "Você não precisa enfrentar tudo sozinho.":
+            "Vous n'avez pas à tout affronter seul.",
+
+        "O SUS oferece diferentes pontos de cuidado em saúde mental. A porta de entrada pode ser a Atenção Primária, como uma UBS, e o cuidado também pode envolver os CAPS e outros serviços da rede.":
+            "Le système public de santé propose différents points de prise en charge en santé mentale. L'entrée peut se faire par les soins primaires, comme une UBS, et la prise en charge peut aussi impliquer les CAPS et d'autres services.",
+
+        "UBS":
+            "UBS",
+
+        "Unidade Básica de Saúde. Pode orientar, acolher e encaminhar para outros serviços quando necessário.":
+            "Unité de santé de base. Elle peut orienter, accueillir et adresser vers d'autres services si nécessaire.",
+
+        "CAPS":
+            "CAPS",
+
+        "Serviços públicos de atenção psicossocial com equipe multiprofissional e acompanhamento.":
+            "Services publics de soins psychosociaux avec une équipe pluridisciplinaire et un suivi.",
+
+        "Profissionais":
+            "Professionnels",
+
+        "Psicólogos, médicos e outros profissionais podem avaliar a situação e orientar o cuidado adequado.":
+            "Les psychologues, médecins et autres professionnels peuvent évaluer la situation et orienter les soins appropriés.",
+
+        "Em uma situação que precise de atendimento imediato":
+            "En cas de situation nécessitant une prise en charge immédiate",
+
+        "Procure um serviço de urgência e emergência, como uma UPA ou pronto-socorro, ou acione o":
+            "Cherchez un service d'urgence, comme une UPA ou un service hospitalier, ou appelez",
+
+        "pelo":
+            "au",
+
+        "Falar, ouvir e acolher também são formas de cuidar.":
+            "Parler, écouter et accueillir sont aussi des formes de soin.",
+
+        "Uma conversa respeitosa pode ser importante. Procurar ajuda também é uma forma de cuidado.":
+            "Une conversation respectueuse peut être importante. Chercher de l'aide est aussi une forme de soin.",
+
+        "Conteúdo educativo elaborado com base em informações do Ministério da Saúde.":
+            "Contenu éducatif élaboré à partir d'informations du ministère brésilien de la Santé.",
+
+        "Projeto educativo — Setembro Amarelo":
+            "Projet éducatif — Septembre Jaune"
     }
 };
 
 
 /* =====================================================
-   FUNÇÕES DE TRADUÇÃO
+   RÓTULOS DE ACESSIBILIDADE
 ===================================================== */
 
-function setText(
-    selector,
-    text
-) {
+const attributeTranslations = {
 
-    const element =
-        document.querySelector(
-            selector
-        );
+    "Abrir menu de acessibilidade": {
+        pt: "Abrir menu de acessibilidade",
+        en: "Open accessibility menu",
+        es: "Abrir menú de accesibilidad",
+        fr: "Ouvrir le menu d'accessibilité"
+    },
 
-    if (element) {
+    "Fechar menu de acessibilidade": {
+        pt: "Fechar menu de acessibilidade",
+        en: "Close accessibility menu",
+        es: "Cerrar menú de accesibilidad",
+        fr: "Fermer le menu d'accessibilité"
+    },
 
-        element.textContent =
-            text;
+    "Aumentar tamanho do texto": {
+        pt: "Aumentar tamanho do texto",
+        en: "Increase text size",
+        es: "Aumentar tamaño del texto",
+        fr: "Agrandir la taille du texte"
+    },
 
+    "Diminuir tamanho do texto": {
+        pt: "Diminuir tamanho do texto",
+        en: "Decrease text size",
+        es: "Disminuir tamaño del texto",
+        fr: "Réduire la taille du texte"
+    },
+
+    "Campo de girassóis": {
+        pt: "Campo de girassóis",
+        en: "Sunflower field",
+        es: "Campo de girasoles",
+        fr: "Champ de tournesols"
+    },
+
+    "Clique neste girassol para continuar": {
+        pt: "Clique neste girassol para continuar",
+        en: "Click this sunflower to continue",
+        es: "Haz clic en este girasol para continuar",
+        fr: "Cliquez sur ce tournesol pour continuer"
+    },
+
+    "Vídeo sobre Setembro Amarelo": {
+        pt: "Vídeo sobre Setembro Amarelo",
+        en: "Video about Yellow September",
+        es: "Vídeo sobre Septiembre Amarillo",
+        fr: "Vidéo sur Septembre Jaune"
+    },
+
+    "Abrir ferramenta VLibras": {
+        pt: "Abrir ferramenta VLibras",
+        en: "Open VLibras tool",
+        es: "Abrir herramienta VLibras",
+        fr: "Ouvrir l'outil VLibras"
     }
-
-}
-
-
-function setTexts(
-    selector,
-    texts
-) {
-
-    document.querySelectorAll(
-        selector
-    ).forEach(
-        (element, index) => {
-
-            if (
-                texts[index] !== undefined
-            ) {
-
-                element.textContent =
-                    texts[index];
-
-            }
-
-        }
-    );
-
-}
+};
 
 
-function setTextWithin(
-    parent,
-    selector,
-    text
-) {
+/* =====================================================
+   GUARDAR TEXTOS ORIGINAIS
+===================================================== */
 
-    const element =
-        parent.querySelector(
-            selector
-        );
+const originalTextNodes =
+    new WeakMap();
 
-    if (element) {
-
-        element.textContent =
-            text;
-
-    }
-
-}
+const originalAttributes =
+    new WeakMap();
 
 
-function setTextsWithin(
-    parent,
-    selector,
-    texts
-) {
+function normalizeText(text) {
 
-    parent.querySelectorAll(
-        selector
-    ).forEach(
-        (element, index) => {
-
-            if (
-                texts[index] !== undefined
-            ) {
-
-                element.textContent =
-                    texts[index];
-
-            }
-
-        }
-    );
-
+    return text
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 
 /* =====================================================
-   APLICAR IDIOMA
+   TRADUZIR NÓ DE TEXTO
 ===================================================== */
 
-function applyLanguage(
+function translateTextNode(
+    node,
     language
 ) {
 
-    const t =
-        translations[language];
-
-    if (!t) {
+    if (
+        !node ||
+        node.nodeType !== Node.TEXT_NODE
+    ) {
         return;
     }
 
 
-    document.documentElement.lang =
-        t.lang;
+    const parent =
+        node.parentElement;
 
 
-    /* Acessibilidade */
-
-    setText(
-        ".accessibility-toggle span",
-        t.accessibility
-    );
-
-    setText(
-        ".accessibility-small-title",
-        t.resources
-    );
-
-    setText(
-        ".accessibility-header h2",
-        t.accessibility
-    );
-
-    setText(
-        "#increaseText span:last-child",
-        t.increase
-    );
-
-    setText(
-        "#decreaseText span:last-child",
-        t.decrease
-    );
-
-    setText(
-        "#contrastToggle span:last-child",
-        t.contrast
-    );
-
-    setText(
-        "#spacingToggle span:last-child",
-        t.spacing
-    );
-
-    setText(
-        "#animationToggle span:last-child",
-        t.animations
-    );
-
-    setText(
-        "#focusToggle span:last-child",
-        t.focus
-    );
-
-    setText(
-        "#vlibrasButton span:last-child",
-        t.libras
-    );
-
-    setText(
-        ".language-title",
-        t.language
-    );
-
-
-    /* Botão voltar */
-
-    setText(
-        "#backHomeButton span",
-        t.backHome
-    );
-
-
-    if (backHomeButton) {
-
-        backHomeButton.setAttribute(
-            "aria-label",
-            t.backHomeAria
-        );
-
-        backHomeButton.setAttribute(
-            "title",
-            t.backHomeAria
-        );
-
+    if (!parent) {
+        return;
     }
-
-
-    /* Primeira tela */
-
-    setText(
-        ".welcome .label",
-        t.homeLabel
-    );
-
-    setText(
-        "#home-title",
-        t.homeTitle
-    );
-
-    setText(
-        ".welcome p",
-        t.homeText
-    );
-
-    setText(
-        ".click-area strong",
-        t.clickFlower
-    );
-
-    setText(
-        ".click-area span",
-        t.startJourney
-    );
-
-    setTexts(
-        ".bottom-bar span",
-        [
-            t.care,
-            t.matter
-        ]
-    );
-
-
-    /* Vídeo */
-
-    setText(
-        ".video-label",
-        t.videoLabel
-    );
-
-    setText(
-        "#video-title",
-        t.videoTitle
-    );
-
-    setText(
-        ".video-content > p",
-        t.videoText
-    );
-
-
-    /* Introdução */
-
-    setText(
-        ".info-intro .info-label",
-        t.infoLabel
-    );
-
-    setText(
-        "#info-title",
-        t.infoTitle
-    );
-
-    setText(
-        ".info-intro > p",
-        t.infoText
-    );
-
-
-    /* Cards */
-
-    const cards =
-        document.querySelectorAll(
-            ".info-card"
-        );
 
 
     if (
-        cards.length >= 3
+        parent.tagName === "SCRIPT" ||
+        parent.tagName === "STYLE" ||
+        parent.tagName === "NOSCRIPT"
     ) {
-
-        /* Depressão */
-
-        setTextWithin(
-            cards[0],
-            "h3",
-            t.depressionTitle
-        );
-
-        setTextsWithin(
-            cards[0],
-            "p",
-            [
-                t.depression1,
-                t.depression2
-            ]
-        );
-
-
-        /* Sinais */
-
-        setTextWithin(
-            cards[1],
-            "h3",
-            t.signsTitle
-        );
-
-        setTextWithin(
-            cards[1],
-            "> p",
-            t.signsIntro
-        );
-
-        setTextsWithin(
-            cards[1],
-            ".sign-item span:last-child",
-            [
-                t.sign1,
-                t.sign2,
-                t.sign3,
-                t.sign4,
-                t.sign5,
-                t.sign6
-            ]
-        );
-
-
-        const attentionBox =
-            cards[1].querySelector(
-                ".attention-box"
-            );
-
-        if (
-            attentionBox
-        ) {
-
-            attentionBox.innerHTML =
-                `<strong>${t.important}</strong> ${t.attention}`;
-
-        }
-
-
-        /* Fatores */
-
-        setTextWithin(
-            cards[2],
-            "h3",
-            t.factorsTitle
-        );
-
-        setTextWithin(
-            cards[2],
-            "> p",
-            t.factorsIntro
-        );
-
-        setTextsWithin(
-            cards[2],
-            ".factor h4",
-            [
-                t.biological,
-                t.psychological,
-                t.social,
-                t.difficult
-            ]
-        );
-
-        setTextsWithin(
-            cards[2],
-            ".factor p",
-            [
-                t.biologicalText,
-                t.psychologicalText,
-                t.socialText,
-                t.difficultText
-            ]
-        );
-
-
-        /* Como ajudar */
-
-        if (
-            cards.length >= 4
-        ) {
-
-            setTextWithin(
-                cards[3],
-                "h3",
-                t.helpTitle
-            );
-
-            setTextsWithin(
-                cards[3],
-                ".help-item strong",
-                [
-                    t.listen,
-                    t.welcome,
-                    t.encourage
-                ]
-            );
-
-            setTextsWithin(
-                cards[3],
-                ".help-item p",
-                [
-                    t.listenText,
-                    t.welcomeText,
-                    t.encourageText
-                ]
-            );
-
-        }
-
+        return;
     }
 
-
-    /* PCD */
-
-    setText(
-        ".pcd-content h3",
-        t.pcdTitle
-    );
-
-    setTexts(
-        ".pcd-content > p",
-        [
-            t.pcd1,
-            t.pcd2
-        ]
-    );
-
-    setTexts(
-        ".pcd-points strong",
-        [
-            t.accessibilityPoint,
-            t.respectPoint,
-            t.welcomePoint
-        ]
-    );
-
-    setTexts(
-        ".pcd-points span",
-        [
-            t.accessibilityPointText,
-            t.respectPointText,
-            t.welcomePointText
-        ]
-    );
-
-
-    /* Onde procurar ajuda */
-
-    setText(
-        ".help-location .info-label",
-        t.whereHelp
-    );
-
-    setText(
-        "#help-title",
-        t.helpHeading
-    );
-
-    setText(
-        ".location-heading > p",
-        t.helpIntro
-    );
-
-    setTexts(
-        ".location-card h3",
-        [
-            t.ubsTitle,
-            t.capsTitle,
-            t.professionalsTitle
-        ]
-    );
-
-    setTexts(
-        ".location-card p",
-        [
-            t.ubsText,
-            t.capsText,
-            t.professionalsText
-        ]
-    );
-
-
-    /* Emergência */
-
-    const emergencyStrong =
-        document.querySelector(
-            ".emergency-note > div:last-child > strong"
-        );
 
     if (
-        emergencyStrong
+        !originalTextNodes.has(node)
     ) {
 
-        emergencyStrong.textContent =
-            t.emergencyTitle;
-
+        originalTextNodes.set(
+            node,
+            node.textContent
+        );
     }
 
 
-    const emergencyP =
-        document.querySelector(
-            ".emergency-note p"
-        );
+    const original =
+        originalTextNodes.get(node);
+
+
+    const cleanOriginal =
+        normalizeText(original);
+
+
+    if (!cleanOriginal) {
+        return;
+    }
+
+
+    const dictionary =
+        siteTranslations[language];
+
+
+    if (!dictionary) {
+        return;
+    }
+
+
+    const translated =
+        dictionary[cleanOriginal];
+
 
     if (
-        emergencyP
+        translated === undefined
     ) {
-
-        emergencyP.textContent =
-            t.emergencyText;
-
+        return;
     }
 
 
-    /* Mensagem final */
-
-    setText(
-        ".final-message > span",
-        t.homeLabel
-    );
-
-    setText(
-        ".final-message h2",
-        t.finalTitle
-    );
-
-    setText(
-        ".final-message p",
-        t.finalText
-    );
+    const leading =
+        original.match(/^\s*/)?.[0] || "";
 
 
-    /* Rodapé */
-
-    setTexts(
-        ".sources p",
-        [
-            t.footer1,
-            t.footer2
-        ]
-    );
+    const trailing =
+        original.match(/\s*$/)?.[0] || "";
 
 
-    /* Girassóis */
-
-    flowers.forEach(
-        flower => {
-
-            flower.setAttribute(
-                "aria-label",
-                t.clickFlower
-            );
-
-        }
-    );
-
-
-    /* Idioma selecionado */
-
-    languageButtons.forEach(
-        button => {
-
-            const selected =
-                button.dataset.language ===
-                language;
-
-            button.classList.toggle(
-                "active",
-                selected
-            );
-
-            button.setAttribute(
-                "aria-pressed",
-                String(selected)
-            );
-
-        }
-    );
-
-
-    localStorage.setItem(
-        "siteLanguage",
-        language
-    );
-
+    node.textContent =
+        leading +
+        translated +
+        trailing;
 }
 
 
 /* =====================================================
-   BOTÕES DE IDIOMA
+   TRADUZIR ATRIBUTOS
 ===================================================== */
 
-const languageButtons =
-    document.querySelectorAll(
-        ".language-button"
+function translateAttributes(
+    element,
+    language
+) {
+
+    const attributes = [
+        "aria-label",
+        "title",
+        "placeholder",
+        "alt"
+    ];
+
+
+    attributes.forEach(
+        attribute => {
+
+            if (
+                !element.hasAttribute(attribute)
+            ) {
+                return;
+            }
+
+
+            const originalKey =
+                `${attribute}:original`;
+
+
+            let originals =
+                originalAttributes.get(element);
+
+
+            if (!originals) {
+
+                originals = {};
+
+                originalAttributes.set(
+                    element,
+                    originals
+                );
+            }
+
+
+            if (
+                originals[originalKey] === undefined
+            ) {
+
+                originals[originalKey] =
+                    element.getAttribute(
+                        attribute
+                    );
+            }
+
+
+            const original =
+                originals[originalKey];
+
+
+            if (!original) {
+                return;
+            }
+
+
+            const translated =
+                attributeTranslations[
+                    original
+                ]?.[language];
+
+
+            if (
+                translated
+            ) {
+
+                element.setAttribute(
+                    attribute,
+                    translated
+                );
+            }
+
+        }
+    );
+}
+
+
+/* =====================================================
+   TRADUZIR TODA A PÁGINA
+===================================================== */
+
+function translateEntireSite(
+    language
+) {
+
+    const walker =
+        document.createTreeWalker(
+
+            document.body,
+
+            NodeFilter.SHOW_TEXT
+
+        );
+
+
+    const textNodes = [];
+
+
+    let node;
+
+
+    while (
+        node =
+            walker.nextNode()
+    ) {
+
+        textNodes.push(node);
+    }
+
+
+    textNodes.forEach(
+        textNode => {
+
+            translateTextNode(
+                textNode,
+                language
+            );
+
+        }
     );
 
 
-languageButtons.forEach(
-    button => {
+    /* ATRIBUTOS */
 
-        button.addEventListener(
-            "click",
-            () => {
+    document
+        .querySelectorAll("*")
+        .forEach(
+            element => {
 
-                applyLanguage(
-                    button.dataset.language
+                translateAttributes(
+                    element,
+                    language
                 );
 
             }
         );
 
-    }
-);
+
+    /* TÍTULO DA PÁGINA */
+
+    const titles = {
+
+        pt:
+            "Setembro Amarelo | Você Importa",
+
+        en:
+            "Yellow September | You Matter",
+
+        es:
+            "Septiembre Amarillo | Tú Importas",
+
+        fr:
+            "Septembre Jaune | Vous Comptez"
+
+    };
+
+
+    document.title =
+        titles[language] ||
+        titles.pt;
+
+
+    /* HTML LANG */
+
+    const htmlLanguages = {
+
+        pt: "pt-BR",
+        en: "en",
+        es: "es",
+        fr: "fr"
+
+    };
+
+
+    document.documentElement.lang =
+        htmlLanguages[language] ||
+        "pt-BR";
+
+
+    /* BOTÕES DE IDIOMA */
+
+    document
+        .querySelectorAll(
+            ".language-button"
+        )
+        .forEach(
+            button => {
+
+                const isActive =
+                    button.dataset.language ===
+                    language;
+
+
+                button.classList.toggle(
+                    "active",
+                    isActive
+                );
+
+
+                button.setAttribute(
+                    "aria-pressed",
+                    isActive
+                        ? "true"
+                        : "false"
+                );
+
+            }
+        );
+
+
+    /* SALVAR IDIOMA */
+
+    localStorage.setItem(
+        "siteLanguage",
+        language
+    );
+}
+
+
+/* =====================================================
+   CLIQUE NOS BOTÕES DE IDIOMA
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".language-button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const language =
+                        button.dataset.language;
+
+
+                    translateEntireSite(
+                        language
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
 /* =====================================================
    IDIOMA SALVO
 ===================================================== */
 
-const savedLanguage =
+const savedSiteLanguage =
     localStorage.getItem(
         "siteLanguage"
+    ) || "pt";
+
+
+/* =====================================================
+   APLICAR AO CARREGAR
+===================================================== */
+
+translateEntireSite(
+    savedSiteLanguage
+);
+
+
+/* =====================================================
+   OBSERVADOR
+   PEGA TEXTOS CRIADOS DEPOIS PELO JAVASCRIPT
+===================================================== */
+
+const translationObserver =
+    new MutationObserver(
+        mutations => {
+
+            const currentLanguage =
+                localStorage.getItem(
+                    "siteLanguage"
+                ) || "pt";
+
+
+            mutations.forEach(
+                mutation => {
+
+                    if (
+                        mutation.type ===
+                        "childList"
+                    ) {
+
+                        mutation.addedNodes.forEach(
+                            addedNode => {
+
+                                if (
+                                    addedNode.nodeType ===
+                                    Node.TEXT_NODE
+                                ) {
+
+                                    translateTextNode(
+                                        addedNode,
+                                        currentLanguage
+                                    );
+
+                                }
+
+
+                                if (
+                                    addedNode.nodeType ===
+                                    Node.ELEMENT_NODE
+                                ) {
+
+                                    const walker =
+                                        document.createTreeWalker(
+                                            addedNode,
+                                            NodeFilter.SHOW_TEXT
+                                        );
+
+
+                                    const textNodes = [];
+
+
+                                    let textNode;
+
+
+                                    while (
+                                        textNode =
+                                            walker.nextNode()
+                                    ) {
+
+                                        textNodes.push(
+                                            textNode
+                                        );
+                                    }
+
+
+                                    textNodes.forEach(
+                                        textNode => {
+
+                                            translateTextNode(
+                                                textNode,
+                                                currentLanguage
+                                            );
+
+                                        }
+                                    );
+
+
+                                    translateAttributes(
+                                        addedNode,
+                                        currentLanguage
+                                    );
+
+
+                                    addedNode
+                                        .querySelectorAll(
+                                            "*"
+                                        )
+                                        .forEach(
+                                            element => {
+
+                                                translateAttributes(
+                                                    element,
+                                                    currentLanguage
+                                                );
+
+                                            }
+                                        );
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+        }
     );
 
 
-applyLanguage(
-
-    savedLanguage &&
-    translations[savedLanguage]
-
-        ? savedLanguage
-
-        : "pt"
-
-);
-
-
-/* =====================================================
-   ESC FECHA O MENU
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape" &&
-            accessibilityPanel &&
-            !accessibilityPanel.hidden
-        ) {
-
-            closeAccessibility();
-
-            accessibilityToggle.focus();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   CLICAR FORA FECHA O MENU
-===================================================== */
-
-document.addEventListener(
-    "click",
-    event => {
-
-        if (
-            !accessibilityPanel ||
-            accessibilityPanel.hidden
-        ) {
-
-            return;
-        }
-
-
-        const clickedInside =
-            accessibilityPanel.contains(
-                event.target
-            );
-
-
-        const clickedToggle =
-            accessibilityToggle.contains(
-                event.target
-            );
-
-
-        if (
-            !clickedInside &&
-            !clickedToggle
-        ) {
-
-            closeAccessibility();
-
-        }
-
+translationObserver.observe(
+    document.body,
+    {
+        childList: true,
+        subtree: true
     }
 );
