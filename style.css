@@ -2552,3 +2552,51 @@ body.reduced-motion .project-message {
         line-height: 1.6;
     }
 }
+/* =====================================================
+   CORREÇÃO DEFINITIVA - MENSAGEM DO PROJETO
+===================================================== */
+
+.welcome .project-message {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    position: relative;
+    z-index: 100;
+
+    width: 100%;
+    max-width: 520px;
+
+    margin: 22px 0 20px 0;
+    padding: 18px 22px;
+
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #4b3908 !important;
+
+    border: 2px solid #f4c430;
+    border-left: 6px solid #e5aa00;
+    border-radius: 15px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+
+    text-align: left;
+    line-height: 1.6;
+}
+
+.welcome .project-message p {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    margin: 0 !important;
+    color: #4b3908 !important;
+
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+.welcome .project-message-icon {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
