@@ -706,3 +706,27 @@ document.addEventListener("click", event => {
         closeAccessibility();
     }
 });
+/* =========================================
+   BLOQUEAR INFORMAÇÕES ANTES DO GIRASSOL
+========================================= */
+
+body.locked-content {
+    overflow: hidden !important;
+    height: 100vh !important;
+    touch-action: none;
+}
+
+body.locked-content #videoSection,
+body.locked-content #infoSection,
+body.locked-content #content,
+body.locked-content main section:not(#home) {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+body.locked-content #home {
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
