@@ -1288,3 +1288,48 @@ document.querySelectorAll(".language-button").forEach(button => {
 /* Idioma salvo anteriormente */
 const savedLanguage = localStorage.getItem("siteLanguage") || "pt";
 translateSite(savedLanguage);
+/* =====================================================
+   GARANTIR EXIBIÇÃO DA MENSAGEM DO PROJETO
+===================================================== */
+
+function garantirMensagemProjeto() {
+    const mensagem = document.querySelector(".project-message");
+
+    if (!mensagem) {
+        console.warn("Elemento .project-message não encontrado no HTML.");
+        return;
+    }
+
+    mensagem.hidden = false;
+
+    mensagem.style.display = "block";
+    mensagem.style.visibility = "visible";
+    mensagem.style.opacity = "1";
+    mensagem.style.position = "relative";
+    mensagem.style.zIndex = "9999";
+    mensagem.style.color = "#4b3908";
+    mensagem.style.background = "#ffffff";
+    mensagem.style.width = "100%";
+    mensagem.style.maxWidth = "520px";
+    mensagem.style.padding = "18px 22px";
+    mensagem.style.margin = "22px 0";
+    mensagem.style.border = "2px solid #f4c430";
+    mensagem.style.borderRadius = "15px";
+    mensagem.style.boxShadow = "0 8px 25px rgba(0,0,0,.18)";
+
+    const texto = mensagem.querySelector("p");
+
+    if (texto) {
+        texto.style.display = "block";
+        texto.style.visibility = "visible";
+        texto.style.opacity = "1";
+        texto.style.color = "#4b3908";
+        texto.style.fontSize = "16px";
+        texto.style.lineHeight = "1.6";
+        texto.style.margin = "0";
+    }
+}
+
+garantirMensagemProjeto();
+
+window.addEventListener("load", garantirMensagemProjeto);
