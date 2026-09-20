@@ -1,8 +1,1209 @@
-font-size: 13px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-font-weight: bold;
+html {
+    scroll-behavior: smooth;
+}
 
-letter-spacing: 1.8px;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    background: #111;
+}
+
+/* =====================================================
+   TELA PRINCIPAL
+===================================================== */
+
+#home {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #72b9e8 0%,
+            #a9d9ee 30%,
+            #f5d77b 63%,
+            #d5a52f 78%,
+            #557b27 100%
+        );
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s ease;
+}
+
+/* =====================================================
+   CÉU
+===================================================== */
+
+.sky {
+    position: absolute;
+    inset: 0;
+    height: 70%;
+    overflow: hidden;
+}
+
+/* =====================================================
+   SOL
+===================================================== */
+
+.sun {
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    left: 53%;
+    top: 17%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 45% 40%,
+            #fffbd0 0%,
+            #fff39a 18%,
+            #ffd95a 45%,
+            #f5b82f 72%,
+            #ed9d21 100%
+        );
+
+    box-shadow:
+        0 0 30px rgba(255, 226, 96, 0.8),
+        0 0 80px rgba(255, 211, 63, 0.55),
+        0 0 150px rgba(255, 204, 60, 0.35);
+
+    z-index: 2;
+}
+
+.sun-glow {
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    left: 53%;
+    top: 4%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 235, 128, 0.35) 0%,
+            rgba(255, 220, 100, 0.15) 35%,
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+/* =====================================================
+   NUVENS
+===================================================== */
+
+.cloud {
+    position: absolute;
+
+    width: 180px;
+    height: 50px;
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    filter: blur(1px);
+
+    opacity: 0.8;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+
+    position: absolute;
+
+    background: inherit;
+
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 75px;
+    height: 75px;
+
+    left: 30px;
+    bottom: 5px;
+}
+
+.cloud::after {
+    width: 90px;
+    height: 90px;
+
+    right: 25px;
+    bottom: 0;
+}
+
+.cloud-1 {
+    top: 18%;
+    left: 5%;
+
+    transform: scale(0.8);
+}
+
+.cloud-2 {
+    top: 10%;
+    right: 5%;
+
+    transform: scale(0.65);
+}
+
+.cloud-3 {
+    top: 34%;
+    right: 22%;
+
+    transform: scale(0.45);
+
+    opacity: 0.45;
+}
+
+/* =====================================================
+   CAMPO DISTANTE
+===================================================== */
+
+.far-field {
+    position: absolute;
+
+    bottom: 26%;
+
+    width: 100%;
+    height: 26%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #7ca63b 0%,
+            #638d2c 50%,
+            #4d7625 100%
+        );
+
+    clip-path: polygon(
+        0 40%,
+        10% 33%,
+        20% 42%,
+        30% 28%,
+        40% 40%,
+        50% 25%,
+        60% 38%,
+        70% 29%,
+        80% 42%,
+        90% 30%,
+        100% 38%,
+        100% 100%,
+        0 100%
+    );
+}
+
+/* =====================================================
+   CAMPO PRINCIPAL
+===================================================== */
+
+.field {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 46%;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #71972d 0%,
+            #638727 45%,
+            #486d20 100%
+        );
+
+    z-index: 5;
+}
+
+.field::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.35;
+
+    background:
+        repeating-linear-gradient(
+            105deg,
+            transparent 0px,
+            transparent 12px,
+            rgba(255, 255, 255, 0.04) 13px,
+            transparent 15px
+        );
+}
+
+/* =====================================================
+   GIRASSÓIS
+===================================================== */
+
+.sunflower {
+    position: absolute;
+
+    bottom: var(--bottom);
+    left: var(--left);
+
+    width: var(--size);
+    height: var(--size);
+
+    border: 0;
+    background: transparent;
+
+    cursor: pointer;
+
+    transform:
+        translateX(-50%)
+        scale(var(--scale));
+
+    transform-origin: bottom center;
+
+    z-index: var(--layer, 8);
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+}
+
+.sunflower:hover {
+    transform:
+        translateX(-50%)
+        scale(calc(var(--scale) + 0.07));
+
+    filter:
+        drop-shadow(0 8px 12px rgba(0, 0, 0, 0.2));
+}
+
+.sunflower:focus-visible {
+    outline: 4px solid white;
+    outline-offset: 8px;
+    border-radius: 20px;
+}
+
+.sunflower:disabled {
+    cursor: default;
+}
+
+/* caule */
+
+.stem {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: 12px;
+    height: 78%;
+
+    transform: translateX(-50%);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            to right,
+            #31551c,
+            #5e8d2b,
+            #31551c
+        );
+}
+
+/* folhas */
+
+.leaf {
+    position: absolute;
+
+    width: 75px;
+    height: 32px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d9b2f,
+            #315c1c
+        );
+
+    border-radius: 100% 0 100% 0;
+
+    z-index: 2;
+}
+
+.leaf-left {
+    left: 4%;
+    bottom: 32%;
+
+    transform: rotate(-28deg);
+}
+
+.leaf-right {
+    right: 4%;
+    bottom: 46%;
+
+    transform: rotate(205deg);
+}
+
+/* cabeça */
+
+.flower-head {
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    z-index: 5;
+}
+
+/* pétalas */
+
+.petal {
+    position: absolute;
+
+    width: 30%;
+    height: 48%;
+
+    left: 35%;
+    top: 26%;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff18a 0%,
+            #ffd42f 45%,
+            #e9a90e 100%
+        );
+
+    transform-origin: 50% 50%;
+}
+
+.petal:nth-child(1) {
+    transform: rotate(0deg) translateY(-55%);
+}
+
+.petal:nth-child(2) {
+    transform: rotate(30deg) translateY(-55%);
+}
+
+.petal:nth-child(3) {
+    transform: rotate(60deg) translateY(-55%);
+}
+
+.petal:nth-child(4) {
+    transform: rotate(90deg) translateY(-55%);
+}
+
+.petal:nth-child(5) {
+    transform: rotate(120deg) translateY(-55%);
+}
+
+.petal:nth-child(6) {
+    transform: rotate(150deg) translateY(-55%);
+}
+
+.petal:nth-child(7) {
+    transform: rotate(180deg) translateY(-55%);
+}
+
+.petal:nth-child(8) {
+    transform: rotate(210deg) translateY(-55%);
+}
+
+.petal:nth-child(9) {
+    transform: rotate(240deg) translateY(-55%);
+}
+
+.petal:nth-child(10) {
+    transform: rotate(270deg) translateY(-55%);
+}
+
+.petal:nth-child(11) {
+    transform: rotate(300deg) translateY(-55%);
+}
+
+.petal:nth-child(12) {
+    transform: rotate(330deg) translateY(-55%);
+}
+
+/* centro */
+
+.flower-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 39%;
+    height: 39%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #9b6424,
+            #633b16 55%,
+            #35200d 100%
+        );
+
+    box-shadow:
+        inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* =====================================================
+   POSIÇÃO DOS GIRASSÓIS
+===================================================== */
+
+.flower-1 {
+    --left: 4%;
+    --bottom: -30px;
+    --size: 170px;
+    --scale: 1;
+    --layer: 8;
+}
+
+.flower-2 {
+    --left: 15%;
+    --bottom: -45px;
+    --size: 220px;
+    --scale: 1;
+    --layer: 10;
+}
+
+.flower-3 {
+    --left: 27%;
+    --bottom: -25px;
+    --size: 155px;
+    --scale: 0.95;
+    --layer: 8;
+}
+
+.flower-4 {
+    --left: 39%;
+    --bottom: -55px;
+    --size: 230px;
+    --scale: 1;
+    --layer: 11;
+}
+
+.flower-5 {
+    --left: 51%;
+    --bottom: -30px;
+    --size: 175px;
+    --scale: 1;
+    --layer: 9;
+}
+
+.flower-6 {
+    --left: 63%;
+    --bottom: -48px;
+    --size: 215px;
+    --scale: 1;
+    --layer: 11;
+}
+
+.flower-7 {
+    --left: 76%;
+    --bottom: -30px;
+    --size: 165px;
+    --scale: 1;
+    --layer: 9;
+}
+
+.flower-8 {
+    --left: 88%;
+    --bottom: -55px;
+    --size: 230px;
+    --scale: 1;
+    --layer: 11;
+}
+
+.flower-9 {
+    --left: 9%;
+    --bottom: 27%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-10 {
+    --left: 23%;
+    --bottom: 30%;
+    --size: 115px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-11 {
+    --left: 35%;
+    --bottom: 24%;
+    --size: 95px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-12 {
+    --left: 48%;
+    --bottom: 29%;
+    --size: 110px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-13 {
+    --left: 60%;
+    --bottom: 25%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-14 {
+    --left: 73%;
+    --bottom: 30%;
+    --size: 115px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+.flower-15 {
+    --left: 86%;
+    --bottom: 26%;
+    --size: 100px;
+    --scale: 0.8;
+    --layer: 6;
+}
+
+/* =====================================================
+   TEXTO
+===================================================== */
+
+.welcome {
+    position: absolute;
+
+    left: 7%;
+    top: 11%;
+
+    max-width: 520px;
+
+    color: white;
+
+    z-index: 20;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.28);
+}
+
+.label {
+    display: inline-block;
+
+    padding: 9px 16px;
+
+    margin-bottom: 18px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 193, 7, 0.9);
+
+    color: #513500;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    font-size: 13px;
+}
+
+.welcome h1 {
+    font-size: clamp(38px, 5vw, 68px);
+
+    line-height: 0.98;
+
+    margin-bottom: 20px;
+}
+
+.welcome p {
+    font-size: 19px;
+
+    line-height: 1.5;
+
+    max-width: 460px;
+}
+
+/* =====================================================
+   ÁREA DO CLIQUE
+===================================================== */
+
+.click-area {
+    margin-top: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.mouse-icon {
+    font-size: 27px;
+
+    animation:
+        clickBounce 1.5s infinite;
+}
+
+.click-area strong {
+    margin-top: 5px;
+
+    font-size: 18px;
+}
+
+.click-area span {
+    margin-top: 4px;
+
+    font-size: 14px;
+
+    opacity: 0.85;
+}
+
+@keyframes clickBounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(7px);
+    }
+}
+
+/* =====================================================
+   BORBOLETAS
+===================================================== */
+
+#butterflies {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 40;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+.butterfly {
+    position: absolute;
+
+    width: 34px;
+    height: 26px;
+
+    animation:
+        butterflyFlight
+        var(--duration)
+        cubic-bezier(.2, .7, .3, 1)
+        forwards;
+
+    transform-origin: center;
+
+    filter:
+        drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));
+}
+
+.butterfly .body {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 5px;
+    height: 22px;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #6c4308,
+            #2f210c
+        );
+
+    z-index: 5;
+}
+
+.butterfly .wing {
+    position: absolute;
+
+    width: 18px;
+    height: 22px;
+
+    top: 2px;
+
+    background:
+        radial-gradient(
+            circle at 65% 35%,
+            #fff4a1 0%,
+            #ffd83d 38%,
+            #f2b719 72%,
+            #d7950d 100%
+        );
+
+    border: 1px solid rgba(154, 94, 0, 0.45);
+
+    box-shadow:
+        inset 0 0 5px rgba(255, 255, 255, 0.45);
+
+    z-index: 3;
+
+    animation:
+        wingFlap
+        0.18s
+        ease-in-out
+        infinite alternate;
+}
+
+.wing-left {
+    right: 50%;
+
+    border-radius:
+        80% 25% 65% 30%;
+
+    transform-origin: right center;
+}
+
+.wing-right {
+    left: 50%;
+
+    border-radius:
+        25% 80% 30% 65%;
+
+    transform-origin: left center;
+}
+
+.butterfly::before,
+.butterfly::after {
+    content: "";
+
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    top: -5px;
+
+    border-top: 1px solid #4e340b;
+
+    z-index: 1;
+}
+
+.butterfly::before {
+    left: 8px;
+
+    transform: rotate(-25deg);
+}
+
+.butterfly::after {
+    right: 8px;
+
+    transform: rotate(25deg);
+}
+
+@keyframes wingFlap {
+    from {
+        transform:
+            rotateY(18deg)
+            rotateZ(-3deg);
+    }
+
+    to {
+        transform:
+            rotateY(68deg)
+            rotateZ(5deg);
+    }
+}
+
+@keyframes butterflyFlight {
+    0% {
+        opacity: 0;
+
+        transform:
+            translate3d(0, 0, 0)
+            rotate(-8deg)
+            scale(0.45);
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    23% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.16),
+                calc(var(--dy) * 0.20),
+                0
+            )
+            rotate(10deg)
+            scale(0.72);
+    }
+
+    40% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.36),
+                calc(var(--dy) * 0.42),
+                0
+            )
+            rotate(-8deg)
+            scale(0.9);
+    }
+
+    57% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.57),
+                calc(var(--dy) * 0.52),
+                0
+            )
+            rotate(9deg)
+            scale(1);
+    }
+
+    75% {
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.76),
+                calc(var(--dy) * 0.72),
+                0
+            )
+            rotate(-7deg)
+            scale(0.95);
+    }
+
+    90% {
+        opacity: 0.8;
+
+        transform:
+            translate3d(
+                calc(var(--dx) * 0.92),
+                calc(var(--dy) * 0.91),
+                0
+            )
+            rotate(7deg)
+            scale(0.85);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate3d(
+                var(--dx),
+                var(--dy),
+                0
+            )
+            rotate(-5deg)
+            scale(0.7);
+    }
+}
+
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
+
+#particles {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 35;
+}
+
+.particle {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 242, 145, 0.8);
+
+    animation:
+        particleFloat
+        2s
+        ease-out
+        forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--px),
+                var(--py)
+            )
+            scale(0);
+    }
+}
+
+/* =====================================================
+   BARRA INFERIOR
+===================================================== */
+
+.bottom-bar {
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(90%, 850px);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: white;
+
+    font-size: 14px;
+
+    z-index: 50;
+
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* =====================================================
+   SAÍDA
+===================================================== */
+
+#home.leaving {
+    opacity: 0;
+
+    transform:
+        scale(1.08)
+        translateY(-20px);
+
+    pointer-events: none;
+}
+
+/* =====================================================
+   VÍDEO
+===================================================== */
+
+#videoSection {
+    min-height: 100vh;
+
+    padding: 70px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7c2,
+            #ffd84c,
+            #f2b900
+        );
+
+    opacity: 0;
+
+    transform: translateY(50px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+#videoSection.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.video-content {
+    width: min(100%, 950px);
+
+    text-align: center;
+}
+
+.video-label {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 8px 15px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    color: #694900;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.video-content h2 {
+    font-size: clamp(35px, 5vw, 60px);
+
+    color: #4f3900;
+
+    margin-bottom: 15px;
+}
+
+.video-content > p {
+    max-width: 650px;
+
+    margin: 0 auto 30px;
+
+    color: #624d13;
+
+    line-height: 1.6;
+
+    font-size: 17px;
+}
+
+.video-box {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16 / 9;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    background: #111;
+
+    box-shadow:
+        0 20px 50px rgba(80, 55, 0, 0.3);
+}
+
+.video-box iframe {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+}
+
+/* =====================================================
+   INFORMAÇÕES
+===================================================== */
+
+#infoSection {
+    min-height: 100vh;
+
+    padding:
+        100px 20px 80px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fffbe8 0%,
+            #fff4bf 38%,
+            #ffe98a 100%
+        );
+
+    color: #4e3a0b;
+}
+
+.info-container {
+    width: min(1100px, 100%);
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 28px;
+}
+
+.info-intro {
+    text-align: center;
+
+    max-width: 820px;
+
+    margin: 0 auto 18px;
+}
+
+.info-label {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    padding: 8px 15px;
+
+    border-radius: 30px;
+
+    background: rgba(255, 193, 7, 0.22);
+
+    color: #725000;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.8px;
 }
 
 .info-intro h2 {
@@ -596,6 +1797,7 @@ letter-spacing: 1.8px;
 
     transform: translateY(0);
 }
+
 /* =====================================================
    CELULAR
 ===================================================== */
@@ -1196,3 +2398,1913 @@ body.reduced-motion .mouse-icon {
     display: none;
     align-items: center;
     gap: 8px;
+
+    min-height: 46px;
+    padding: 10px 15px;
+
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+
+    background: rgba(78, 55, 5, 0.96);
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-home-button.visible {
+    display: flex;
+}
+
+.back-home-button:hover {
+    transform: translateY(-2px);
+    background: rgba(54, 39, 4, 0.98);
+}
+
+.back-home-button:focus-visible {
+    outline: 5px solid #00ffff;
+    outline-offset: 4px;
+}
+
+/* =====================================================
+   SELETOR DE IDIOMAS
+===================================================== */
+
+.language-section {
+    margin-top: 16px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(120, 87, 0, 0.15);
+}
+
+.language-title {
+    display: block;
+    margin-bottom: 10px;
+    color: #9a7100;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.language-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.language-button {
+    min-height: 42px;
+    padding: 8px;
+
+    border: 1px solid rgba(119, 87, 0, 0.15);
+    border-radius: 11px;
+
+    background: #fff9dc;
+    color: #523c06;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.language-button:hover {
+    background: #ffe77a;
+    transform: translateY(-1px);
+}
+
+.language-button.active {
+    background: #f1c928;
+    color: #4b3500;
+    box-shadow: inset 0 0 0 2px rgba(120, 80, 0, 0.15);
+}
+
+.language-button:focus-visible {
+    outline: 4px solid #00ffff;
+    outline-offset: 3px;
+}
+
+body.high-contrast .language-button {
+    background: #000;
+    color: #fff;
+    border-color: #fff;
+}
+
+@media (max-width: 700px) {
+    .back-home-button {
+        left: 12px;
+        bottom: 12px;
+        min-height: 44px;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+}
+
+const home = document.getElementById("home");
+const field = document.getElementById("flowerField");
+const videoSection = document.getElementById("videoSection");
+
+const butterflies = document.getElementById("butterflies");
+const particles = document.getElementById("particles");
+
+const backHomeButton = document.getElementById("backHomeButton");
+
+let journeyStarted = false;
+
+/* =====================================================
+   CRIAR GIRASSÓIS
+===================================================== */
+
+const flowers = [];
+
+const flowerPositions = [
+    ["flower-1", 4, -30, 170, 1],
+    ["flower-2", 15, -45, 220, 1],
+    ["flower-3", 27, -25, 155, 0.95],
+    ["flower-4", 39, -55, 230, 1],
+    ["flower-5", 51, -30, 175, 1],
+    ["flower-6", 63, -48, 215, 1],
+    ["flower-7", 76, -30, 165, 1],
+    ["flower-8", 88, -55, 230, 1],
+
+    ["flower-9", 9, 27, 100, 0.8],
+    ["flower-10", 23, 30, 115, 0.8],
+    ["flower-11", 35, 24, 95, 0.8],
+    ["flower-12", 48, 29, 110, 0.8],
+    ["flower-13", 60, 25, 100, 0.8],
+    ["flower-14", 73, 30, 115, 0.8],
+    ["flower-15", 86, 26, 100, 0.8]
+];
+
+function createFlower(data) {
+    const [className, left, bottom, size, scale] = data;
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = `sunflower ${className}`;
+
+    button.style.setProperty("--left", `${left}%`);
+
+    button.style.setProperty(
+        "--bottom",
+        bottom < 0 ? `${bottom}px` : `${bottom}%`
+    );
+
+    button.style.setProperty("--size", `${size}px`);
+    button.style.setProperty("--scale", scale);
+
+    button.setAttribute(
+        "aria-label",
+        "Clique neste girassol para continuar"
+    );
+
+    const stem = document.createElement("span");
+    stem.className = "stem";
+
+    const leafLeft = document.createElement("span");
+    leafLeft.className = "leaf leaf-left";
+
+    const leafRight = document.createElement("span");
+    leafRight.className = "leaf leaf-right";
+
+    const head = document.createElement("span");
+    head.className = "flower-head";
+
+    for (let i = 0; i < 12; i++) {
+        const petal = document.createElement("span");
+        petal.className = "petal";
+        head.appendChild(petal);
+    }
+
+    const center = document.createElement("span");
+    center.className = "flower-center";
+
+    head.appendChild(center);
+
+    button.appendChild(stem);
+    button.appendChild(leafLeft);
+    button.appendChild(leafRight);
+    button.appendChild(head);
+
+    field.appendChild(button);
+    flowers.push(button);
+}
+
+flowerPositions.forEach(createFlower);
+
+/* =====================================================
+   CRIAR BORBOLETA
+===================================================== */
+
+function createButterfly(x, y, delay = 0) {
+    const butterfly = document.createElement("span");
+
+    butterfly.className = "butterfly";
+
+    butterfly.innerHTML = `
+        <span class="wing wing-left"></span>
+        <span class="body"></span>
+        <span class="wing wing-right"></span>
+    `;
+
+    butterfly.style.left = `${x}px`;
+    butterfly.style.top = `${y}px`;
+
+    const direction = Math.random() > 0.5 ? 1 : -1;
+
+    const dx = direction * (180 + Math.random() * 520);
+    const dy = -(350 + Math.random() * 500);
+
+    butterfly.style.setProperty("--dx", `${dx}px`);
+    butterfly.style.setProperty("--dy", `${dy}px`);
+
+    butterfly.style.setProperty(
+        "--duration",
+        `${4.5 + Math.random() * 2.5}s`
+    );
+
+    butterfly.style.animationDelay = `${delay}s`;
+
+    butterflies.appendChild(butterfly);
+
+    setTimeout(() => {
+        butterfly.remove();
+    }, 8000);
+}
+
+/* =====================================================
+   CRIAR PARTÍCULA
+===================================================== */
+
+function createParticle(x, y) {
+    const particle = document.createElement("span");
+
+    particle.className = "particle";
+
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+
+    particle.style.setProperty(
+        "--px",
+        `${(Math.random() - 0.5) * 160}px`
+    );
+
+    particle.style.setProperty(
+        "--py",
+        `${-(50 + Math.random() * 180)}px`
+    );
+
+    particles.appendChild(particle);
+
+    setTimeout(() => {
+        particle.remove();
+    }, 2200);
+}
+
+/* =====================================================
+   BORBOLETAS SAINDO DO GIRASSOL
+===================================================== */
+
+function launchFromFlower(element) {
+    const rect = element.getBoundingClientRect();
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height * 0.25;
+
+    for (let i = 0; i < 28; i++) {
+        const x = centerX + (Math.random() - 0.5) * 90;
+        const y = centerY + (Math.random() - 0.5) * 55;
+
+        createButterfly(x, y, i * 0.045);
+    }
+
+    for (let i = 0; i < 45; i++) {
+        setTimeout(() => {
+            createParticle(
+                centerX + (Math.random() - 0.5) * 100,
+                centerY + (Math.random() - 0.5) * 80
+            );
+        }, i * 30);
+    }
+}
+
+/* =====================================================
+   BORBOLETAS AMBIENTAIS
+===================================================== */
+
+function createAmbientButterfly() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const x = Math.random() * width;
+
+    const y =
+        height *
+        (0.55 + Math.random() * 0.35);
+
+    createButterfly(x, y, 0);
+}
+
+/* =====================================================
+   COMEÇAR JORNADA
+===================================================== */
+
+function startJourney(event) {
+    if (journeyStarted) {
+        return;
+    }
+
+    journeyStarted = true;
+
+    flowers.forEach(flower => {
+        flower.disabled = true;
+    });
+
+    launchFromFlower(event.currentTarget);
+
+    for (let i = 0; i < 45; i++) {
+        setTimeout(() => {
+            createAmbientButterfly();
+        }, i * 75);
+    }
+
+    for (let i = 0; i < 70; i++) {
+        setTimeout(() => {
+            createParticle(
+                Math.random() * window.innerWidth,
+                window.innerHeight *
+                    (0.35 + Math.random() * 0.5)
+            );
+        }, i * 40);
+    }
+
+    setTimeout(() => {
+        home.classList.add("leaving");
+    }, 1400);
+
+    setTimeout(() => {
+        home.style.display = "none";
+
+        videoSection.classList.add("visible");
+
+        if (backHomeButton) {
+            backHomeButton.classList.add("visible");
+        }
+
+        videoSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }, 2600);
+}
+
+/* =====================================================
+   CLIQUE NOS GIRASSÓIS
+===================================================== */
+
+flowers.forEach(flower => {
+    flower.addEventListener("click", startJourney);
+
+    flower.addEventListener("keydown", event => {
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+            event.preventDefault();
+            flower.click();
+        }
+    });
+});
+
+/* =====================================================
+   BOTÃO VOLTAR AO INÍCIO
+===================================================== */
+
+if (backHomeButton) {
+    backHomeButton.addEventListener("click", () => {
+        journeyStarted = false;
+
+        home.classList.remove("leaving");
+        home.style.display = "block";
+
+        videoSection.classList.remove("visible");
+
+        if (backHomeButton) {
+            backHomeButton.classList.remove("visible");
+        }
+
+        flowers.forEach(flower => {
+            flower.disabled = false;
+        });
+
+        butterflies.innerHTML = "";
+        particles.innerHTML = "";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+}
+
+/* =====================================================
+   ANIMAÇÃO DAS INFORMAÇÕES
+===================================================== */
+
+const revealElements = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+} else {
+    revealElements.forEach(element => {
+        element.classList.add("show");
+    });
+}
+
+/* =====================================================
+   MENU DE ACESSIBILIDADE
+===================================================== */
+
+const accessibilityToggle =
+    document.getElementById("accessibilityToggle");
+
+const accessibilityPanel =
+    document.getElementById("accessibilityPanel");
+
+const accessibilityClose =
+    document.getElementById("accessibilityClose");
+
+const accessibilityStatus =
+    document.getElementById("accessibilityStatus");
+
+const increaseText =
+    document.getElementById("increaseText");
+
+const decreaseText =
+    document.getElementById("decreaseText");
+
+const contrastToggle =
+    document.getElementById("contrastToggle");
+
+const spacingToggle =
+    document.getElementById("spacingToggle");
+
+const animationToggle =
+    document.getElementById("animationToggle");
+
+const focusToggle =
+    document.getElementById("focusToggle");
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function setAccessibilityStatus(message) {
+    if (accessibilityStatus) {
+        accessibilityStatus.textContent = message;
+    }
+}
+
+/* =====================================================
+   ABRIR ACESSIBILIDADE
+===================================================== */
+
+function openAccessibility() {
+    if (!accessibilityPanel) return;
+
+    accessibilityPanel.hidden = false;
+
+    if (accessibilityToggle) {
+        accessibilityToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+}
+
+/* =====================================================
+   FECHAR ACESSIBILIDADE
+===================================================== */
+
+function closeAccessibility() {
+    if (!accessibilityPanel) return;
+
+    accessibilityPanel.hidden = true;
+
+    if (accessibilityToggle) {
+        accessibilityToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+}
+
+if (accessibilityToggle) {
+    accessibilityToggle.addEventListener("click", () => {
+        if (accessibilityPanel.hidden) {
+            openAccessibility();
+        } else {
+            closeAccessibility();
+        }
+    });
+}
+
+if (accessibilityClose) {
+    accessibilityClose.addEventListener(
+        "click",
+        closeAccessibility
+    );
+}
+
+/* =====================================================
+   AUMENTAR / DIMINUIR TEXTO
+===================================================== */
+
+let textLevel = 0;
+
+function updateTextSize() {
+    document.documentElement.classList.remove(
+        "text-small",
+        "text-large",
+        "text-extra-large"
+    );
+
+    if (textLevel === -1) {
+        document.documentElement.classList.add(
+            "text-small"
+        );
+    }
+
+    if (textLevel === 1) {
+        document.documentElement.classList.add(
+            "text-large"
+        );
+    }
+
+    if (textLevel >= 2) {
+        document.documentElement.classList.add(
+            "text-extra-large"
+        );
+    }
+}
+
+if (increaseText) {
+    increaseText.addEventListener("click", () => {
+        if (textLevel < 2) {
+            textLevel++;
+        }
+
+        updateTextSize();
+
+        const messages = [
+            "Texto aumentado.",
+            "Texto aumentado novamente.",
+            "Tamanho máximo de texto ativado."
+        ];
+
+        setAccessibilityStatus(
+            messages[Math.min(textLevel, 2)]
+        );
+    });
+}
+
+if (decreaseText) {
+    decreaseText.addEventListener("click", () => {
+        if (textLevel > -1) {
+            textLevel--;
+        }
+
+        if (textLevel < -1) {
+            textLevel = -1;
+        }
+
+        updateTextSize();
+
+        setAccessibilityStatus(
+            textLevel === -1
+                ? "Texto reduzido."
+                : "Tamanho do texto ajustado."
+        );
+    });
+}
+
+/* =====================================================
+   ALTO CONTRASTE
+===================================================== */
+
+if (contrastToggle) {
+    contrastToggle.addEventListener("click", () => {
+        document.body.classList.toggle(
+            "high-contrast"
+        );
+
+        const enabled =
+            document.body.classList.contains(
+                "high-contrast"
+            );
+
+        setAccessibilityStatus(
+            enabled
+                ? "Alto contraste ativado."
+                : "Alto contraste desativado."
+        );
+
+        contrastToggle.setAttribute(
+            "aria-pressed",
+            enabled.toString()
+        );
+    });
+}
+
+/* =====================================================
+   ESPAÇAMENTO
+===================================================== */
+
+if (spacingToggle) {
+    spacingToggle.addEventListener("click", () => {
+        document.body.classList.toggle(
+            "extra-spacing"
+        );
+
+        const enabled =
+            document.body.classList.contains(
+                "extra-spacing"
+            );
+
+        setAccessibilityStatus(
+            enabled
+                ? "Espaçamento maior ativado."
+                : "Espaçamento normal restaurado."
+        );
+
+        spacingToggle.setAttribute(
+            "aria-pressed",
+            enabled.toString()
+        );
+    });
+}
+
+/* =====================================================
+   REDUZIR ANIMAÇÕES
+===================================================== */
+
+if (animationToggle) {
+    animationToggle.addEventListener("click", () => {
+        document.body.classList.toggle(
+            "reduced-motion"
+        );
+
+        const enabled =
+            document.body.classList.contains(
+                "reduced-motion"
+            );
+
+        setAccessibilityStatus(
+            enabled
+                ? "Animações reduzidas."
+                : "Animações normais restauradas."
+        );
+
+        animationToggle.setAttribute(
+            "aria-pressed",
+            enabled.toString()
+        );
+    });
+}
+
+/* =====================================================
+   DESTACAR FOCO
+===================================================== */
+
+if (focusToggle) {
+    focusToggle.addEventListener("click", () => {
+        document.body.classList.toggle(
+            "strong-focus"
+        );
+
+        const enabled =
+            document.body.classList.contains(
+                "strong-focus"
+            );
+
+        setAccessibilityStatus(
+            enabled
+                ? "Destaque de foco ativado."
+                : "Destaque de foco desativado."
+        );
+
+        focusToggle.setAttribute(
+            "aria-pressed",
+            enabled.toString()
+        );
+    });
+}
+
+/* =====================================================
+   ESC FECHA O MENU
+===================================================== */
+
+document.addEventListener("keydown", event => {
+    if (
+        event.key === "Escape" &&
+        accessibilityPanel &&
+        !accessibilityPanel.hidden
+    ) {
+        closeAccessibility();
+
+        if (accessibilityToggle) {
+            accessibilityToggle.focus();
+        }
+    }
+});
+
+/* =====================================================
+   CLICAR FORA FECHA O MENU
+===================================================== */
+
+document.addEventListener("click", event => {
+    if (
+        !accessibilityPanel ||
+        accessibilityPanel.hidden
+    ) {
+        return;
+    }
+
+    const clickedInside =
+        accessibilityPanel.contains(event.target);
+
+    const clickedButton =
+        accessibilityToggle &&
+        accessibilityToggle.contains(event.target);
+
+    if (!clickedInside && !clickedButton) {
+        closeAccessibility();
+    }
+});
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Projeto educativo sobre Setembro Amarelo, cuidado, acolhimento e saúde mental."
+    >
+
+    <title>Setembro Amarelo | Você Importa</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         BOTÃO INÍCIO
+    ====================================================== -->
+
+    <button
+        id="backHomeButton"
+        class="back-home-button"
+        type="button"
+        aria-label="Voltar para o início"
+    >
+        🏠 <span>Início</span>
+    </button>
+
+
+    <!-- =====================================================
+         MENU DE ACESSIBILIDADE
+    ====================================================== -->
+
+    <button
+        id="accessibilityToggle"
+        class="accessibility-toggle"
+        type="button"
+        aria-label="Abrir menu de acessibilidade"
+        aria-expanded="false"
+        aria-controls="accessibilityPanel"
+    >
+        ♿
+        <span>Acessibilidade</span>
+    </button>
+
+
+    <aside
+        id="accessibilityPanel"
+        class="accessibility-panel"
+        aria-label="Menu de acessibilidade"
+        hidden
+    >
+
+        <div class="accessibility-header">
+
+            <div>
+                <span class="accessibility-small-title">
+                    RECURSOS
+                </span>
+
+                <h2>
+                    Acessibilidade
+                </h2>
+            </div>
+
+            <button
+                id="accessibilityClose"
+                class="accessibility-close"
+                type="button"
+                aria-label="Fechar menu de acessibilidade"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="accessibility-options">
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="increaseText"
+                aria-label="Aumentar tamanho do texto"
+            >
+                <span>🔠</span>
+                <span>Aumentar texto</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="decreaseText"
+                aria-label="Diminuir tamanho do texto"
+            >
+                <span>🔡</span>
+                <span>Diminuir texto</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="contrastToggle"
+                aria-pressed="false"
+            >
+                <span>◐</span>
+                <span>Alto contraste</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="spacingToggle"
+                aria-pressed="false"
+            >
+                <span>↔️</span>
+                <span>Aumentar espaçamento</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="animationToggle"
+                aria-pressed="false"
+            >
+                <span>🎞️</span>
+                <span>Reduzir animações</span>
+            </button>
+
+
+            <button
+                type="button"
+                class="accessibility-option"
+                id="focusToggle"
+                aria-pressed="false"
+            >
+                <span>👁️</span>
+                <span>Destacar foco</span>
+            </button>
+
+
+          
+
+        </div>
+
+
+        <!-- =================================================
+             IDIOMAS
+        ================================================== -->
+
+        <div class="language-section">
+
+            <span class="language-title">
+                IDIOMA 🌎
+            </span>
+
+            <div
+                class="language-options"
+                role="group"
+                aria-label="Selecionar idioma"
+            >
+
+                <button
+                    type="button"
+                    class="language-button active"
+                    data-language="pt"
+                    aria-pressed="true"
+                >
+                    🇧🇷 Português
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="en"
+                    aria-pressed="false"
+                >
+                    🇺🇸 English
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="es"
+                    aria-pressed="false"
+                >
+                    🇪🇸 Español
+                </button>
+
+                <button
+                    type="button"
+                    class="language-button"
+                    data-language="fr"
+                    aria-pressed="false"
+                >
+                    🇫🇷 Français
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="accessibility-status"
+            id="accessibilityStatus"
+            aria-live="polite"
+        >
+            Recursos de acessibilidade disponíveis.
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         PRIMEIRA PARTE — CAMPO DE GIRASSÓIS
+    ====================================================== -->
+
+    <main id="home">
+
+        <!-- CÉU -->
+
+        <div
+            class="sky"
+            aria-hidden="true"
+        >
+            <div class="sun"></div>
+            <div class="sun-glow"></div>
+
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+
+
+        <!-- CAMPO DISTANTE -->
+
+        <div
+            class="far-field"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- CAMPO PRINCIPAL -->
+
+        <div
+            class="field"
+            id="flowerField"
+            aria-label="Campo de girassóis"
+        ></div>
+
+
+        <!-- TEXTO -->
+
+        <section
+            class="welcome"
+            aria-labelledby="home-title"
+        >
+
+            <span class="label">
+                SETEMBRO AMARELO
+            </span>
+
+            <h1 id="home-title">
+                Você não está sozinho.
+            </h1>
+
+            <p>
+                Informação, acolhimento e esperança
+                podem transformar vidas.
+            </p>
+
+
+            <div class="click-area">
+
+                <div
+                    class="mouse-icon"
+                    aria-hidden="true"
+                >
+                    👆
+                </div>
+
+                <strong>
+                    Clique em um girassol
+                </strong>
+
+                <span>
+                    e comece sua jornada
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- BORBOLETAS -->
+
+        <div
+            id="butterflies"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- PARTÍCULAS -->
+
+        <div
+            id="particles"
+            aria-hidden="true"
+        ></div>
+
+
+        <!-- FRASES -->
+
+        <div
+            class="bottom-bar"
+            aria-hidden="true"
+        >
+
+            <span>
+                💛 Cuidar também é ouvir.
+            </span>
+
+            <span>
+                🎗️ Você importa.
+            </span>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         SEGUNDA PARTE — VÍDEO
+    ====================================================== -->
+
+    <section
+        id="videoSection"
+        aria-labelledby="video-title"
+    >
+
+        <div class="video-content">
+
+            <span class="video-label">
+                UMA PAUSA PARA REFLETIR
+            </span>
+
+            <h2 id="video-title">
+                A vida importa. 💛
+            </h2>
+
+            <p>
+                Reserve alguns minutos para assistir e refletir
+                sobre a importância do cuidado, da escuta e do acolhimento.
+            </p>
+
+
+            <div class="video-box">
+
+                <!--
+                    TROQUE SEU_VIDEO_AQUI PELO ID DO SEU VÍDEO.
+
+                    Exemplo:
+                    https://www.youtube.com/watch?v=ABC123
+
+                    Fica:
+                    https://www.youtube.com/embed/ABC123
+                -->
+
+                <iframe
+                    src="https://www.youtube.com/embed/SEU_VIDEO_AQUI"
+                    title="Vídeo sobre Setembro Amarelo"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                ></iframe>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         TERCEIRA PARTE — INFORMAÇÕES
+    ====================================================== -->
+
+    <section
+        id="infoSection"
+        aria-labelledby="info-title"
+    >
+
+        <div class="info-container">
+
+
+            <!-- =================================================
+                 INTRODUÇÃO
+            ================================================== -->
+
+            <div class="info-intro reveal">
+
+                <span class="info-label">
+                    INFORME-SE 💛
+                </span>
+
+                <h2 id="info-title">
+                    Conhecimento também é uma forma de cuidado.
+                </h2>
+
+                <p>
+                    Entender a saúde mental ajuda a reconhecer mudanças,
+                    diminuir preconceitos e incentivar a busca por apoio.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 DEPRESSÃO
+            ================================================== -->
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🧠
+                    </div>
+
+                    <span class="card-number">
+                        01
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    O que é depressão?
+                </h3>
+
+
+                <p>
+                    A depressão é uma condição de saúde mental que pode
+                    afetar o humor, os interesses, a energia, a concentração
+                    e também aspectos do dia a dia.
+                </p>
+
+                <p>
+                    Ela não é simplesmente "falta de força de vontade".
+                    Pode estar relacionada a diferentes fatores e merece
+                    atenção e cuidado profissional.
+                </p>
+
+            </article>
+
+
+            <!-- =================================================
+                 SINAIS
+            ================================================== -->
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🔎
+                    </div>
+
+                    <span class="card-number">
+                        02
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    Sinais que merecem atenção
+                </h3>
+
+
+                <p>
+                    Algumas mudanças persistentes podem indicar que uma
+                    pessoa está passando por um momento difícil e precisa
+                    de acolhimento.
+                </p>
+
+
+                <div class="sign-list">
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Mudanças persistentes no humor
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Perda de interesse por atividades
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Cansaço ou falta de energia
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Alterações no sono
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Dificuldade de concentração
+                        </span>
+
+                    </div>
+
+
+                    <div class="sign-item">
+
+                        <span aria-hidden="true">
+                            ●
+                        </span>
+
+                        <span>
+                            Sentimento frequente de culpa ou desânimo
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attention-box">
+
+                    <strong>
+                        Importante:
+                    </strong>
+
+                    ter um desses sinais, sozinho, não significa que uma
+                    pessoa tenha depressão. O diagnóstico deve ser realizado
+                    por um profissional de saúde.
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 FATORES
+            ================================================== -->
+
+            <article class="info-card reveal">
+
+                <div class="card-top">
+
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🌱
+                    </div>
+
+                    <span class="card-number">
+                        03
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    O que pode influenciar a saúde mental?
+                </h3>
+
+
+                <p>
+                    A saúde mental é influenciada por diferentes aspectos
+                    da vida. Esses fatores podem se combinar e variar de
+                    pessoa para pessoa.
+                </p>
+
+
+                <div class="factor-grid">
+
+
+                    <div class="factor">
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            🧬
+                        </div>
+
+                        <h4>
+                            Biológicos
+                        </h4>
+
+                        <p>
+                            Características e processos do organismo.
+                        </p>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            💭
+                        </div>
+
+                        <h4>
+                            Psicológicos
+                        </h4>
+
+                        <p>
+                            Pensamentos, emoções e experiências.
+                        </p>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            👥
+                        </div>
+
+                        <h4>
+                            Sociais
+                        </h4>
+
+                        <p>
+                            Relações, ambiente e condições de vida.
+                        </p>
+
+                    </div>
+
+
+                    <div class="factor">
+
+                        <div
+                            class="factor-icon"
+                            aria-hidden="true"
+                        >
+                            🌦️
+                        </div>
+
+                        <h4>
+                            Momentos difíceis
+                        </h4>
+
+                        <p>
+                            Situações que podem gerar sofrimento ou estresse.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 PCD
+            ================================================== -->
+
+            <article class="pcd-card reveal">
+
+                <div
+                    class="pcd-icon"
+                    aria-hidden="true"
+                >
+                    ♿
+                </div>
+
+
+                <div class="pcd-content">
+
+                    <div class="card-top pcd-top">
+
+                        <span class="card-number">
+                            04
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Saúde mental e pessoas com deficiência
+                    </h3>
+
+
+                    <p>
+                        Pessoas com deficiência têm direito ao cuidado integral
+                        em saúde. Para que esse cuidado realmente aconteça,
+                        é importante considerar acessibilidade, comunicação,
+                        respeito, autonomia e acolhimento.
+                    </p>
+
+
+                    <p>
+                        Barreiras físicas, de comunicação, informação e
+                        atitudes preconceituosas podem dificultar o acesso
+                        aos serviços. Por isso, inclusão também faz parte
+                        do cuidado.
+                    </p>
+
+
+                    <div class="pcd-points">
+
+
+                        <div>
+
+                            <strong>
+                                ♿ Acessibilidade
+                            </strong>
+
+                            <span>
+                                Ambientes e informações acessíveis.
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                🤝 Respeito
+                            </strong>
+
+                            <span>
+                                Valorizar a autonomia e as escolhas.
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                💛 Acolhimento
+                            </strong>
+
+                            <span>
+                                Ouvir sem julgamentos e com atenção.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 COMO AJUDAR
+            ================================================== -->
+
+            <article class="info-card help-card reveal">
+
+                <div class="card-top">
+
+                    <div
+                        class="card-icon"
+                        aria-hidden="true"
+                    >
+                        🤝
+                    </div>
+
+                    <span class="card-number">
+                        05
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    Como posso ajudar alguém?
+                </h3>
+
+
+                <div class="help-list">
+
+
+                    <div class="help-item">
+
+                        <span class="help-number">
+                            1
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Escute
+                            </strong>
+
+                            <p>
+                                Dê espaço para a pessoa falar e demonstre
+                                que você está presente.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="help-item">
+
+                        <span class="help-number">
+                            2
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Acolha
+                            </strong>
+
+                            <p>
+                                Evite julgamentos e trate o sofrimento
+                                com seriedade e respeito.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="help-item">
+
+                        <span class="help-number">
+                            3
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Incentive a busca por ajuda
+                            </strong>
+
+                            <p>
+                                Sugira conversar com um profissional de saúde
+                                ou procurar um serviço do SUS.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- =================================================
+                 ONDE PROCURAR AJUDA
+            ================================================== -->
+
+            <section
+                class="help-location reveal"
+                aria-labelledby="help-title"
+            >
+
+                <div class="location-heading">
+
+                    <span class="info-label">
+                        ONDE PROCURAR AJUDA 🏥
+                    </span>
+
+                    <h2 id="help-title">
+                        Você não precisa enfrentar tudo sozinho.
+                    </h2>
+
+                    <p>
+                        O SUS oferece diferentes pontos de cuidado em saúde
+                        mental. A porta de entrada pode ser a Atenção Primária,
+                        como uma UBS, e o cuidado também pode envolver os CAPS
+                        e outros serviços da rede.
+                    </p>
+
+                </div>
+
+
+                <div class="locations-grid">
+
+
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            🏥
+                        </div>
+
+                        <h3>
+                            UBS
+                        </h3>
+
+                        <p>
+                            Unidade Básica de Saúde. Pode orientar, acolher
+                            e encaminhar para outros serviços quando necessário.
+                        </p>
+
+                    </article>
+
+
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            🫂
+                        </div>
+
+                        <h3>
+                            CAPS
+                        </h3>
+
+                        <p>
+                            Serviços públicos de atenção psicossocial com
+                            equipe multiprofissional e acompanhamento.
+                        </p>
+
+                    </article>
+
+
+                    <article class="location-card">
+
+                        <div
+                            class="location-icon"
+                            aria-hidden="true"
+                        >
+                            👩‍⚕️
+                        </div>
+
+                        <h3>
+                            Profissionais
+                        </h3>
+
+                        <p>
+                            Psicólogos, médicos e outros profissionais podem
+                            avaliar a situação e orientar o cuidado adequado.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <div class="emergency-note">
+
+                    <div
+                        class="emergency-icon"
+                        aria-hidden="true"
+                    >
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Em uma situação que precise de atendimento imediato
+                        </strong>
+
+                        <p>
+                            Procure um serviço de urgência e emergência,
+                            como uma UPA ou pronto-socorro, ou acione o
+                            SAMU pelo <strong>192</strong>.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MENSAGEM FINAL
+            ================================================== -->
+
+            <div class="final-message reveal">
+
+                <div
+                    class="final-flower"
+                    aria-hidden="true"
+                >
+                    🌻
+                </div>
+
+
+                <span>
+                    SETEMBRO AMARELO
+                </span>
+
+
+                <h2>
+                    Falar, ouvir e acolher também são formas de cuidar.
+                </h2>
+
+
+                <p>
+                    Uma conversa respeitosa pode ser importante.
+                    Procurar ajuda também é uma forma de cuidado.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 FONTES
+            ================================================== -->
+
+            <footer class="sources">
+
+                <p>
+                    Conteúdo educativo elaborado com base em informações
+                    do Ministério da Saúde.
+                </p>
+
+                <p>
+                    Projeto educativo — Setembro Amarelo
+                </p>
+
+            </footer>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VLibras
+    ====================================================== -->
+
+    <div
+        vw
+        class="enabled"
+    >
+
+        <div
+            vw-access-button
+            class="active"
+            aria-label="Abrir ferramenta VLibras"
+        ></div>
+
+
+        <div vw-plugin-wrapper>
+
+            <div class="vw-plugin-top-wrapper"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT DO SITE
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+
+    <!-- =====================================================
+         VLibras
+    ====================================================== -->
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <script>
+        new window.VLibras.Widget({
+            rootPath: "https://vlibras.gov.br/app",
+            avatar: "random",
+            position: "R"
+        });
+    </script>
+
+</body>
+
+</html>
